@@ -196,6 +196,35 @@ public:
     }
 
     virtual std::any visitLine(AssemblyParser::LineContext *ctx) override {
+        auto state = states.top();
+        string label = ctx->ID().size() == 2 ? ctx->ID(0)->toString() : "";
+        Opcode opcode = ctx->ID().size() == 2
+                        ? OpcodeInfo::fromString(ctx->ID(1)->toString())
+                        : OpcodeInfo::fromString(ctx->ID(0)->toString());
+        auto params = OpcodeInfo::getParams(opcode);
+
+        // Mark the line
+        state.mark();
+        // Register the label
+        if (!label.empty()) {
+            state.addLabel(label);
+        }
+        // Append the opcode
+        state.addByte(static_cast<uint8>(opcode));
+        // Check the params
+        if (ctx->value() != null) {
+            // Get the index from constant pool, if any
+            auto operand = any_cast<CpInfo>(visitValue(ctx->value()));
+            cpidx value;
+            if (OpcodeInfo::takeFromConstPool(opcode))
+                value = fromConstants(operand);
+            else {
+                if (operand.tag != 0x04 /* int */)
+                    throw AssemblerError("expected integral value");
+                value = operand._int;
+            }
+
+        }
         return visitChildren(ctx);
     }
 
