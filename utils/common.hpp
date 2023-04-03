@@ -4,7 +4,6 @@
 #include <cstddef>
 #include <cstdint>
 #include <string>
-#include "constants.hpp"
 
 #define null (nullptr)
 

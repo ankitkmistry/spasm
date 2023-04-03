@@ -20,9 +20,6 @@ public:
   virtual void enterMetadata(AssemblyParser::MetadataContext *ctx) = 0;
   virtual void exitMetadata(AssemblyParser::MetadataContext *ctx) = 0;
 
-  virtual void enterGlobals(AssemblyParser::GlobalsContext *ctx) = 0;
-  virtual void exitGlobals(AssemblyParser::GlobalsContext *ctx) = 0;
-
   virtual void enterGlobal(AssemblyParser::GlobalContext *ctx) = 0;
   virtual void exitGlobal(AssemblyParser::GlobalContext *ctx) = 0;
 
@@ -46,9 +43,6 @@ public:
 
   virtual void enterAccessor(AssemblyParser::AccessorContext *ctx) = 0;
   virtual void exitAccessor(AssemblyParser::AccessorContext *ctx) = 0;
-
-  virtual void enterFields(AssemblyParser::FieldsContext *ctx) = 0;
-  virtual void exitFields(AssemblyParser::FieldsContext *ctx) = 0;
 
   virtual void enterField(AssemblyParser::FieldContext *ctx) = 0;
   virtual void exitField(AssemblyParser::FieldContext *ctx) = 0;

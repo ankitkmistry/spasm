@@ -5,7 +5,7 @@ list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
 
 set(CMAKE_CXX_STANDARD 17)
 
-add_executable(spasm main.cpp AssemblyBaseListener.cpp AssemblyBaseVisitor_new.cpp AssemblyLexer.cpp AssemblyListener.cpp AssemblyParser.cpp AssemblyVisitor.cpp loader/writer.cpp utils/opcode.cpp loader/elfdef.cpp loader/elfdef.cpp)
+add_executable(spasm main.cpp AssemblyBaseVisitor_new.cpp AssemblyLexer.cpp AssemblyParser.cpp elp/writer.cpp utils/opcode.cpp elp/elpdef.cpp elp/elpdef.cpp utils/utils.cpp)
 
 # required if linking to static library
 #add_definitions(-DANTLR4CPP_STATIC)

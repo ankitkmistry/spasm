@@ -23,8 +23,6 @@ public:
 
     virtual std::any visitMetadata(AssemblyParser::MetadataContext *context) = 0;
 
-    virtual std::any visitGlobals(AssemblyParser::GlobalsContext *context) = 0;
-
     virtual std::any visitGlobal(AssemblyParser::GlobalContext *context) = 0;
 
     virtual std::any visitMethod(AssemblyParser::MethodContext *context) = 0;
@@ -40,8 +38,6 @@ public:
     virtual std::any visitClass(AssemblyParser::ClassContext *context) = 0;
 
     virtual std::any visitAccessor(AssemblyParser::AccessorContext *context) = 0;
-
-    virtual std::any visitFields(AssemblyParser::FieldsContext *context) = 0;
 
     virtual std::any visitField(AssemblyParser::FieldContext *context) = 0;
 

@@ -5,14 +5,15 @@
 #include "AssemblyBaseVisitor_new.h"
 
 
-void AssemblyBaseVisitor::State::addLabel(string label) {
+void AssemblyBaseVisitor::State::addLabel(const string &label) {
     if (labels.find(label) != labels.end())
         throw AssemblerError("duplicate label", label);
     labels[label] = pc;
 }
 
-void AssemblyBaseVisitor::State::addByte(uint8 byte) {
+void AssemblyBaseVisitor::State::addByte(uint8 byte, size_t line) {
     code.push_back(byte);
+    lineTable[pc] = line;
     pc++;
 }
 
@@ -20,7 +21,7 @@ uint16 AssemblyBaseVisitor::State::computeJump(uint32 labelLoc, uint32 cur) {
     return labelLoc > cur ? labelLoc - cur - 2 : cur - labelLoc + 2;
 }
 
-uint16 AssemblyBaseVisitor::State::getJump(string label) {
+uint16 AssemblyBaseVisitor::State::getJump(const string &label) {
     // Get the location of the label
     auto locItr = labels.find(label);
     // If such a location exists
@@ -37,7 +38,7 @@ uint16 AssemblyBaseVisitor::State::getJump(string label) {
     }
 }
 
-int AssemblyBaseVisitor::State::getMark(uint32 location) {
+uint32 AssemblyBaseVisitor::State::getMark(uint32 location) {
     uint32 prev = 0;
     for (auto mark: marks) {
         if (prev < location && location < mark) return prev;
@@ -67,19 +68,16 @@ void AssemblyBaseVisitor::State::resolveLabels() {
             switch (paramCount) {
                 case 2: {
                     // Slice the number and add it
-                    code[location + 1] = jump >> 8;
-                    code[location + 2] = jump & 0xFF;
+                    code[opcodeLoc + 1] = jump >> 8;
+                    code[opcodeLoc + 2] = jump & 0xFF;
                     break;
                 }
                 case 1:
                     code[pc] = jump & 0xFF;
                     break;
-                case 0:
-                    throw AssemblerError("opcode expects 0 parameters", OpcodeInfo::toString(opcode));
                 default:
-                    throw AssemblerError(format("opcode with %d parameters not supported yet", paramCount),
+                    throw AssemblerError(format("opcode expects %d parameters", paramCount),
                                          OpcodeInfo::toString(opcode));
-
             }
         }
         // Make it resolved
@@ -91,4 +89,29 @@ void AssemblyBaseVisitor::State::resolveLabels() {
         unresolved.push_back(label);
     if (!unresolvedLabels.empty())
         throw AssemblerError("cannot find labels", listToString(unresolved));
+}
+
+void AssemblyBaseVisitor::State::optimizeLineTable() {
+    map<size_t, uint32> table;
+    // Flip the table
+    for (auto [byteLine, sourceLine]: lineTable) {
+        table[sourceLine] = byteLine;
+    }
+    // Empty the table
+    lineTable.clear();
+    // Copy the contents
+    for (auto [sourceLine, byteLine]: table) {
+        lineTable[byteLine] = sourceLine;
+    }
+}
+
+MethodInfo::LineInfo *AssemblyBaseVisitor::State::getLineTable() {
+    auto *lines = new MethodInfo::LineInfo[lineCount()];
+    size_t i = 0;
+    for (auto [byteLine, sourceLine]: lineTable) {
+        if (i >= lineCount())break;
+        lines[i] = {.byteCode=byteLine, .sourceCode=sourceLine};
+        i++;
+    }
+    return lines;
 }

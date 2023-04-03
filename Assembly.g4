@@ -5,7 +5,7 @@ options {
 }
 
 assembly: metadata
-          globals?
+          ('globals' ':' global* ';')?
           method*
           class*
          ;
@@ -15,7 +15,6 @@ metadata: 'minorVersion' ':' NUMBER
           'imports' ':' array
          ;
 
-globals: 'globals' ':' global* ';';
 global: type=('VAR'|'CONST') ID ':' STRING;
 
 method: entry='entry'? 'method' STRING ':'
@@ -26,16 +25,17 @@ method: entry='entry'? 'method' STRING ':'
             ('exceptionTable' ':' exceptionItem* ';')? ';';
 arg: type=('VALUE'|'REF') ID ':' STRING;
 local: type=('VAR'|'CONST') ID ':' STRING;
-line: (ID ':')? ID value?;
+line: (label=ID ':')? opcode=ID (value|dest=ID)?;
 exceptionItem: ID '-' ID '->' ID ':' STRING;
 
 class: 'class' STRING ':'
             'type' ':' type=('CLASS' | 'INTERFACE' | 'ENUM' | 'ANNOTATION') ';'
             'accessors' ':' accessor*
-            fields?
+            ('supers' ':' supers=array)?
+            ('fields' ':' field* ';')?
             method*
             class* ';';
-accessor: 'PRIVATE'
+accessor: modifier=('PRIVATE'
         | 'INTERNAL'
         | 'PACKAGE_PRIVATE'
         | 'PROTECTED'
@@ -43,9 +43,8 @@ accessor: 'PRIVATE'
         | 'ABSTRACT'
         | 'FINAL'
         | 'STATIC'
-        | 'INLINE';
-fields: 'fields' ':' field* ';';
-field: type=('VAR'|'CONST') STRING ':' STRING;
+        | 'INLINE');
+field: accessor* type=('VAR'|'CONST') STRING ':' STRING;
 
 value: NUMBER | STRING | CSTRING | array | float;
 array: '[' (value (',' value)*)? ']';

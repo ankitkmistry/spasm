@@ -18,15 +18,14 @@ public:
     T__20 = 21, T__21 = 22, T__22 = 23, T__23 = 24, T__24 = 25, T__25 = 26, 
     T__26 = 27, T__27 = 28, T__28 = 29, T__29 = 30, T__30 = 31, T__31 = 32, 
     T__32 = 33, T__33 = 34, T__34 = 35, T__35 = 36, T__36 = 37, T__37 = 38, 
-    T__38 = 39, T__39 = 40, T__40 = 41, T__41 = 42, T__42 = 43, NUMBER = 44, 
-    STRING = 45, CSTRING = 46, ID = 47, WS = 48
+    T__38 = 39, T__39 = 40, T__40 = 41, T__41 = 42, T__42 = 43, T__43 = 44, 
+    NUMBER = 45, STRING = 46, CSTRING = 47, ID = 48, WS = 49
   };
 
   enum {
-    RuleAssembly = 0, RuleMetadata = 1, RuleGlobals = 2, RuleGlobal = 3, 
-    RuleMethod = 4, RuleArg = 5, RuleLocal = 6, RuleLine = 7, RuleExceptionItem = 8, 
-    RuleClass = 9, RuleAccessor = 10, RuleFields = 11, RuleField = 12, RuleValue = 13, 
-    RuleArray = 14, RuleFloat = 15
+    RuleAssembly = 0, RuleMetadata = 1, RuleGlobal = 2, RuleMethod = 3, 
+    RuleArg = 4, RuleLocal = 5, RuleLine = 6, RuleExceptionItem = 7, RuleClass = 8, 
+    RuleAccessor = 9, RuleField = 10, RuleValue = 11, RuleArray = 12, RuleFloat = 13
   };
 
   explicit AssemblyParser(antlr4::TokenStream *input);
@@ -48,7 +47,6 @@ public:
 
   class AssemblyContext;
   class MetadataContext;
-  class GlobalsContext;
   class GlobalContext;
   class MethodContext;
   class ArgContext;
@@ -57,7 +55,6 @@ public:
   class ExceptionItemContext;
   class ClassContext;
   class AccessorContext;
-  class FieldsContext;
   class FieldContext;
   class ValueContext;
   class ArrayContext;
@@ -68,11 +65,12 @@ public:
     AssemblyContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
     MetadataContext *metadata();
-    GlobalsContext *globals();
     std::vector<MethodContext *> method();
     MethodContext* method(size_t i);
     std::vector<ClassContext *> class_();
     ClassContext* class_(size_t i);
+    std::vector<GlobalContext *> global();
+    GlobalContext* global(size_t i);
 
     virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
     virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
@@ -100,22 +98,6 @@ public:
   };
 
   MetadataContext* metadata();
-
-  class  GlobalsContext : public antlr4::ParserRuleContext {
-  public:
-    GlobalsContext(antlr4::ParserRuleContext *parent, size_t invokingState);
-    virtual size_t getRuleIndex() const override;
-    std::vector<GlobalContext *> global();
-    GlobalContext* global(size_t i);
-
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-
-    virtual std::any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
-   
-  };
-
-  GlobalsContext* globals();
 
   class  GlobalContext : public antlr4::ParserRuleContext {
   public:
@@ -196,6 +178,9 @@ public:
 
   class  LineContext : public antlr4::ParserRuleContext {
   public:
+    antlr4::Token *label = nullptr;
+    antlr4::Token *opcode = nullptr;
+    antlr4::Token *dest = nullptr;
     LineContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
     std::vector<antlr4::tree::TerminalNode *> ID();
@@ -231,16 +216,19 @@ public:
   class  ClassContext : public antlr4::ParserRuleContext {
   public:
     antlr4::Token *type = nullptr;
+    AssemblyParser::ArrayContext *supers = nullptr;
     ClassContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
     antlr4::tree::TerminalNode *STRING();
     std::vector<AccessorContext *> accessor();
     AccessorContext* accessor(size_t i);
-    FieldsContext *fields();
     std::vector<MethodContext *> method();
     MethodContext* method(size_t i);
     std::vector<ClassContext *> class_();
     ClassContext* class_(size_t i);
+    ArrayContext *array();
+    std::vector<FieldContext *> field();
+    FieldContext* field(size_t i);
 
     virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
     virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
@@ -253,6 +241,7 @@ public:
 
   class  AccessorContext : public antlr4::ParserRuleContext {
   public:
+    antlr4::Token *modifier = nullptr;
     AccessorContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
 
@@ -265,22 +254,6 @@ public:
 
   AccessorContext* accessor();
 
-  class  FieldsContext : public antlr4::ParserRuleContext {
-  public:
-    FieldsContext(antlr4::ParserRuleContext *parent, size_t invokingState);
-    virtual size_t getRuleIndex() const override;
-    std::vector<FieldContext *> field();
-    FieldContext* field(size_t i);
-
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-
-    virtual std::any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
-   
-  };
-
-  FieldsContext* fields();
-
   class  FieldContext : public antlr4::ParserRuleContext {
   public:
     antlr4::Token *type = nullptr;
@@ -288,6 +261,8 @@ public:
     virtual size_t getRuleIndex() const override;
     std::vector<antlr4::tree::TerminalNode *> STRING();
     antlr4::tree::TerminalNode* STRING(size_t i);
+    std::vector<AccessorContext *> accessor();
+    AccessorContext* accessor(size_t i);
 
     virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
     virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;

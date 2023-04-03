@@ -1,11 +1,10 @@
-#include <iostream>
 #include "antlr4-runtime.h"
 #include "utils/common.hpp"
 #include "AssemblyLexer.h"
 #include "AssemblyParser.h"
 #include "AssemblyBaseVisitor_new.h"
-#include "loader/elfdef.hpp"
-#include "loader/writer.hpp"
+#include "elp/elpdef.hpp"
+#include "elp/writer.hpp"
 #include "utils/exceptions.hpp"
 
 using namespace antlr4;
@@ -41,5 +40,5 @@ void assemble(string filename) {
 }
 
 string getOutputFilename(string path) {
-    return nullptr;
+    return "hello.xp";
 }

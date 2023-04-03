@@ -14,7 +14,7 @@ public:
 
 class AssemblerError : public FatalError {
 public:
-    AssemblerError(const string &message)
+    explicit AssemblerError(const string &message)
             : FatalError(format("error: '%s'", message.c_str())) {}
 
     AssemblerError(const string &message, const string &problem)
@@ -46,12 +46,6 @@ public:
     const string &getTo() const { return to; }
 };
 
-class IndexError : public FatalError {
-public:
-    explicit IndexError(size_t index)
-            : FatalError(format("index out of bounds: %d", index)) {}
-};
-
 class FileNotFoundError : public FatalError {
     string path;
 public:
@@ -61,21 +55,9 @@ public:
     const string &getPath() const { return path; }
 };
 
-class ReferenceNotFoundError : public FatalError {
-public:
-    explicit ReferenceNotFoundError(const string &sign)
-            : FatalError(format("reference not found: '%s'", sign.c_str())) {}
-};
-
 class Unreachable : public FatalError {
 public:
     explicit Unreachable() : FatalError("unreachable code reached") {}
-};
-
-class EntryPointNotFoundError : public FatalError {
-public:
-    explicit EntryPointNotFoundError(const string &sign)
-            : FatalError(format("cannot find entry point in '%s'", sign.c_str())) {}
 };
 
 
