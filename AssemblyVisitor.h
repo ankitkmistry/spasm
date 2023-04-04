@@ -21,8 +21,6 @@ public:
    */
     virtual std::any visitAssembly(AssemblyParser::AssemblyContext *context) = 0;
 
-    virtual std::any visitMetadata(AssemblyParser::MetadataContext *context) = 0;
-
     virtual std::any visitGlobal(AssemblyParser::GlobalContext *context) = 0;
 
     virtual std::any visitMethod(AssemblyParser::MethodContext *context) = 0;

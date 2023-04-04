@@ -5,10 +5,10 @@ list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
 
 set(CMAKE_CXX_STANDARD 17)
 
-add_executable(spasm main.cpp AssemblyBaseVisitor_new.cpp AssemblyLexer.cpp AssemblyParser.cpp elp/writer.cpp utils/opcode.cpp elp/elpdef.cpp elp/elpdef.cpp utils/utils.cpp)
+add_executable(spasm main.cpp Visitor.cpp AssemblyLexer.cpp AssemblyParser.cpp elp/writer.cpp utils/opcode.cpp elp/elpdef.cpp elp/elpdef.cpp utils/utils.cpp)
 
 # required if linking to static library
-#add_definitions(-DANTLR4CPP_STATIC)
+add_definitions(-DANTLR4CPP_STATIC)
 
 # using /MD flag for antlr4_runtime (for Visual C++ compilers only)
 set(ANTLR4_WITH_STATIC_CRT OFF)
@@ -29,5 +29,6 @@ include_directories(${ANTLR4_INCLUDE_DIR})
 # this is not required if the jar file can be found under PATH environment
 set(ANTLR_EXECUTABLE "H:\\Programming (Ankit)\\Toolkits\\ANTLR4\\antlr-4.12.0-complete.jar")
 find_package(ANTLR REQUIRED)
-add_dependencies(spasm antlr4_shared)
-target_link_libraries(spasm PRIVATE antlr4_shared)
+#add_dependencies(spasm antlr4_static)
+target_link_libraries(spasm antlr4_static)
+#target_link_libraries(spasm PRIVATE antlr4_shared)

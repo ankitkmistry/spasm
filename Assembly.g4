@@ -4,15 +4,10 @@ options {
     language=Cpp;
 }
 
-assembly: metadata
+assembly: ('imports' ':' array)?
           ('globals' ':' global* ';')?
           method*
           class*
-         ;
-metadata: 'minorVersion' ':' NUMBER
-          'majorVersion' ':' NUMBER
-          'type' ':' type=('XP'|'SLL')
-          'imports' ':' array
          ;
 
 global: type=('VAR'|'CONST') ID ':' STRING;

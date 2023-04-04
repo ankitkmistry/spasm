@@ -17,9 +17,6 @@ public:
   virtual void enterAssembly(AssemblyParser::AssemblyContext *ctx) = 0;
   virtual void exitAssembly(AssemblyParser::AssemblyContext *ctx) = 0;
 
-  virtual void enterMetadata(AssemblyParser::MetadataContext *ctx) = 0;
-  virtual void exitMetadata(AssemblyParser::MetadataContext *ctx) = 0;
-
   virtual void enterGlobal(AssemblyParser::GlobalContext *ctx) = 0;
   virtual void exitGlobal(AssemblyParser::GlobalContext *ctx) = 0;
 

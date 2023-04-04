@@ -1,6 +1,11 @@
-magic: 0
-minorVersion: 1
-majorVersion: 2
-type: XP
-imports: []
+entry method "main(string[])":
+    args:
+        VALUE args: "string[]"
+    ;
+    maxstack: 4
+    code:
+        CONSTANT "hello, world"
+        PRINTLN
+        RETURN_VOID
+    ;
 

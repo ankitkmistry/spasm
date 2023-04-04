@@ -2,16 +2,16 @@
 #include "utils/common.hpp"
 #include "AssemblyLexer.h"
 #include "AssemblyParser.h"
-#include "AssemblyBaseVisitor_new.h"
+#include "Visitor.h"
 #include "elp/elpdef.hpp"
 #include "elp/writer.hpp"
 #include "utils/exceptions.hpp"
 
 using namespace antlr4;
 
-void assemble(string filename);
+void assemble(const string &filename);
 
-string getOutputFilename(string path);
+string getOutputFilename(const string &path);
 
 int main(int argc, const char *argv[]) {
     string filename = argc >= 2 ? argv[1] : "hello.spb";
@@ -19,16 +19,39 @@ int main(int argc, const char *argv[]) {
     return 0;
 }
 
-void assemble(string filename) {
+class ErrorReporter : public BaseErrorListener {
+    string filename;
+public:
+    explicit ErrorReporter(const string &filename) : filename(filename) {}
+
+    void syntaxError(Recognizer *recognizer, Token *offendingSymbol, size_t line, size_t charPositionInLine,
+                     const string &msg, std::exception_ptr e) override {
+        string error = format("In %s [line %d col %d]: %s",
+                              filename.c_str(),
+                              line,
+                              charPositionInLine,
+                              msg.c_str());
+        cerr << error << endl;
+        ::exit(-1);
+    }
+};
+
+void assemble(const string &filename) {
     ifstream file;
     file.open(filename);
 
-    if (!file.is_open()) throw FileNotFoundError(filename);
+    if (!file.fail()) throw FileNotFoundError(filename);
 
     ANTLRInputStream input(file);
     AssemblyLexer lexer(&input);
     CommonTokenStream tokens(&lexer);
     AssemblyParser parser(&tokens);
+
+    lexer.removeErrorListeners();
+    parser.removeErrorListeners();
+    auto *listener = new ErrorReporter(filename);
+    lexer.addErrorListener(listener);
+    parser.addErrorListener(listener);
 
     auto tree = parser.assembly();
     AssemblyBaseVisitor visitor(filename);
@@ -37,8 +60,9 @@ void assemble(string filename) {
     ElpWriter writer(outFilename);
     writer.write(elp);
     writer.close();
+    delete listener;
 }
 
-string getOutputFilename(string path) {
+string getOutputFilename(const string &path) {
     return "hello.xp";
 }
