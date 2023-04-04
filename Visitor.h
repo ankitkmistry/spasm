@@ -62,28 +62,31 @@ private:
 
         uint32 getMark(uint32 location);
 
-        const vector<CpInfo> &getConstantPool() const { return constantPool; }
+        vector<CpInfo> &getConstantPool() { return constantPool; }
     };
 
     const string compiledFrom;
-    vector<State> states = {};
+    vector<State> states;
     string entry;
-    uint32 classLevel = 0;
+    uint32 classLevel;
 
     /**
      * @returns A state nearest to the top of the state stack which as a populated constant pool
      * */
-    bool getStateWithPool(State &state) {
-        for (auto it = states.end() - 1; it >= states.begin(); it--)
-            if (it->type == State::Type::TOP || it->type == State::Type::CLASS) {
-                state = *it;
-                return true;
+    State *getStateWithPool() {
+        for (auto i = states.size() - 1; i >= 0; i--) {
+            auto &state = states[i];
+            if (state.type == State::Type::TOP || state.type == State::Type::CLASS) {
+                return &state;
             }
-        return false;
+        }
+        throw Unreachable();
     }
 
 public:
-    explicit AssemblyBaseVisitor(const string &compiledFrom) : compiledFrom(compiledFrom) {}
+    explicit AssemblyBaseVisitor(const string &compiledFrom)
+            : compiledFrom(compiledFrom), states(), entry(),
+              classLevel(0) {}
 
     void newLevel(State::Type type) { states.emplace_back(type); }
 
@@ -98,7 +101,7 @@ public:
     /**
      * @returns The current state which present on the top of the states stack
      * */
-    State& getState() { return states.end()[-1]; }
+    State &getState() { return states.end()[-1]; }
 
     std::any visitAssembly(AssemblyParser::AssemblyContext *ctx) override;
 

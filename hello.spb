@@ -1,3 +1,5 @@
+# A simple hello world program in spade assembly
+
 entry method "main(string[])":
     args:
         VALUE args: "string[]"

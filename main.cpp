@@ -26,13 +26,22 @@ public:
 
     void syntaxError(Recognizer *recognizer, Token *offendingSymbol, size_t line, size_t charPositionInLine,
                      const string &msg, std::exception_ptr e) override {
-        string error = format("In %s [line %d col %d]: %s",
+        RecognitionException ex{null, null, null};
+        try {
+            if (e != null)
+                rethrow_exception(e);
+        } catch (RecognitionException &error) {
+            ex = error;
+        }
+        string error = format("In %s [line %d col %d]: %s\n\t\t%s",
                               filename.c_str(),
                               line,
                               charPositionInLine,
-                              msg.c_str());
+                              msg.c_str(),
+                              ex.getCtx()->getText().c_str()
+        );
         cerr << error << endl;
-        ::exit(-1);
+        exit(-1);
     }
 };
 
@@ -61,6 +70,7 @@ void assemble(const string &filename) {
     writer.write(elp);
     writer.close();
     delete listener;
+    cout << "Completed assembly";
 }
 
 string getOutputFilename(const string &path) {

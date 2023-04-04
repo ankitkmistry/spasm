@@ -117,11 +117,8 @@ MethodInfo::LineInfo *AssemblyBaseVisitor::State::getLineTable() {
 }
 
 cpidx AssemblyBaseVisitor::fromConstants(const CpInfo cp) {
-    State state{State::Type::TOP};
-    if (!getStateWithPool(state))
-        throw Unreachable();
-
-    auto pool = state.getConstantPool();
+    auto state = getStateWithPool();
+    auto &pool = state->getConstantPool();
     cpidx i = 0;
     for (; i < pool.size(); i++)
         if (pool[i] == cp)
@@ -195,7 +192,7 @@ std::any AssemblyBaseVisitor::visitGlobal(AssemblyParser::GlobalContext *ctx) {
 
 std::any AssemblyBaseVisitor::visitMethod(AssemblyParser::MethodContext *ctx) {
     newLevel(State::Type::METHOD);
-    auto& state = getState();
+    auto &state = getState();
     MethodInfo method{};
     if (ctx->entry != null) entry = ctx->STRING()->toString();
     method.type = classLevel == 0 ? 0x01 : 0x02;
@@ -259,7 +256,7 @@ std::any AssemblyBaseVisitor::visitLocal(AssemblyParser::LocalContext *ctx) {
 }
 
 std::any AssemblyBaseVisitor::visitLine(AssemblyParser::LineContext *ctx) {
-    auto& state = getState();
+    auto &state = getState();
     string label = ctx->label != null ? ctx->label->toString() : "";
     Opcode opcode = OpcodeInfo::fromString(ctx->opcode->toString());
     auto params = OpcodeInfo::getParams(opcode);
@@ -321,7 +318,7 @@ std::any AssemblyBaseVisitor::visitLine(AssemblyParser::LineContext *ctx) {
 }
 
 std::any AssemblyBaseVisitor::visitExceptionItem(AssemblyParser::ExceptionItemContext *ctx) {
-    auto& state = getState();
+    auto &state = getState();
     MethodInfo::ExceptionTableInfo info{};
     info.startPc = state.getLabel(ctx->ID(0)->toString());
     info.endPc = state.getLabel(ctx->ID(1)->toString());
@@ -441,5 +438,5 @@ std::any AssemblyBaseVisitor::visitArray(AssemblyParser::ArrayContext *ctx) {
 }
 
 std::any AssemblyBaseVisitor::visitFloat(AssemblyParser::FloatContext *ctx) {
-    return stod(ctx->toString());
+    return stod(ctx->getText());
 }
