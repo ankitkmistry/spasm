@@ -85,6 +85,7 @@ void AssemblyBaseVisitor::State::resolveLabels() {
     }
     // Complain if some labels are still not resolved
     vector<string> unresolved;
+    unresolved.reserve(unresolvedLabels.size());
     for (auto [label, _]: unresolvedLabels)
         unresolved.push_back(label);
     if (!unresolvedLabels.empty())
@@ -117,13 +118,11 @@ MethodInfo::LineInfo *AssemblyBaseVisitor::State::getLineTable() {
 }
 
 cpidx AssemblyBaseVisitor::fromConstants(const CpInfo cp) {
-    auto state = getStateWithPool();
-    auto &pool = state->getConstantPool();
     cpidx i = 0;
-    for (; i < pool.size(); i++)
-        if (pool[i] == cp)
+    for (; i < constantPool.size(); i++)
+        if (constantPool[i] == cp)
             return i;
-    pool.push_back(cp);
+    constantPool.push_back(cp);
     return i;
 }
 
@@ -137,8 +136,9 @@ std::any AssemblyBaseVisitor::visitAssembly(AssemblyParser::AssemblyContext *ctx
         elp.imports = fromConstants(any_cast<vector<CpInfo>>(visitArray(ctx->array())));
     else
         elp.imports = fromConstants(vector<CpInfo>());
+    elp.globalsCount = ctx->global().size();
     elp.globals = new GlobalInfo[elp.globalsCount];
-    for (int i = 0; i < elp.globalsCount; ++i) {
+    for (size_t i = 0; i < elp.globalsCount; ++i) {
         elp.globals[i] = any_cast<GlobalInfo>(visitGlobal(ctx->global(i)));
     }
     elp.objectsCount = ctx->method().size() + ctx->class_().size();
@@ -146,7 +146,7 @@ std::any AssemblyBaseVisitor::visitAssembly(AssemblyParser::AssemblyContext *ctx
     uint16 i = 0;
     for (auto method: ctx->method()) {
         ObjInfo obj{};
-        obj.type = 0x02;
+        obj.type = 0x01;
         obj._method = any_cast<MethodInfo>(visitMethod(method));
         elp.objects[i] = obj;
         i++;
@@ -168,11 +168,12 @@ std::any AssemblyBaseVisitor::visitAssembly(AssemblyParser::AssemblyContext *ctx
         elp.entry = fromConstants("");
     }
 
-    auto pool = getState().getConstantPool();
-    elp.constantPoolCount = pool.size();
+    elp.thisModule = fromConstants(fs::path(compiledFrom).stem().string());
+
+    elp.constantPoolCount = constantPool.size();
     elp.constantPool = new CpInfo[elp.constantPoolCount];
-    for (int i = 0; i < elp.constantPoolCount; ++i) {
-        elp.constantPool[i] = pool[i];
+    for (size_t j = 0; j < elp.constantPoolCount; ++j) {
+        elp.constantPool[j] = constantPool[j];
     }
 
     endLevel();
@@ -185,8 +186,8 @@ std::any AssemblyBaseVisitor::visitGlobal(AssemblyParser::GlobalContext *ctx) {
     if (type == "VAR") global.flags = 0x01;
     else if (type == "CONST") global.flags = 0x02;
     else throw Unreachable();
-    global.thisGlobal = fromConstants(ctx->ID()->toString());
-    global.type = fromConstants(ctx->STRING()->toString());
+    global.thisGlobal = fromConstants(removeQuotes(ctx->STRING(0)->toString()));
+    global.type = fromConstants(removeQuotes(ctx->STRING(1)->toString()));
     return global;
 }
 
@@ -200,14 +201,14 @@ std::any AssemblyBaseVisitor::visitMethod(AssemblyParser::MethodContext *ctx) {
 
     method.argsCount = ctx->arg().size();
     method.args = new MethodInfo::ArgInfo[method.argsCount];
-    for (int i = 0; i < method.argsCount; ++i) {
+    for (size_t i = 0; i < method.argsCount; ++i) {
         method.args[i] = any_cast<MethodInfo::ArgInfo>(visit(ctx->arg(i)));
     }
 
     method.localsCount = ctx->local().size();
     method.closureStart = ctx->NUMBER().size() == 2 ? stoi(ctx->NUMBER(0)->toString()) : 0;
     method.locals = new MethodInfo::LocalInfo[method.localsCount];
-    for (int i = 0; i < method.localsCount; ++i) {
+    for (size_t i = 0; i < method.localsCount; ++i) {
         method.locals[i] = any_cast<MethodInfo::LocalInfo>(visit(ctx->local(i)));
     }
 
@@ -221,7 +222,7 @@ std::any AssemblyBaseVisitor::visitMethod(AssemblyParser::MethodContext *ctx) {
 
     method.exceptionTableCount = ctx->exceptionItem().size();
     method.exceptionTable = new MethodInfo::ExceptionTableInfo[method.exceptionTableCount];
-    for (int i = 0; i < method.exceptionTableCount; ++i) {
+    for (size_t i = 0; i < method.exceptionTableCount; ++i) {
         method.exceptionTable[i] = any_cast<MethodInfo::ExceptionTableInfo>(
                 visitExceptionItem(ctx->exceptionItem(i)));
     }
@@ -235,30 +236,22 @@ std::any AssemblyBaseVisitor::visitMethod(AssemblyParser::MethodContext *ctx) {
 
 std::any AssemblyBaseVisitor::visitArg(AssemblyParser::ArgContext *ctx) {
     MethodInfo::ArgInfo arg{};
-    auto type = ctx->type->toString();
-    if (type == "VALUE")arg.flags = 0x01;
-    else if (type == "REF")arg.flags = 0x02;
-    else throw Unreachable();
-    arg.thisArg = fromConstants(ctx->ID()->toString());
-    arg.type = fromConstants(ctx->STRING()->toString());
+    arg.thisArg = fromConstants(removeQuotes(ctx->STRING(0)->toString()));
+    arg.type = fromConstants(removeQuotes(ctx->STRING(1)->toString()));
     return arg;
 }
 
 std::any AssemblyBaseVisitor::visitLocal(AssemblyParser::LocalContext *ctx) {
     MethodInfo::LocalInfo local{};
-    auto type = ctx->type->toString();
-    if (type == "VAR")local.flags = 0x01;
-    else if (type == "CONST")local.flags = 0x02;
-    else throw Unreachable();
-    local.thisLocal = fromConstants(ctx->ID()->toString());
-    local.type = fromConstants(ctx->STRING()->toString());
+    local.thisLocal = fromConstants(removeQuotes(ctx->STRING(0)->toString()));
+    local.type = fromConstants(removeQuotes(ctx->STRING(1)->toString()));
     return local;
 }
 
 std::any AssemblyBaseVisitor::visitLine(AssemblyParser::LineContext *ctx) {
     auto &state = getState();
     string label = ctx->label != null ? ctx->label->toString() : "";
-    Opcode opcode = OpcodeInfo::fromString(ctx->opcode->toString());
+    Opcode opcode = OpcodeInfo::fromString(ctx->opcode->getText());
     auto params = OpcodeInfo::getParams(opcode);
 
     // Mark the line
@@ -357,27 +350,20 @@ std::any AssemblyBaseVisitor::visitClass(AssemblyParser::ClassContext *ctx) {
 
     klass.fieldsCount = ctx->field().size();
     klass.fields = new FieldInfo[klass.fieldsCount];
-    for (int i = 0; i < klass.fieldsCount; ++i) {
+    for (size_t i = 0; i < klass.fieldsCount; ++i) {
         klass.fields[i] = any_cast<FieldInfo>(visitField(ctx->field(i)));
     }
 
     klass.methodsCount = ctx->method().size();
     klass.methods = new MethodInfo[klass.methodsCount];
-    for (int i = 0; i < klass.methodsCount; ++i) {
+    for (size_t i = 0; i < klass.methodsCount; ++i) {
         klass.methods[i] = any_cast<MethodInfo>(visitMethod(ctx->method(i)));
     }
 
     klass.objectsCount = ctx->class_().size();
     klass.objects = new ObjInfo[klass.objectsCount];
-    for (int i = 0; i < klass.objectsCount; ++i) {
+    for (size_t i = 0; i < klass.objectsCount; ++i) {
         klass.objects[i] = any_cast<ObjInfo>(visitClass(ctx->class_(i)));
-    }
-
-    auto pool = getState().getConstantPool();
-    klass.constantPoolCount = pool.size();
-    klass.constantPool = new CpInfo[klass.constantPoolCount];
-    for (int i = 0; i < klass.constantPoolCount; ++i) {
-        klass.constantPool[i] = pool[i];
     }
 
     endLevel();
@@ -404,29 +390,23 @@ std::any AssemblyBaseVisitor::visitAccessor(AssemblyParser::AccessorContext *ctx
 std::any AssemblyBaseVisitor::visitField(AssemblyParser::FieldContext *ctx) {
     FieldInfo field{};
     field.accessFlags = getAccessFlag(ctx->accessor());
-    field.thisField = fromConstants(ctx->STRING(0)->toString());
-    field.type = fromConstants(ctx->STRING(1)->toString());
+    field.thisField = fromConstants(removeQuotes(ctx->STRING(0)->toString()));
+    field.type = fromConstants(removeQuotes(ctx->STRING(1)->toString()));
     return field;
 }
 
 std::any AssemblyBaseVisitor::visitValue(AssemblyParser::ValueContext *ctx) {
-    CpInfo info{};
     if (ctx->NUMBER() != null) {
-        info.tag = 0x04;
-        info._int = stoi(ctx->NUMBER()->toString());
+        return CpInfo::fromInt(stoi(ctx->NUMBER()->toString()));
     } else if (ctx->STRING() != null) {
         return CpInfo::fromString(ctx->STRING()->toString());
     } else if (ctx->CSTRING() != null) {
-        info.tag = 0x03;
-        info._char = static_cast<uint8>(ctx->CSTRING()->toString()[1]);
+        return CpInfo::fromChar(ctx->CSTRING()->toString()[1]);
     } else if (ctx->array() != null) {
         return CpInfo::fromArray(any_cast<vector<CpInfo>>(visitArray(ctx->array())));
     } else if (ctx->float_() != null) {
-        info.tag = 0x05;
-        auto d = any_cast<double>(visitFloat(ctx->float_()));
-        info._float = reinterpret_cast<uint64 &>(d);
+        return CpInfo::fromFloat(any_cast<double>(visitFloat(ctx->float_())));
     } else throw Unreachable();
-    return info;
 }
 
 std::any AssemblyBaseVisitor::visitArray(AssemblyParser::ArrayContext *ctx) {

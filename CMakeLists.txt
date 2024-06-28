@@ -1,11 +1,11 @@
-cmake_minimum_required(VERSION 3.24)
+cmake_minimum_required(VERSION 3.16)
 project(spasm)
 
 list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
 
 set(CMAKE_CXX_STANDARD 17)
 
-add_executable(spasm main.cpp Visitor.cpp AssemblyLexer.cpp AssemblyParser.cpp elp/writer.cpp utils/opcode.cpp elp/elpdef.cpp elp/elpdef.cpp utils/utils.cpp)
+add_executable(spasm main.cpp Visitor.cpp utils/opcode.cpp utils/utils.cpp AssemblyParser.cpp AssemblyLexer.cpp)
 
 # required if linking to static library
 add_definitions(-DANTLR4CPP_STATIC)
@@ -27,8 +27,13 @@ include_directories(${ANTLR4_INCLUDE_DIR})
 
 # set variable pointing to the antlr tool that supports C++
 # this is not required if the jar file can be found under PATH environment
-set(ANTLR_EXECUTABLE "H:\\Programming (Ankit)\\Toolkits\\ANTLR4\\antlr-4.12.0-complete.jar")
+set(ANTLR_EXECUTABLE ${PROJECT_SOURCE_DIR}/antlr/antlr-4.12.0-complete.jar)
 find_package(ANTLR REQUIRED)
-#add_dependencies(spasm antlr4_static)
+#add_dependencies(spasm antlr4_shared)
 target_link_libraries(spasm antlr4_static)
 #target_link_libraries(spasm PRIVATE antlr4_shared)
+
+include_directories("D:/Programming (Ankit)/Projects/spade/1.0/elpops")
+target_include_directories(spasm PRIVATE "D:/Programming (Ankit)/Projects/spade/1.0/elpops")
+
+target_link_libraries(spasm "D:/Programming (Ankit)/Projects/spade/1.0/elpops/debug-build/libelpops.a")

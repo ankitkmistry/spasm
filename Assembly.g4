@@ -8,19 +8,21 @@ assembly: ('imports' ':' array)?
           ('globals' ':' global* ';')?
           method*
           class*
+          EOF
          ;
 
-global: type=('VAR'|'CONST') ID ':' STRING;
+global: type=('VAR'|'CONST') STRING ':' STRING;
 
 method: entry='entry'? 'method' STRING ':'
             ('args' ':' arg* ';')?
             ('locals' ('[' 'closureStart' ':' NUMBER ']')? ':' local* ';')?
-            'maxstack' ':' NUMBER
+            'maxstack' ':' NUMBER ';'
             ('code' ':' line* ';')?
             ('exceptionTable' ':' exceptionItem* ';')? ';';
-arg: type=('VALUE'|'REF') ID ':' STRING;
-local: type=('VAR'|'CONST') ID ':' STRING;
-line: (label=ID ':')? opcode=ID (value|dest=ID)?;
+
+arg: STRING ':' STRING;
+local: STRING ':' STRING;
+line: (label=LABEL ':')? opcode=ID (value|dest=LABEL)?;
 exceptionItem: ID '-' ID '->' ID ':' STRING;
 
 class: 'class' STRING ':'
@@ -30,6 +32,7 @@ class: 'class' STRING ':'
             ('fields' ':' field* ';')?
             method*
             class* ';';
+
 accessor: modifier=('PRIVATE'
         | 'INTERNAL'
         | 'PACKAGE_PRIVATE'
@@ -51,6 +54,7 @@ float: NUMBER '.' NUMBER
 NUMBER: [0-9]+;
 STRING: '"'.*?'"';
 CSTRING: '\''.'\'';
-ID: [a-zA-Z][a-zA-Z0-9]+;
+ID: [a-zA-Z_][a-zA-Z0-9_]+;
+LABEL: '$' [a-zA-Z_][a-zA-Z0-9_]+;
 WS: [ \t\r\n]+ -> skip;
 COMMENT: '#' ~[\n]* -> skip;

@@ -250,6 +250,6 @@ bool OpcodeInfo::takeFromConstPool(Opcode opcode) {
     return OPCODE_TABLE[static_cast<int>(opcode)].take;
 }
 
-Opcode OpcodeInfo::fromString(string str) {
+Opcode OpcodeInfo::fromString(const string& str) {
     return OPCODE_NAMES.at(str);
 }

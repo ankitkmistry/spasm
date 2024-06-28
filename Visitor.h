@@ -4,10 +4,11 @@
 #pragma once
 
 #include <stack>
+#include <utility>
 
 #include "antlr4-runtime.h"
 #include "AssemblyVisitor.h"
-#include "elp/elpdef.hpp"
+#include "elpops/elpdef.hpp"
 #include "utils/exceptions.hpp"
 #include "utils/opcode.hpp"
 #include "utils/utils.hpp"
@@ -21,7 +22,6 @@ class AssemblyBaseVisitor : public AssemblyVisitor {
 private:
     class State {
     private:
-        vector<CpInfo> constantPool = {};
         vector<uint8> code = {};
         map<string, uint32> labels = {};
         map<string, vector<uint32>> unresolvedLabels = {};
@@ -61,31 +61,17 @@ private:
         void mark() { marks.push_back(pc); }
 
         uint32 getMark(uint32 location);
-
-        vector<CpInfo> &getConstantPool() { return constantPool; }
     };
 
     const string compiledFrom;
     vector<State> states;
     string entry;
+    vector<CpInfo> constantPool = {};
     uint32 classLevel;
 
-    /**
-     * @returns A state nearest to the top of the state stack which as a populated constant pool
-     * */
-    State *getStateWithPool() {
-        for (auto i = states.size() - 1; i >= 0; i--) {
-            auto &state = states[i];
-            if (state.type == State::Type::TOP || state.type == State::Type::CLASS) {
-                return &state;
-            }
-        }
-        throw Unreachable();
-    }
-
 public:
-    explicit AssemblyBaseVisitor(const string &compiledFrom)
-            : compiledFrom(compiledFrom), states(), entry(),
+    explicit AssemblyBaseVisitor(string compiledFrom)
+            : compiledFrom(std::move(compiledFrom)), states(), entry(),
               classLevel(0) {}
 
     void newLevel(State::Type type) { states.emplace_back(type); }

@@ -12,4 +12,6 @@
 
 string listToString(vector<string> data);
 
+string removeQuotes(string str);
+
 #endif /* UTILS_UTILS_HPP_ */

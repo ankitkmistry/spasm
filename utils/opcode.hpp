@@ -135,7 +135,7 @@ public:
 
     static uint8 getParams(Opcode opcode);
 
-    static Opcode fromString(string str);
+    static Opcode fromString(const string& str);
 
     static bool takeFromConstPool(Opcode opcode);
 };
