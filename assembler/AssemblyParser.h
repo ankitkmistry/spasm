@@ -1,5 +1,5 @@
 
-// Generated from Assembly.g4 by ANTLR 4.12.0
+// Generated from assembler/Assembly.g4 by ANTLR 4.12.0
 
 #pragma once
 
@@ -18,8 +18,8 @@ public:
     T__20 = 21, T__21 = 22, T__22 = 23, T__23 = 24, T__24 = 25, T__25 = 26, 
     T__26 = 27, T__27 = 28, T__28 = 29, T__29 = 30, T__30 = 31, T__31 = 32, 
     T__32 = 33, T__33 = 34, T__34 = 35, T__35 = 36, T__36 = 37, T__37 = 38, 
-    NUMBER = 39, STRING = 40, CSTRING = 41, ID = 42, LABEL = 43, WS = 44, 
-    COMMENT = 45
+    T__38 = 39, T__39 = 40, NUMBER = 41, STRING = 42, CSTRING = 43, ID = 44, 
+    LABEL = 45, WS = 46, COMMENT = 47
   };
 
   enum {
@@ -61,9 +61,11 @@ public:
 
   class  AssemblyContext : public antlr4::ParserRuleContext {
   public:
+    antlr4::Token *module = nullptr;
     AssemblyContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
     antlr4::tree::TerminalNode *EOF();
+    antlr4::tree::TerminalNode *ID();
     ArrayContext *array();
     std::vector<MethodContext *> method();
     MethodContext* method(size_t i);
@@ -96,7 +98,7 @@ public:
 
   class  MethodContext : public antlr4::ParserRuleContext {
   public:
-    antlr4::Token *entry = nullptr;
+    antlr4::Token *kind = nullptr;
     MethodContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
     antlr4::tree::TerminalNode *STRING();

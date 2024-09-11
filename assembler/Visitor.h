@@ -9,9 +9,9 @@
 #include "antlr4-runtime.h"
 #include "AssemblyVisitor.h"
 #include "elpops/elpdef.hpp"
-#include "utils/exceptions.hpp"
-#include "utils/opcode.hpp"
-#include "utils/utils.hpp"
+#include "elpops/opcode.hpp"
+#include "../utils/exceptions.hpp"
+#include "../utils/utils.hpp"
 
 
 /**
@@ -23,9 +23,9 @@ private:
     class State {
     private:
         vector<uint8> code = {};
-        map<string, uint32> labels = {};
-        map<string, vector<uint32>> unresolvedLabels = {};
-        map<uint32, size_t> lineTable = {};
+        std::map<string, uint32> labels = {};
+        std::map<string, vector<uint32>> unresolvedLabels = {};
+        vector<uint32> sourceLines = {};
         vector<uint32> marks = {};
         uint32 pc = 0;
 
@@ -36,17 +36,15 @@ private:
 
         explicit State(Type type) : type(type) {}
 
-        void addByte(uint8 byte, size_t line);
+        void addByte(uint8 byte, uint32 line);
 
         uint32 codeCount() { return code.size(); }
 
         uint8 *getCode() { return code.data(); }
 
-        void optimizeLineTable();
+        uint32 lineCount() { return sourceLines.size(); }
 
-        uint32 lineCount() { return lineTable.size(); }
-
-        MethodInfo::LineInfo *getLineTable();
+        MethodInfo::LineInfo getLineTable();
 
         void addLabel(const string &label);
 
@@ -63,9 +61,10 @@ private:
         uint32 getMark(uint32 location);
     };
 
-    const string compiledFrom;
+    string compiledFrom;
     vector<State> states;
     string entry;
+    string init;
     vector<CpInfo> constantPool = {};
     uint32 classLevel;
 

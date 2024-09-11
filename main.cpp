@@ -2,29 +2,54 @@
 #include "utils/common.hpp"
 #include "elpops/elpdef.hpp"
 #include "elpops/writer.hpp"
-#include "AssemblyLexer.h"
-#include "AssemblyParser.h"
-#include "Visitor.h"
+#include "assembler/AssemblyLexer.h"
+#include "assembler/AssemblyParser.h"
+#include "assembler/Visitor.h"
 
 using namespace antlr4;
 
-void assemble(const string &filename);
+void assemble(fs::path filePath, fs::path outputPath);
 
-string getOutputFilename(const string &path);
+fs::path getPath(string path);
 
 int main(int argc, const char *argv[]) {
-    string filename = argc >= 2 ? argv[1] : "hello.spb";
-    assemble(filename);
+    if (argc < 2) {
+        std::cout << "Usage: spasm [options...] [file]\n";
+        std::cout << "Options:\n";
+        std::cout << "========\n";
+        std::cout << "  -o specifies the output file\n";
+        return 0;
+    }
+    fs::path filePath, outputPath;
+    if (argc == 2) {
+        filePath = getPath(argv[1]);
+        outputPath = (filePath.parent_path() / filePath.stem()).string() + ".elp";
+    } else if (argc == 4) {
+        if (strcmp(argv[1], "-o") == 0) {
+            outputPath = getPath(argv[2]);
+        } else {
+            exit(EXIT_FAILURE);
+        }
+        filePath = getPath(argv[3]);
+    }
+
+    try {
+        assemble(filePath, outputPath);
+    } catch (const FatalError &error) {
+        std::cerr << error.what() << '\n';
+    }
     return 0;
 }
 
-void assemble(const string &filename) {
-    // TODO: the lexer cannot output tokens
-    fs::path filePath{fs::current_path() / filename};
-    cout << filePath.string() << '\n';
+fs::path getPath(string path) {
+    fs::path p = path;
+    if (!p.is_absolute())return p;
+    return fs::current_path() / p;
+}
 
-    ifstream file;
-    file.open(filePath.string(), ios_base::in);
+void assemble(fs::path filePath, fs::path outputPath) {
+    std::ifstream file;
+    file.open(filePath.string(), std::ios_base::in);
 
     if (file.fail()) throw FileNotFoundError(filePath.string());
 
@@ -34,18 +59,10 @@ void assemble(const string &filename) {
     AssemblyParser parser(&tokens);
 
     auto tree = parser.assembly();
-    AssemblyBaseVisitor visitor(filename);
+    AssemblyBaseVisitor visitor(filePath.string());
     auto elp = any_cast<ElpInfo>(visitor.visitAssembly(tree));
-    ElpWriter writer((fs::current_path() / filePath.stem()).string() + ".xp");
+    ElpWriter writer{outputPath.string()};
     writer.write(elp);
     writer.close();
-    cout << "Completed assembly\n";
-
-    /*for (auto token: tokens.getTokens()) {
-        if (token->getChannel() == Token::HIDDEN_CHANNEL)continue;
-        cout << format("token at [%d:%d] of type %d: '%s'\n",
-                       token->getLine(), token->getCharPositionInLine(),
-                       token->getType(),
-                       token->getText().c_str());
-    }*/
+    std::cout << "Completed assembly\n";
 }

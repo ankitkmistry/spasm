@@ -1,5 +1,5 @@
 
-// Generated from Assembly.g4 by ANTLR 4.12.0
+// Generated from assembler/Assembly.g4 by ANTLR 4.12.0
 
 
 #include "AssemblyVisitor.h"
@@ -47,98 +47,101 @@ void assemblyParserInitialize() {
       "class", "accessor", "field", "value", "array", "float"
     },
     std::vector<std::string>{
-      "", "'imports'", "':'", "'globals'", "';'", "'VAR'", "'CONST'", "'entry'", 
-      "'method'", "'args'", "'locals'", "'['", "'closureStart'", "']'", 
-      "'maxstack'", "'code'", "'exceptionTable'", "'-'", "'->'", "'class'", 
-      "'type'", "'CLASS'", "'INTERFACE'", "'ENUM'", "'ANNOTATION'", "'accessors'", 
-      "'supers'", "'fields'", "'PRIVATE'", "'INTERNAL'", "'PACKAGE_PRIVATE'", 
-      "'PROTECTED'", "'PUBLIC'", "'ABSTRACT'", "'FINAL'", "'STATIC'", "'INLINE'", 
-      "','", "'.'"
+      "", "'module'", "':'", "'imports'", "'globals'", "';'", "'VAR'", "'CONST'", 
+      "'entry'", "'init'", "'method'", "'args'", "'locals'", "'['", "'closureStart'", 
+      "']'", "'maxstack'", "'code'", "'exceptionTable'", "'-'", "'->'", 
+      "'class'", "'type'", "'CLASS'", "'INTERFACE'", "'ENUM'", "'ANNOTATION'", 
+      "'accessors'", "'supers'", "'fields'", "'PRIVATE'", "'INTERNAL'", 
+      "'PACKAGE_PRIVATE'", "'PROTECTED'", "'PUBLIC'", "'ABSTRACT'", "'FINAL'", 
+      "'STATIC'", "'INLINE'", "','", "'.'"
     },
     std::vector<std::string>{
       "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", 
       "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", 
-      "", "", "", "", "", "NUMBER", "STRING", "CSTRING", "ID", "LABEL", 
+      "", "", "", "", "", "", "", "NUMBER", "STRING", "CSTRING", "ID", "LABEL", 
       "WS", "COMMENT"
     }
   );
   static const int32_t serializedATNSegment[] = {
-  	4,1,45,237,2,0,7,0,2,1,7,1,2,2,7,2,2,3,7,3,2,4,7,4,2,5,7,5,2,6,7,6,2,
-  	7,7,7,2,8,7,8,2,9,7,9,2,10,7,10,2,11,7,11,2,12,7,12,1,0,1,0,1,0,3,0,30,
-  	8,0,1,0,1,0,1,0,5,0,35,8,0,10,0,12,0,38,9,0,1,0,3,0,41,8,0,1,0,5,0,44,
-  	8,0,10,0,12,0,47,9,0,1,0,5,0,50,8,0,10,0,12,0,53,9,0,1,0,1,0,1,1,1,1,
-  	1,1,1,1,1,1,1,2,3,2,63,8,2,1,2,1,2,1,2,1,2,1,2,1,2,5,2,71,8,2,10,2,12,
-  	2,74,9,2,1,2,3,2,77,8,2,1,2,1,2,1,2,1,2,1,2,1,2,3,2,85,8,2,1,2,1,2,5,
-  	2,89,8,2,10,2,12,2,92,9,2,1,2,3,2,95,8,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,
-  	5,2,104,8,2,10,2,12,2,107,9,2,1,2,3,2,110,8,2,1,2,1,2,1,2,5,2,115,8,2,
-  	10,2,12,2,118,9,2,1,2,3,2,121,8,2,1,2,1,2,1,3,1,3,1,3,1,3,1,4,1,4,1,4,
-  	1,4,1,5,1,5,3,5,135,8,5,1,5,1,5,1,5,3,5,140,8,5,1,6,1,6,1,6,1,6,1,6,1,
-  	6,1,6,1,6,1,7,1,7,1,7,1,7,1,7,1,7,1,7,1,7,1,7,1,7,5,7,160,8,7,10,7,12,
-  	7,163,9,7,1,7,1,7,1,7,3,7,168,8,7,1,7,1,7,1,7,5,7,173,8,7,10,7,12,7,176,
-  	9,7,1,7,3,7,179,8,7,1,7,5,7,182,8,7,10,7,12,7,185,9,7,1,7,5,7,188,8,7,
-  	10,7,12,7,191,9,7,1,7,1,7,1,8,1,8,1,9,5,9,198,8,9,10,9,12,9,201,9,9,1,
-  	9,1,9,1,9,1,9,1,9,1,10,1,10,1,10,1,10,1,10,3,10,213,8,10,1,11,1,11,1,
-  	11,1,11,5,11,219,8,11,10,11,12,11,222,9,11,3,11,224,8,11,1,11,1,11,1,
-  	12,1,12,1,12,1,12,1,12,1,12,1,12,3,12,235,8,12,1,12,0,0,13,0,2,4,6,8,
-  	10,12,14,16,18,20,22,24,0,3,1,0,5,6,1,0,21,24,1,0,28,36,256,0,29,1,0,
-  	0,0,2,56,1,0,0,0,4,62,1,0,0,0,6,124,1,0,0,0,8,128,1,0,0,0,10,134,1,0,
-  	0,0,12,141,1,0,0,0,14,149,1,0,0,0,16,194,1,0,0,0,18,199,1,0,0,0,20,212,
-  	1,0,0,0,22,214,1,0,0,0,24,234,1,0,0,0,26,27,5,1,0,0,27,28,5,2,0,0,28,
-  	30,3,22,11,0,29,26,1,0,0,0,29,30,1,0,0,0,30,40,1,0,0,0,31,32,5,3,0,0,
-  	32,36,5,2,0,0,33,35,3,2,1,0,34,33,1,0,0,0,35,38,1,0,0,0,36,34,1,0,0,0,
-  	36,37,1,0,0,0,37,39,1,0,0,0,38,36,1,0,0,0,39,41,5,4,0,0,40,31,1,0,0,0,
-  	40,41,1,0,0,0,41,45,1,0,0,0,42,44,3,4,2,0,43,42,1,0,0,0,44,47,1,0,0,0,
-  	45,43,1,0,0,0,45,46,1,0,0,0,46,51,1,0,0,0,47,45,1,0,0,0,48,50,3,14,7,
-  	0,49,48,1,0,0,0,50,53,1,0,0,0,51,49,1,0,0,0,51,52,1,0,0,0,52,54,1,0,0,
-  	0,53,51,1,0,0,0,54,55,5,0,0,1,55,1,1,0,0,0,56,57,7,0,0,0,57,58,5,40,0,
-  	0,58,59,5,2,0,0,59,60,5,40,0,0,60,3,1,0,0,0,61,63,5,7,0,0,62,61,1,0,0,
-  	0,62,63,1,0,0,0,63,64,1,0,0,0,64,65,5,8,0,0,65,66,5,40,0,0,66,76,5,2,
-  	0,0,67,68,5,9,0,0,68,72,5,2,0,0,69,71,3,6,3,0,70,69,1,0,0,0,71,74,1,0,
-  	0,0,72,70,1,0,0,0,72,73,1,0,0,0,73,75,1,0,0,0,74,72,1,0,0,0,75,77,5,4,
-  	0,0,76,67,1,0,0,0,76,77,1,0,0,0,77,94,1,0,0,0,78,84,5,10,0,0,79,80,5,
-  	11,0,0,80,81,5,12,0,0,81,82,5,2,0,0,82,83,5,39,0,0,83,85,5,13,0,0,84,
-  	79,1,0,0,0,84,85,1,0,0,0,85,86,1,0,0,0,86,90,5,2,0,0,87,89,3,8,4,0,88,
-  	87,1,0,0,0,89,92,1,0,0,0,90,88,1,0,0,0,90,91,1,0,0,0,91,93,1,0,0,0,92,
-  	90,1,0,0,0,93,95,5,4,0,0,94,78,1,0,0,0,94,95,1,0,0,0,95,96,1,0,0,0,96,
-  	97,5,14,0,0,97,98,5,2,0,0,98,99,5,39,0,0,99,109,5,4,0,0,100,101,5,15,
-  	0,0,101,105,5,2,0,0,102,104,3,10,5,0,103,102,1,0,0,0,104,107,1,0,0,0,
-  	105,103,1,0,0,0,105,106,1,0,0,0,106,108,1,0,0,0,107,105,1,0,0,0,108,110,
-  	5,4,0,0,109,100,1,0,0,0,109,110,1,0,0,0,110,120,1,0,0,0,111,112,5,16,
-  	0,0,112,116,5,2,0,0,113,115,3,12,6,0,114,113,1,0,0,0,115,118,1,0,0,0,
-  	116,114,1,0,0,0,116,117,1,0,0,0,117,119,1,0,0,0,118,116,1,0,0,0,119,121,
-  	5,4,0,0,120,111,1,0,0,0,120,121,1,0,0,0,121,122,1,0,0,0,122,123,5,4,0,
-  	0,123,5,1,0,0,0,124,125,5,40,0,0,125,126,5,2,0,0,126,127,5,40,0,0,127,
-  	7,1,0,0,0,128,129,5,40,0,0,129,130,5,2,0,0,130,131,5,40,0,0,131,9,1,0,
-  	0,0,132,133,5,43,0,0,133,135,5,2,0,0,134,132,1,0,0,0,134,135,1,0,0,0,
-  	135,136,1,0,0,0,136,139,5,42,0,0,137,140,3,20,10,0,138,140,5,43,0,0,139,
-  	137,1,0,0,0,139,138,1,0,0,0,139,140,1,0,0,0,140,11,1,0,0,0,141,142,5,
-  	42,0,0,142,143,5,17,0,0,143,144,5,42,0,0,144,145,5,18,0,0,145,146,5,42,
-  	0,0,146,147,5,2,0,0,147,148,5,40,0,0,148,13,1,0,0,0,149,150,5,19,0,0,
-  	150,151,5,40,0,0,151,152,5,2,0,0,152,153,5,20,0,0,153,154,5,2,0,0,154,
-  	155,7,1,0,0,155,156,5,4,0,0,156,157,5,25,0,0,157,161,5,2,0,0,158,160,
-  	3,16,8,0,159,158,1,0,0,0,160,163,1,0,0,0,161,159,1,0,0,0,161,162,1,0,
-  	0,0,162,167,1,0,0,0,163,161,1,0,0,0,164,165,5,26,0,0,165,166,5,2,0,0,
-  	166,168,3,22,11,0,167,164,1,0,0,0,167,168,1,0,0,0,168,178,1,0,0,0,169,
-  	170,5,27,0,0,170,174,5,2,0,0,171,173,3,18,9,0,172,171,1,0,0,0,173,176,
-  	1,0,0,0,174,172,1,0,0,0,174,175,1,0,0,0,175,177,1,0,0,0,176,174,1,0,0,
-  	0,177,179,5,4,0,0,178,169,1,0,0,0,178,179,1,0,0,0,179,183,1,0,0,0,180,
-  	182,3,4,2,0,181,180,1,0,0,0,182,185,1,0,0,0,183,181,1,0,0,0,183,184,1,
-  	0,0,0,184,189,1,0,0,0,185,183,1,0,0,0,186,188,3,14,7,0,187,186,1,0,0,
-  	0,188,191,1,0,0,0,189,187,1,0,0,0,189,190,1,0,0,0,190,192,1,0,0,0,191,
-  	189,1,0,0,0,192,193,5,4,0,0,193,15,1,0,0,0,194,195,7,2,0,0,195,17,1,0,
-  	0,0,196,198,3,16,8,0,197,196,1,0,0,0,198,201,1,0,0,0,199,197,1,0,0,0,
-  	199,200,1,0,0,0,200,202,1,0,0,0,201,199,1,0,0,0,202,203,7,0,0,0,203,204,
-  	5,40,0,0,204,205,5,2,0,0,205,206,5,40,0,0,206,19,1,0,0,0,207,213,5,39,
-  	0,0,208,213,5,40,0,0,209,213,5,41,0,0,210,213,3,22,11,0,211,213,3,24,
-  	12,0,212,207,1,0,0,0,212,208,1,0,0,0,212,209,1,0,0,0,212,210,1,0,0,0,
-  	212,211,1,0,0,0,213,21,1,0,0,0,214,223,5,11,0,0,215,220,3,20,10,0,216,
-  	217,5,37,0,0,217,219,3,20,10,0,218,216,1,0,0,0,219,222,1,0,0,0,220,218,
-  	1,0,0,0,220,221,1,0,0,0,221,224,1,0,0,0,222,220,1,0,0,0,223,215,1,0,0,
-  	0,223,224,1,0,0,0,224,225,1,0,0,0,225,226,5,13,0,0,226,23,1,0,0,0,227,
-  	228,5,39,0,0,228,229,5,38,0,0,229,235,5,39,0,0,230,231,5,39,0,0,231,235,
-  	5,38,0,0,232,233,5,38,0,0,233,235,5,39,0,0,234,227,1,0,0,0,234,230,1,
-  	0,0,0,234,232,1,0,0,0,235,25,1,0,0,0,28,29,36,40,45,51,62,72,76,84,90,
-  	94,105,109,116,120,134,139,161,167,174,178,183,189,199,212,220,223,234
+  	4,1,47,244,2,0,7,0,2,1,7,1,2,2,7,2,2,3,7,3,2,4,7,4,2,5,7,5,2,6,7,6,2,
+  	7,7,7,2,8,7,8,2,9,7,9,2,10,7,10,2,11,7,11,2,12,7,12,1,0,1,0,1,0,1,0,1,
+  	0,1,0,1,0,3,0,34,8,0,1,0,1,0,1,0,5,0,39,8,0,10,0,12,0,42,9,0,1,0,3,0,
+  	45,8,0,1,0,5,0,48,8,0,10,0,12,0,51,9,0,1,0,5,0,54,8,0,10,0,12,0,57,9,
+  	0,1,0,1,0,1,1,1,1,1,1,1,1,1,1,1,2,3,2,67,8,2,1,2,1,2,1,2,1,2,1,2,1,2,
+  	5,2,75,8,2,10,2,12,2,78,9,2,1,2,3,2,81,8,2,1,2,1,2,1,2,1,2,1,2,1,2,3,
+  	2,89,8,2,1,2,1,2,5,2,93,8,2,10,2,12,2,96,9,2,1,2,3,2,99,8,2,1,2,1,2,1,
+  	2,1,2,1,2,1,2,1,2,5,2,108,8,2,10,2,12,2,111,9,2,1,2,3,2,114,8,2,1,2,1,
+  	2,1,2,5,2,119,8,2,10,2,12,2,122,9,2,1,2,3,2,125,8,2,1,2,1,2,1,3,1,3,1,
+  	3,1,3,1,4,1,4,1,4,1,4,1,5,1,5,3,5,139,8,5,1,5,1,5,1,5,3,5,144,8,5,1,6,
+  	1,6,1,6,1,6,1,6,1,6,1,6,1,6,1,7,1,7,1,7,1,7,1,7,1,7,1,7,1,7,1,7,1,7,5,
+  	7,164,8,7,10,7,12,7,167,9,7,1,7,1,7,1,7,3,7,172,8,7,1,7,1,7,1,7,5,7,177,
+  	8,7,10,7,12,7,180,9,7,1,7,3,7,183,8,7,1,7,5,7,186,8,7,10,7,12,7,189,9,
+  	7,1,7,5,7,192,8,7,10,7,12,7,195,9,7,1,7,1,7,1,8,1,8,1,9,5,9,202,8,9,10,
+  	9,12,9,205,9,9,1,9,1,9,1,9,1,9,1,9,1,10,1,10,1,10,1,10,1,10,3,10,217,
+  	8,10,1,11,1,11,1,11,1,11,5,11,223,8,11,10,11,12,11,226,9,11,1,11,3,11,
+  	229,8,11,3,11,231,8,11,1,11,1,11,1,12,1,12,1,12,1,12,1,12,1,12,1,12,3,
+  	12,242,8,12,1,12,0,0,13,0,2,4,6,8,10,12,14,16,18,20,22,24,0,4,1,0,6,7,
+  	1,0,8,9,1,0,23,26,1,0,30,38,264,0,26,1,0,0,0,2,60,1,0,0,0,4,66,1,0,0,
+  	0,6,128,1,0,0,0,8,132,1,0,0,0,10,138,1,0,0,0,12,145,1,0,0,0,14,153,1,
+  	0,0,0,16,198,1,0,0,0,18,203,1,0,0,0,20,216,1,0,0,0,22,218,1,0,0,0,24,
+  	241,1,0,0,0,26,27,5,1,0,0,27,28,5,2,0,0,28,29,5,44,0,0,29,33,1,0,0,0,
+  	30,31,5,3,0,0,31,32,5,2,0,0,32,34,3,22,11,0,33,30,1,0,0,0,33,34,1,0,0,
+  	0,34,44,1,0,0,0,35,36,5,4,0,0,36,40,5,2,0,0,37,39,3,2,1,0,38,37,1,0,0,
+  	0,39,42,1,0,0,0,40,38,1,0,0,0,40,41,1,0,0,0,41,43,1,0,0,0,42,40,1,0,0,
+  	0,43,45,5,5,0,0,44,35,1,0,0,0,44,45,1,0,0,0,45,49,1,0,0,0,46,48,3,4,2,
+  	0,47,46,1,0,0,0,48,51,1,0,0,0,49,47,1,0,0,0,49,50,1,0,0,0,50,55,1,0,0,
+  	0,51,49,1,0,0,0,52,54,3,14,7,0,53,52,1,0,0,0,54,57,1,0,0,0,55,53,1,0,
+  	0,0,55,56,1,0,0,0,56,58,1,0,0,0,57,55,1,0,0,0,58,59,5,0,0,1,59,1,1,0,
+  	0,0,60,61,7,0,0,0,61,62,5,42,0,0,62,63,5,2,0,0,63,64,5,42,0,0,64,3,1,
+  	0,0,0,65,67,7,1,0,0,66,65,1,0,0,0,66,67,1,0,0,0,67,68,1,0,0,0,68,69,5,
+  	10,0,0,69,70,5,42,0,0,70,80,5,2,0,0,71,72,5,11,0,0,72,76,5,2,0,0,73,75,
+  	3,6,3,0,74,73,1,0,0,0,75,78,1,0,0,0,76,74,1,0,0,0,76,77,1,0,0,0,77,79,
+  	1,0,0,0,78,76,1,0,0,0,79,81,5,5,0,0,80,71,1,0,0,0,80,81,1,0,0,0,81,98,
+  	1,0,0,0,82,88,5,12,0,0,83,84,5,13,0,0,84,85,5,14,0,0,85,86,5,2,0,0,86,
+  	87,5,41,0,0,87,89,5,15,0,0,88,83,1,0,0,0,88,89,1,0,0,0,89,90,1,0,0,0,
+  	90,94,5,2,0,0,91,93,3,8,4,0,92,91,1,0,0,0,93,96,1,0,0,0,94,92,1,0,0,0,
+  	94,95,1,0,0,0,95,97,1,0,0,0,96,94,1,0,0,0,97,99,5,5,0,0,98,82,1,0,0,0,
+  	98,99,1,0,0,0,99,100,1,0,0,0,100,101,5,16,0,0,101,102,5,2,0,0,102,103,
+  	5,41,0,0,103,113,5,5,0,0,104,105,5,17,0,0,105,109,5,2,0,0,106,108,3,10,
+  	5,0,107,106,1,0,0,0,108,111,1,0,0,0,109,107,1,0,0,0,109,110,1,0,0,0,110,
+  	112,1,0,0,0,111,109,1,0,0,0,112,114,5,5,0,0,113,104,1,0,0,0,113,114,1,
+  	0,0,0,114,124,1,0,0,0,115,116,5,18,0,0,116,120,5,2,0,0,117,119,3,12,6,
+  	0,118,117,1,0,0,0,119,122,1,0,0,0,120,118,1,0,0,0,120,121,1,0,0,0,121,
+  	123,1,0,0,0,122,120,1,0,0,0,123,125,5,5,0,0,124,115,1,0,0,0,124,125,1,
+  	0,0,0,125,126,1,0,0,0,126,127,5,5,0,0,127,5,1,0,0,0,128,129,5,42,0,0,
+  	129,130,5,2,0,0,130,131,5,42,0,0,131,7,1,0,0,0,132,133,5,42,0,0,133,134,
+  	5,2,0,0,134,135,5,42,0,0,135,9,1,0,0,0,136,137,5,45,0,0,137,139,5,2,0,
+  	0,138,136,1,0,0,0,138,139,1,0,0,0,139,140,1,0,0,0,140,143,5,44,0,0,141,
+  	144,3,20,10,0,142,144,5,45,0,0,143,141,1,0,0,0,143,142,1,0,0,0,143,144,
+  	1,0,0,0,144,11,1,0,0,0,145,146,5,44,0,0,146,147,5,19,0,0,147,148,5,44,
+  	0,0,148,149,5,20,0,0,149,150,5,44,0,0,150,151,5,2,0,0,151,152,5,42,0,
+  	0,152,13,1,0,0,0,153,154,5,21,0,0,154,155,5,42,0,0,155,156,5,2,0,0,156,
+  	157,5,22,0,0,157,158,5,2,0,0,158,159,7,2,0,0,159,160,5,5,0,0,160,161,
+  	5,27,0,0,161,165,5,2,0,0,162,164,3,16,8,0,163,162,1,0,0,0,164,167,1,0,
+  	0,0,165,163,1,0,0,0,165,166,1,0,0,0,166,171,1,0,0,0,167,165,1,0,0,0,168,
+  	169,5,28,0,0,169,170,5,2,0,0,170,172,3,22,11,0,171,168,1,0,0,0,171,172,
+  	1,0,0,0,172,182,1,0,0,0,173,174,5,29,0,0,174,178,5,2,0,0,175,177,3,18,
+  	9,0,176,175,1,0,0,0,177,180,1,0,0,0,178,176,1,0,0,0,178,179,1,0,0,0,179,
+  	181,1,0,0,0,180,178,1,0,0,0,181,183,5,5,0,0,182,173,1,0,0,0,182,183,1,
+  	0,0,0,183,187,1,0,0,0,184,186,3,4,2,0,185,184,1,0,0,0,186,189,1,0,0,0,
+  	187,185,1,0,0,0,187,188,1,0,0,0,188,193,1,0,0,0,189,187,1,0,0,0,190,192,
+  	3,14,7,0,191,190,1,0,0,0,192,195,1,0,0,0,193,191,1,0,0,0,193,194,1,0,
+  	0,0,194,196,1,0,0,0,195,193,1,0,0,0,196,197,5,5,0,0,197,15,1,0,0,0,198,
+  	199,7,3,0,0,199,17,1,0,0,0,200,202,3,16,8,0,201,200,1,0,0,0,202,205,1,
+  	0,0,0,203,201,1,0,0,0,203,204,1,0,0,0,204,206,1,0,0,0,205,203,1,0,0,0,
+  	206,207,7,0,0,0,207,208,5,42,0,0,208,209,5,2,0,0,209,210,5,42,0,0,210,
+  	19,1,0,0,0,211,217,5,41,0,0,212,217,5,42,0,0,213,217,5,43,0,0,214,217,
+  	3,22,11,0,215,217,3,24,12,0,216,211,1,0,0,0,216,212,1,0,0,0,216,213,1,
+  	0,0,0,216,214,1,0,0,0,216,215,1,0,0,0,217,21,1,0,0,0,218,230,5,13,0,0,
+  	219,224,3,20,10,0,220,221,5,39,0,0,221,223,3,20,10,0,222,220,1,0,0,0,
+  	223,226,1,0,0,0,224,222,1,0,0,0,224,225,1,0,0,0,225,228,1,0,0,0,226,224,
+  	1,0,0,0,227,229,5,39,0,0,228,227,1,0,0,0,228,229,1,0,0,0,229,231,1,0,
+  	0,0,230,219,1,0,0,0,230,231,1,0,0,0,231,232,1,0,0,0,232,233,5,15,0,0,
+  	233,23,1,0,0,0,234,235,5,41,0,0,235,236,5,40,0,0,236,242,5,41,0,0,237,
+  	238,5,41,0,0,238,242,5,40,0,0,239,240,5,40,0,0,240,242,5,41,0,0,241,234,
+  	1,0,0,0,241,237,1,0,0,0,241,239,1,0,0,0,242,25,1,0,0,0,29,33,40,44,49,
+  	55,66,76,80,88,94,98,109,113,120,124,138,143,165,171,178,182,187,193,
+  	203,216,224,228,230,241
   };
   staticData->serializedATN = antlr4::atn::SerializedATNView(serializedATNSegment, sizeof(serializedATNSegment) / sizeof(serializedATNSegment[0]));
 
@@ -197,6 +200,10 @@ tree::TerminalNode* AssemblyParser::AssemblyContext::EOF() {
   return getToken(AssemblyParser::EOF, 0);
 }
 
+tree::TerminalNode* AssemblyParser::AssemblyContext::ID() {
+  return getToken(AssemblyParser::ID, 0);
+}
+
 AssemblyParser::ArrayContext* AssemblyParser::AssemblyContext::array() {
   return getRuleContext<AssemblyParser::ArrayContext>(0);
 }
@@ -252,65 +259,70 @@ AssemblyParser::AssemblyContext* AssemblyParser::assembly() {
   });
   try {
     enterOuterAlt(_localctx, 1);
-    setState(29);
-    _errHandler->sync(this);
-
-    _la = _input->LA(1);
-    if (_la == AssemblyParser::T__0) {
-      setState(26);
-      match(AssemblyParser::T__0);
-      setState(27);
-      match(AssemblyParser::T__1);
-      setState(28);
-      array();
-    }
-    setState(40);
+    setState(26);
+    match(AssemblyParser::T__0);
+    setState(27);
+    match(AssemblyParser::T__1);
+    setState(28);
+    antlrcpp::downCast<AssemblyContext *>(_localctx)->module = match(AssemblyParser::ID);
+    setState(33);
     _errHandler->sync(this);
 
     _la = _input->LA(1);
     if (_la == AssemblyParser::T__2) {
-      setState(31);
+      setState(30);
       match(AssemblyParser::T__2);
-      setState(32);
+      setState(31);
       match(AssemblyParser::T__1);
+      setState(32);
+      array();
+    }
+    setState(44);
+    _errHandler->sync(this);
+
+    _la = _input->LA(1);
+    if (_la == AssemblyParser::T__3) {
+      setState(35);
+      match(AssemblyParser::T__3);
       setState(36);
+      match(AssemblyParser::T__1);
+      setState(40);
       _errHandler->sync(this);
       _la = _input->LA(1);
-      while (_la == AssemblyParser::T__4
+      while (_la == AssemblyParser::T__5
 
-      || _la == AssemblyParser::T__5) {
-        setState(33);
+      || _la == AssemblyParser::T__6) {
+        setState(37);
         global();
-        setState(38);
+        setState(42);
         _errHandler->sync(this);
         _la = _input->LA(1);
       }
-      setState(39);
-      match(AssemblyParser::T__3);
+      setState(43);
+      match(AssemblyParser::T__4);
     }
-    setState(45);
+    setState(49);
     _errHandler->sync(this);
     _la = _input->LA(1);
-    while (_la == AssemblyParser::T__6
-
-    || _la == AssemblyParser::T__7) {
-      setState(42);
+    while ((((_la & ~ 0x3fULL) == 0) &&
+      ((1ULL << _la) & 1792) != 0)) {
+      setState(46);
       method();
-      setState(47);
+      setState(51);
       _errHandler->sync(this);
       _la = _input->LA(1);
     }
-    setState(51);
+    setState(55);
     _errHandler->sync(this);
     _la = _input->LA(1);
-    while (_la == AssemblyParser::T__18) {
-      setState(48);
+    while (_la == AssemblyParser::T__20) {
+      setState(52);
       class_();
-      setState(53);
+      setState(57);
       _errHandler->sync(this);
       _la = _input->LA(1);
     }
-    setState(54);
+    setState(58);
     match(AssemblyParser::EOF);
    
   }
@@ -364,23 +376,23 @@ AssemblyParser::GlobalContext* AssemblyParser::global() {
   });
   try {
     enterOuterAlt(_localctx, 1);
-    setState(56);
+    setState(60);
     antlrcpp::downCast<GlobalContext *>(_localctx)->type = _input->LT(1);
     _la = _input->LA(1);
-    if (!(_la == AssemblyParser::T__4
+    if (!(_la == AssemblyParser::T__5
 
-    || _la == AssemblyParser::T__5)) {
+    || _la == AssemblyParser::T__6)) {
       antlrcpp::downCast<GlobalContext *>(_localctx)->type = _errHandler->recoverInline(this);
     }
     else {
       _errHandler->reportMatch(this);
       consume();
     }
-    setState(57);
+    setState(61);
     match(AssemblyParser::STRING);
-    setState(58);
+    setState(62);
     match(AssemblyParser::T__1);
-    setState(59);
+    setState(63);
     match(AssemblyParser::STRING);
    
   }
@@ -470,136 +482,148 @@ AssemblyParser::MethodContext* AssemblyParser::method() {
   });
   try {
     enterOuterAlt(_localctx, 1);
-    setState(62);
-    _errHandler->sync(this);
-
-    _la = _input->LA(1);
-    if (_la == AssemblyParser::T__6) {
-      setState(61);
-      antlrcpp::downCast<MethodContext *>(_localctx)->entry = match(AssemblyParser::T__6);
-    }
-    setState(64);
-    match(AssemblyParser::T__7);
-    setState(65);
-    match(AssemblyParser::STRING);
     setState(66);
-    match(AssemblyParser::T__1);
-    setState(76);
     _errHandler->sync(this);
 
     _la = _input->LA(1);
-    if (_la == AssemblyParser::T__8) {
-      setState(67);
-      match(AssemblyParser::T__8);
-      setState(68);
-      match(AssemblyParser::T__1);
+    if (_la == AssemblyParser::T__7
+
+    || _la == AssemblyParser::T__8) {
+      setState(65);
+      antlrcpp::downCast<MethodContext *>(_localctx)->kind = _input->LT(1);
+      _la = _input->LA(1);
+      if (!(_la == AssemblyParser::T__7
+
+      || _la == AssemblyParser::T__8)) {
+        antlrcpp::downCast<MethodContext *>(_localctx)->kind = _errHandler->recoverInline(this);
+      }
+      else {
+        _errHandler->reportMatch(this);
+        consume();
+      }
+    }
+    setState(68);
+    match(AssemblyParser::T__9);
+    setState(69);
+    match(AssemblyParser::STRING);
+    setState(70);
+    match(AssemblyParser::T__1);
+    setState(80);
+    _errHandler->sync(this);
+
+    _la = _input->LA(1);
+    if (_la == AssemblyParser::T__10) {
+      setState(71);
+      match(AssemblyParser::T__10);
       setState(72);
+      match(AssemblyParser::T__1);
+      setState(76);
       _errHandler->sync(this);
       _la = _input->LA(1);
       while (_la == AssemblyParser::STRING) {
-        setState(69);
+        setState(73);
         arg();
-        setState(74);
+        setState(78);
         _errHandler->sync(this);
         _la = _input->LA(1);
       }
-      setState(75);
-      match(AssemblyParser::T__3);
+      setState(79);
+      match(AssemblyParser::T__4);
     }
-    setState(94);
+    setState(98);
     _errHandler->sync(this);
 
     _la = _input->LA(1);
-    if (_la == AssemblyParser::T__9) {
-      setState(78);
-      match(AssemblyParser::T__9);
-      setState(84);
+    if (_la == AssemblyParser::T__11) {
+      setState(82);
+      match(AssemblyParser::T__11);
+      setState(88);
       _errHandler->sync(this);
 
       _la = _input->LA(1);
-      if (_la == AssemblyParser::T__10) {
-        setState(79);
-        match(AssemblyParser::T__10);
-        setState(80);
-        match(AssemblyParser::T__11);
-        setState(81);
-        match(AssemblyParser::T__1);
-        setState(82);
-        match(AssemblyParser::NUMBER);
+      if (_la == AssemblyParser::T__12) {
         setState(83);
         match(AssemblyParser::T__12);
+        setState(84);
+        match(AssemblyParser::T__13);
+        setState(85);
+        match(AssemblyParser::T__1);
+        setState(86);
+        match(AssemblyParser::NUMBER);
+        setState(87);
+        match(AssemblyParser::T__14);
       }
-      setState(86);
-      match(AssemblyParser::T__1);
       setState(90);
+      match(AssemblyParser::T__1);
+      setState(94);
       _errHandler->sync(this);
       _la = _input->LA(1);
       while (_la == AssemblyParser::STRING) {
-        setState(87);
+        setState(91);
         local();
-        setState(92);
+        setState(96);
         _errHandler->sync(this);
         _la = _input->LA(1);
       }
-      setState(93);
-      match(AssemblyParser::T__3);
+      setState(97);
+      match(AssemblyParser::T__4);
     }
-    setState(96);
-    match(AssemblyParser::T__13);
-    setState(97);
+    setState(100);
+    match(AssemblyParser::T__15);
+    setState(101);
     match(AssemblyParser::T__1);
-    setState(98);
+    setState(102);
     match(AssemblyParser::NUMBER);
-    setState(99);
-    match(AssemblyParser::T__3);
-    setState(109);
+    setState(103);
+    match(AssemblyParser::T__4);
+    setState(113);
     _errHandler->sync(this);
 
     _la = _input->LA(1);
-    if (_la == AssemblyParser::T__14) {
-      setState(100);
-      match(AssemblyParser::T__14);
-      setState(101);
-      match(AssemblyParser::T__1);
+    if (_la == AssemblyParser::T__16) {
+      setState(104);
+      match(AssemblyParser::T__16);
       setState(105);
+      match(AssemblyParser::T__1);
+      setState(109);
       _errHandler->sync(this);
       _la = _input->LA(1);
       while (_la == AssemblyParser::ID
 
       || _la == AssemblyParser::LABEL) {
-        setState(102);
+        setState(106);
         line();
-        setState(107);
+        setState(111);
         _errHandler->sync(this);
         _la = _input->LA(1);
       }
-      setState(108);
-      match(AssemblyParser::T__3);
+      setState(112);
+      match(AssemblyParser::T__4);
     }
-    setState(120);
+    setState(124);
     _errHandler->sync(this);
 
     _la = _input->LA(1);
-    if (_la == AssemblyParser::T__15) {
-      setState(111);
-      match(AssemblyParser::T__15);
-      setState(112);
-      match(AssemblyParser::T__1);
+    if (_la == AssemblyParser::T__17) {
+      setState(115);
+      match(AssemblyParser::T__17);
       setState(116);
+      match(AssemblyParser::T__1);
+      setState(120);
       _errHandler->sync(this);
       _la = _input->LA(1);
       while (_la == AssemblyParser::ID) {
-        setState(113);
+        setState(117);
         exceptionItem();
-        setState(118);
+        setState(122);
         _errHandler->sync(this);
         _la = _input->LA(1);
       }
-      setState(119);
-      match(AssemblyParser::T__3);
+      setState(123);
+      match(AssemblyParser::T__4);
     }
-    setState(122);
-    match(AssemblyParser::T__3);
+    setState(126);
+    match(AssemblyParser::T__4);
    
   }
   catch (RecognitionException &e) {
@@ -651,11 +675,11 @@ AssemblyParser::ArgContext* AssemblyParser::arg() {
   });
   try {
     enterOuterAlt(_localctx, 1);
-    setState(124);
+    setState(128);
     match(AssemblyParser::STRING);
-    setState(125);
+    setState(129);
     match(AssemblyParser::T__1);
-    setState(126);
+    setState(130);
     match(AssemblyParser::STRING);
    
   }
@@ -708,11 +732,11 @@ AssemblyParser::LocalContext* AssemblyParser::local() {
   });
   try {
     enterOuterAlt(_localctx, 1);
-    setState(128);
+    setState(132);
     match(AssemblyParser::STRING);
-    setState(129);
+    setState(133);
     match(AssemblyParser::T__1);
-    setState(130);
+    setState(134);
     match(AssemblyParser::STRING);
    
   }
@@ -774,30 +798,30 @@ AssemblyParser::LineContext* AssemblyParser::line() {
   });
   try {
     enterOuterAlt(_localctx, 1);
-    setState(134);
+    setState(138);
     _errHandler->sync(this);
 
     _la = _input->LA(1);
     if (_la == AssemblyParser::LABEL) {
-      setState(132);
+      setState(136);
       antlrcpp::downCast<LineContext *>(_localctx)->label = match(AssemblyParser::LABEL);
-      setState(133);
+      setState(137);
       match(AssemblyParser::T__1);
     }
-    setState(136);
+    setState(140);
     antlrcpp::downCast<LineContext *>(_localctx)->opcode = match(AssemblyParser::ID);
-    setState(139);
+    setState(143);
     _errHandler->sync(this);
 
     switch (getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 16, _ctx)) {
     case 1: {
-      setState(137);
+      setState(141);
       value();
       break;
     }
 
     case 2: {
-      setState(138);
+      setState(142);
       antlrcpp::downCast<LineContext *>(_localctx)->dest = match(AssemblyParser::LABEL);
       break;
     }
@@ -860,19 +884,19 @@ AssemblyParser::ExceptionItemContext* AssemblyParser::exceptionItem() {
   });
   try {
     enterOuterAlt(_localctx, 1);
-    setState(141);
-    match(AssemblyParser::ID);
-    setState(142);
-    match(AssemblyParser::T__16);
-    setState(143);
-    match(AssemblyParser::ID);
-    setState(144);
-    match(AssemblyParser::T__17);
     setState(145);
     match(AssemblyParser::ID);
     setState(146);
-    match(AssemblyParser::T__1);
+    match(AssemblyParser::T__18);
     setState(147);
+    match(AssemblyParser::ID);
+    setState(148);
+    match(AssemblyParser::T__19);
+    setState(149);
+    match(AssemblyParser::ID);
+    setState(150);
+    match(AssemblyParser::T__1);
+    setState(151);
     match(AssemblyParser::STRING);
    
   }
@@ -958,103 +982,102 @@ AssemblyParser::ClassContext* AssemblyParser::class_() {
   });
   try {
     enterOuterAlt(_localctx, 1);
-    setState(149);
-    match(AssemblyParser::T__18);
-    setState(150);
-    match(AssemblyParser::STRING);
-    setState(151);
-    match(AssemblyParser::T__1);
-    setState(152);
-    match(AssemblyParser::T__19);
     setState(153);
-    match(AssemblyParser::T__1);
+    match(AssemblyParser::T__20);
     setState(154);
+    match(AssemblyParser::STRING);
+    setState(155);
+    match(AssemblyParser::T__1);
+    setState(156);
+    match(AssemblyParser::T__21);
+    setState(157);
+    match(AssemblyParser::T__1);
+    setState(158);
     antlrcpp::downCast<ClassContext *>(_localctx)->type = _input->LT(1);
     _la = _input->LA(1);
     if (!((((_la & ~ 0x3fULL) == 0) &&
-      ((1ULL << _la) & 31457280) != 0))) {
+      ((1ULL << _la) & 125829120) != 0))) {
       antlrcpp::downCast<ClassContext *>(_localctx)->type = _errHandler->recoverInline(this);
     }
     else {
       _errHandler->reportMatch(this);
       consume();
     }
-    setState(155);
-    match(AssemblyParser::T__3);
-    setState(156);
-    match(AssemblyParser::T__24);
-    setState(157);
-    match(AssemblyParser::T__1);
+    setState(159);
+    match(AssemblyParser::T__4);
+    setState(160);
+    match(AssemblyParser::T__26);
     setState(161);
+    match(AssemblyParser::T__1);
+    setState(165);
     _errHandler->sync(this);
     _la = _input->LA(1);
     while ((((_la & ~ 0x3fULL) == 0) &&
-      ((1ULL << _la) & 137170518016) != 0)) {
-      setState(158);
+      ((1ULL << _la) & 548682072064) != 0)) {
+      setState(162);
       accessor();
-      setState(163);
+      setState(167);
       _errHandler->sync(this);
       _la = _input->LA(1);
     }
-    setState(167);
+    setState(171);
     _errHandler->sync(this);
 
     _la = _input->LA(1);
-    if (_la == AssemblyParser::T__25) {
-      setState(164);
-      match(AssemblyParser::T__25);
-      setState(165);
+    if (_la == AssemblyParser::T__27) {
+      setState(168);
+      match(AssemblyParser::T__27);
+      setState(169);
       match(AssemblyParser::T__1);
-      setState(166);
+      setState(170);
       antlrcpp::downCast<ClassContext *>(_localctx)->supers = array();
     }
-    setState(178);
+    setState(182);
     _errHandler->sync(this);
 
     _la = _input->LA(1);
-    if (_la == AssemblyParser::T__26) {
-      setState(169);
-      match(AssemblyParser::T__26);
-      setState(170);
-      match(AssemblyParser::T__1);
+    if (_la == AssemblyParser::T__28) {
+      setState(173);
+      match(AssemblyParser::T__28);
       setState(174);
+      match(AssemblyParser::T__1);
+      setState(178);
       _errHandler->sync(this);
       _la = _input->LA(1);
       while ((((_la & ~ 0x3fULL) == 0) &&
-        ((1ULL << _la) & 137170518112) != 0)) {
-        setState(171);
+        ((1ULL << _la) & 548682072256) != 0)) {
+        setState(175);
         field();
-        setState(176);
+        setState(180);
         _errHandler->sync(this);
         _la = _input->LA(1);
       }
-      setState(177);
-      match(AssemblyParser::T__3);
+      setState(181);
+      match(AssemblyParser::T__4);
     }
-    setState(183);
+    setState(187);
     _errHandler->sync(this);
     _la = _input->LA(1);
-    while (_la == AssemblyParser::T__6
-
-    || _la == AssemblyParser::T__7) {
-      setState(180);
+    while ((((_la & ~ 0x3fULL) == 0) &&
+      ((1ULL << _la) & 1792) != 0)) {
+      setState(184);
       method();
-      setState(185);
+      setState(189);
       _errHandler->sync(this);
       _la = _input->LA(1);
     }
-    setState(189);
+    setState(193);
     _errHandler->sync(this);
     _la = _input->LA(1);
-    while (_la == AssemblyParser::T__18) {
-      setState(186);
+    while (_la == AssemblyParser::T__20) {
+      setState(190);
       class_();
-      setState(191);
+      setState(195);
       _errHandler->sync(this);
       _la = _input->LA(1);
     }
-    setState(192);
-    match(AssemblyParser::T__3);
+    setState(196);
+    match(AssemblyParser::T__4);
    
   }
   catch (RecognitionException &e) {
@@ -1099,11 +1122,11 @@ AssemblyParser::AccessorContext* AssemblyParser::accessor() {
   });
   try {
     enterOuterAlt(_localctx, 1);
-    setState(194);
+    setState(198);
     antlrcpp::downCast<AccessorContext *>(_localctx)->modifier = _input->LT(1);
     _la = _input->LA(1);
     if (!((((_la & ~ 0x3fULL) == 0) &&
-      ((1ULL << _la) & 137170518016) != 0))) {
+      ((1ULL << _la) & 548682072064) != 0))) {
       antlrcpp::downCast<AccessorContext *>(_localctx)->modifier = _errHandler->recoverInline(this);
     }
     else {
@@ -1170,34 +1193,34 @@ AssemblyParser::FieldContext* AssemblyParser::field() {
   });
   try {
     enterOuterAlt(_localctx, 1);
-    setState(199);
+    setState(203);
     _errHandler->sync(this);
     _la = _input->LA(1);
     while ((((_la & ~ 0x3fULL) == 0) &&
-      ((1ULL << _la) & 137170518016) != 0)) {
-      setState(196);
+      ((1ULL << _la) & 548682072064) != 0)) {
+      setState(200);
       accessor();
-      setState(201);
+      setState(205);
       _errHandler->sync(this);
       _la = _input->LA(1);
     }
-    setState(202);
+    setState(206);
     antlrcpp::downCast<FieldContext *>(_localctx)->type = _input->LT(1);
     _la = _input->LA(1);
-    if (!(_la == AssemblyParser::T__4
+    if (!(_la == AssemblyParser::T__5
 
-    || _la == AssemblyParser::T__5)) {
+    || _la == AssemblyParser::T__6)) {
       antlrcpp::downCast<FieldContext *>(_localctx)->type = _errHandler->recoverInline(this);
     }
     else {
       _errHandler->reportMatch(this);
       consume();
     }
-    setState(203);
+    setState(207);
     match(AssemblyParser::STRING);
-    setState(204);
+    setState(208);
     match(AssemblyParser::T__1);
-    setState(205);
+    setState(209);
     match(AssemblyParser::STRING);
    
   }
@@ -1261,40 +1284,40 @@ AssemblyParser::ValueContext* AssemblyParser::value() {
     exitRule();
   });
   try {
-    setState(212);
+    setState(216);
     _errHandler->sync(this);
     switch (getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 24, _ctx)) {
     case 1: {
       enterOuterAlt(_localctx, 1);
-      setState(207);
+      setState(211);
       match(AssemblyParser::NUMBER);
       break;
     }
 
     case 2: {
       enterOuterAlt(_localctx, 2);
-      setState(208);
+      setState(212);
       match(AssemblyParser::STRING);
       break;
     }
 
     case 3: {
       enterOuterAlt(_localctx, 3);
-      setState(209);
+      setState(213);
       match(AssemblyParser::CSTRING);
       break;
     }
 
     case 4: {
       enterOuterAlt(_localctx, 4);
-      setState(210);
+      setState(214);
       array();
       break;
     }
 
     case 5: {
       enterOuterAlt(_localctx, 5);
-      setState(211);
+      setState(215);
       float_();
       break;
     }
@@ -1353,32 +1376,43 @@ AssemblyParser::ArrayContext* AssemblyParser::array() {
     exitRule();
   });
   try {
+    size_t alt;
     enterOuterAlt(_localctx, 1);
-    setState(214);
-    match(AssemblyParser::T__10);
-    setState(223);
+    setState(218);
+    match(AssemblyParser::T__12);
+    setState(230);
     _errHandler->sync(this);
 
     _la = _input->LA(1);
     if ((((_la & ~ 0x3fULL) == 0) &&
-      ((1ULL << _la) & 4123168606208) != 0)) {
-      setState(215);
+      ((1ULL << _la) & 16492674424832) != 0)) {
+      setState(219);
       value();
-      setState(220);
+      setState(224);
       _errHandler->sync(this);
-      _la = _input->LA(1);
-      while (_la == AssemblyParser::T__36) {
-        setState(216);
-        match(AssemblyParser::T__36);
-        setState(217);
-        value();
-        setState(222);
+      alt = getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 25, _ctx);
+      while (alt != 2 && alt != atn::ATN::INVALID_ALT_NUMBER) {
+        if (alt == 1) {
+          setState(220);
+          match(AssemblyParser::T__38);
+          setState(221);
+          value(); 
+        }
+        setState(226);
         _errHandler->sync(this);
-        _la = _input->LA(1);
+        alt = getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 25, _ctx);
+      }
+      setState(228);
+      _errHandler->sync(this);
+
+      _la = _input->LA(1);
+      if (_la == AssemblyParser::T__38) {
+        setState(227);
+        match(AssemblyParser::T__38);
       }
     }
-    setState(225);
-    match(AssemblyParser::T__12);
+    setState(232);
+    match(AssemblyParser::T__14);
    
   }
   catch (RecognitionException &e) {
@@ -1429,34 +1463,34 @@ AssemblyParser::FloatContext* AssemblyParser::float_() {
     exitRule();
   });
   try {
-    setState(234);
+    setState(241);
     _errHandler->sync(this);
-    switch (getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 27, _ctx)) {
+    switch (getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 28, _ctx)) {
     case 1: {
       enterOuterAlt(_localctx, 1);
-      setState(227);
+      setState(234);
       match(AssemblyParser::NUMBER);
-      setState(228);
-      match(AssemblyParser::T__37);
-      setState(229);
+      setState(235);
+      match(AssemblyParser::T__39);
+      setState(236);
       match(AssemblyParser::NUMBER);
       break;
     }
 
     case 2: {
       enterOuterAlt(_localctx, 2);
-      setState(230);
+      setState(237);
       match(AssemblyParser::NUMBER);
-      setState(231);
-      match(AssemblyParser::T__37);
+      setState(238);
+      match(AssemblyParser::T__39);
       break;
     }
 
     case 3: {
       enterOuterAlt(_localctx, 3);
-      setState(232);
-      match(AssemblyParser::T__37);
-      setState(233);
+      setState(239);
+      match(AssemblyParser::T__39);
+      setState(240);
       match(AssemblyParser::NUMBER);
       break;
     }

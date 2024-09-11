@@ -5,7 +5,11 @@ list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
 
 set(CMAKE_CXX_STANDARD 17)
 
-add_executable(spasm main.cpp Visitor.cpp utils/opcode.cpp utils/utils.cpp AssemblyParser.cpp AssemblyLexer.cpp)
+add_executable(spasm main.cpp assembler/Visitor.cpp utils/utils.cpp
+        assembler/AssemblyVisitor.cpp
+        assembler/AssemblyLexer.cpp
+        assembler/AssemblyParser.cpp
+        assembler/AssemblyBaseVisitor.cpp)
 
 # required if linking to static library
 add_definitions(-DANTLR4CPP_STATIC)

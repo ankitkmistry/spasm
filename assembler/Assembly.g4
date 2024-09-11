@@ -4,7 +4,8 @@ options {
     language=Cpp;
 }
 
-assembly: ('imports' ':' array)?
+assembly: ('module' ':' module=ID)
+          ('imports' ':' array)?
           ('globals' ':' global* ';')?
           method*
           class*
@@ -13,7 +14,7 @@ assembly: ('imports' ':' array)?
 
 global: type=('VAR'|'CONST') STRING ':' STRING;
 
-method: entry='entry'? 'method' STRING ':'
+method: kind=('entry'|'init')? 'method' STRING ':'
             ('args' ':' arg* ';')?
             ('locals' ('[' 'closureStart' ':' NUMBER ']')? ':' local* ';')?
             'maxstack' ':' NUMBER ';'
@@ -45,7 +46,7 @@ accessor: modifier=('PRIVATE'
 field: accessor* type=('VAR'|'CONST') STRING ':' STRING;
 
 value: NUMBER | STRING | CSTRING | array | float;
-array: '[' (value (',' value)*)? ']';
+array: '[' (value (',' value)* ','?)? ']';
 float: NUMBER '.' NUMBER
      | NUMBER '.'
      | '.' NUMBER
@@ -54,7 +55,7 @@ float: NUMBER '.' NUMBER
 NUMBER: [0-9]+;
 STRING: '"'.*?'"';
 CSTRING: '\''.'\'';
-ID: [a-zA-Z_][a-zA-Z0-9_]+;
+ID: [a-zA-Z_][a-zA-Z0-9_!@#$%&]+;
 LABEL: '$' [a-zA-Z_][a-zA-Z0-9_]+;
 WS: [ \t\r\n]+ -> skip;
 COMMENT: '#' ~[\n]* -> skip;

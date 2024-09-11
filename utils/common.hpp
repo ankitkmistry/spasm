@@ -5,10 +5,12 @@
 #include <cstdint>
 #include <string>
 #include <filesystem>
+#include <any>
+
+using std::any, std::any_cast, std::string, std::vector;
 
 #define null (nullptr)
 
-using namespace std;
 namespace fs = std::filesystem;
 
 using uint8 = uint8_t;

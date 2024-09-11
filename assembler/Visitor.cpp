@@ -11,9 +11,9 @@ void AssemblyBaseVisitor::State::addLabel(const string &label) {
     labels[label] = pc;
 }
 
-void AssemblyBaseVisitor::State::addByte(uint8 byte, size_t line) {
+void AssemblyBaseVisitor::State::addByte(uint8 byte, uint32 line) {
     code.push_back(byte);
-    lineTable[pc] = line;
+    sourceLines.push_back(line);
     pc++;
 }
 
@@ -48,6 +48,7 @@ uint32 AssemblyBaseVisitor::State::getMark(uint32 location) {
 }
 
 void AssemblyBaseVisitor::State::resolveLabels() {
+    vector<string> resolvedLabels;
     for (auto [label, locations]: unresolvedLabels) {
         // Get the location of the label
         auto labelLocItr = labels.find(label);
@@ -60,7 +61,7 @@ void AssemblyBaseVisitor::State::resolveLabels() {
             // Get the location of the opcode
             auto opcodeLoc = getMark(location) - 1;
             // Get the opcode from the starting of the line
-            auto opcode = static_cast<Opcode>(code[location]);
+            Opcode opcode = static_cast<Opcode>(code[opcodeLoc]);
             // Compute the jump
             auto jump = computeJump(labelLocation, location);
             // Set the jump accordingly
@@ -81,6 +82,9 @@ void AssemblyBaseVisitor::State::resolveLabels() {
             }
         }
         // Make it resolved
+        resolvedLabels.push_back(label);
+    }
+    for (auto label: resolvedLabels) {
         unresolvedLabels.erase(label);
     }
     // Complain if some labels are still not resolved
@@ -92,29 +96,31 @@ void AssemblyBaseVisitor::State::resolveLabels() {
         throw AssemblerError("cannot find labels", listToString(unresolved));
 }
 
-void AssemblyBaseVisitor::State::optimizeLineTable() {
-    map<size_t, uint32> table;
-    // Flip the table
-    for (auto [byteLine, sourceLine]: lineTable) {
-        table[sourceLine] = byteLine;
+MethodInfo::LineInfo AssemblyBaseVisitor::State::getLineTable() {
+    if (sourceLines.empty())return {.numberCount=0, .numbers=null};
+    vector<MethodInfo::LineInfo::NumberInfo> lines;
+    MethodInfo::LineInfo::NumberInfo line = {.times=1, .lineno=sourceLines[0]};
+    for (int i = 1; i < sourceLines.size(); ++i) {
+        if (line.lineno == sourceLines[i]) {
+            if (line.times >= UINT8_MAX) {
+                lines.push_back(line);
+                line = {.times=0, .lineno=sourceLines[i]};
+            }
+            line.times++;
+        } else {
+            lines.push_back(line);
+            line = {.times=1, .lineno=sourceLines[i]};
+            if (i == sourceLines.size() - 1) lines.push_back(line);
+        }
     }
-    // Empty the table
-    lineTable.clear();
-    // Copy the contents
-    for (auto [sourceLine, byteLine]: table) {
-        lineTable[byteLine] = sourceLine;
-    }
-}
 
-MethodInfo::LineInfo *AssemblyBaseVisitor::State::getLineTable() {
-    auto *lines = new MethodInfo::LineInfo[lineCount()];
-    size_t i = 0;
-    for (auto [byteLine, sourceLine]: lineTable) {
-        if (i >= lineCount())break;
-        lines[i] = {.byteCode=byteLine, .sourceCode=sourceLine};
-        i++;
+    MethodInfo::LineInfo lineInfo{};
+    lineInfo.numberCount = (uint16) lines.size();
+    lineInfo.numbers = new MethodInfo::LineInfo::NumberInfo[lineInfo.numberCount];
+    for (int i = 0; i < lineInfo.numberCount; ++i) {
+        lineInfo.numbers[i] = {.times=lines[i].times, .lineno=lines[i].times};
     }
-    return lines;
+    return lineInfo;
 }
 
 cpidx AssemblyBaseVisitor::fromConstants(const CpInfo cp) {
@@ -129,18 +135,13 @@ cpidx AssemblyBaseVisitor::fromConstants(const CpInfo cp) {
 std::any AssemblyBaseVisitor::visitAssembly(AssemblyParser::AssemblyContext *ctx) {
     newLevel(State::Type::TOP);
     ElpInfo elp{};
-    elp.minorVersion = 1;
-    elp.majorVersion = 1;
-    elp.compiledFrom = fromConstants(compiledFrom);
-    if (ctx->array() != null)
-        elp.imports = fromConstants(any_cast<vector<CpInfo>>(visitArray(ctx->array())));
-    else
-        elp.imports = fromConstants(vector<CpInfo>());
+
     elp.globalsCount = ctx->global().size();
     elp.globals = new GlobalInfo[elp.globalsCount];
     for (size_t i = 0; i < elp.globalsCount; ++i) {
         elp.globals[i] = any_cast<GlobalInfo>(visitGlobal(ctx->global(i)));
     }
+
     elp.objectsCount = ctx->method().size() + ctx->class_().size();
     elp.objects = new ObjInfo[elp.objectsCount];
     uint16 i = 0;
@@ -158,6 +159,7 @@ std::any AssemblyBaseVisitor::visitAssembly(AssemblyParser::AssemblyContext *ctx
         elp.objects[i] = obj;
         i++;
     }
+
     if (!entry.empty()) {
         elp.magic = 0xC0FFEEDE;
         elp.type = 0x01;
@@ -167,8 +169,16 @@ std::any AssemblyBaseVisitor::visitAssembly(AssemblyParser::AssemblyContext *ctx
         elp.type = 0x02;
         elp.entry = fromConstants("");
     }
+    elp.minorVersion = 1;
+    elp.majorVersion = 1;
 
-    elp.thisModule = fromConstants(fs::path(compiledFrom).stem().string());
+    elp.compiledFrom = fromConstants(compiledFrom);
+    elp.thisModule = fromConstants(ctx->module->getText());
+    elp.init = fromConstants(init);
+    if (ctx->array() != null)
+        elp.imports = fromConstants(any_cast<vector<CpInfo>>(visitArray(ctx->array())));
+    else
+        elp.imports = fromConstants(vector<CpInfo>());
 
     elp.constantPoolCount = constantPool.size();
     elp.constantPool = new CpInfo[elp.constantPoolCount];
@@ -182,7 +192,7 @@ std::any AssemblyBaseVisitor::visitAssembly(AssemblyParser::AssemblyContext *ctx
 
 std::any AssemblyBaseVisitor::visitGlobal(AssemblyParser::GlobalContext *ctx) {
     GlobalInfo global{};
-    auto type = ctx->type->toString();
+    auto type = ctx->type->getText();
     if (type == "VAR") global.flags = 0x01;
     else if (type == "CONST") global.flags = 0x02;
     else throw Unreachable();
@@ -195,9 +205,18 @@ std::any AssemblyBaseVisitor::visitMethod(AssemblyParser::MethodContext *ctx) {
     newLevel(State::Type::METHOD);
     auto &state = getState();
     MethodInfo method{};
-    if (ctx->entry != null) entry = ctx->STRING()->toString();
+    if (ctx->kind != null) {
+        auto kind = ctx->kind->getText();
+        if (kind == "entry") {
+            entry = removeQuotes(ctx->STRING()->toString());
+        } else if (kind == "init") {
+            init = removeQuotes(ctx->STRING()->toString());
+        }
+    }
     method.type = classLevel == 0 ? 0x01 : 0x02;
-    method.thisMethod = fromConstants(ctx->STRING()->toString());
+    method.thisMethod = fromConstants(removeQuotes(ctx->STRING()->toString()));
+
+    method.typeParams = fromConstants(vector<CpInfo>());
 
     method.argsCount = ctx->arg().size();
     method.args = new MethodInfo::ArgInfo[method.argsCount];
@@ -226,10 +245,7 @@ std::any AssemblyBaseVisitor::visitMethod(AssemblyParser::MethodContext *ctx) {
         method.exceptionTable[i] = any_cast<MethodInfo::ExceptionTableInfo>(
                 visitExceptionItem(ctx->exceptionItem(i)));
     }
-
-    state.optimizeLineTable();
-    method.lineNumberTableCount = state.lineCount();
-    method.lineNumberTable = state.getLineTable();
+    method.lineInfo = state.getLineTable();
     endLevel();
     return method;
 }
@@ -250,7 +266,7 @@ std::any AssemblyBaseVisitor::visitLocal(AssemblyParser::LocalContext *ctx) {
 
 std::any AssemblyBaseVisitor::visitLine(AssemblyParser::LineContext *ctx) {
     auto &state = getState();
-    string label = ctx->label != null ? ctx->label->toString() : "";
+    string label = ctx->label != null ? ctx->label->getText() : "";
     Opcode opcode = OpcodeInfo::fromString(ctx->opcode->getText());
     auto params = OpcodeInfo::getParams(opcode);
 
@@ -290,7 +306,7 @@ std::any AssemblyBaseVisitor::visitLine(AssemblyParser::LineContext *ctx) {
         }
     } else if (ctx->dest != null) {
         // Calculate the jump
-        auto jump = state.getJump(ctx->dest->toString());
+        auto jump = state.getJump(ctx->dest->getText());
         switch (params) {
             case 2: {
                 // Slice the number and add it
@@ -333,7 +349,7 @@ std::any AssemblyBaseVisitor::visitClass(AssemblyParser::ClassContext *ctx) {
     newLevel(State::Type::CLASS);
 
     ClassInfo klass{};
-    auto type = ctx->type->toString();
+    auto type = ctx->type->getText();
     if (type == "CLASS")klass.type = 0x01;
     else if (type == "INTERFACE")klass.type = 0x02;
     else if (type == "ENUM")klass.type = 0x03;
@@ -341,7 +357,7 @@ std::any AssemblyBaseVisitor::visitClass(AssemblyParser::ClassContext *ctx) {
     else throw Unreachable();
 
     klass.accessFlags = getAccessFlag(ctx->accessor());
-    klass.thisClass = fromConstants(ctx->STRING()->toString());
+    klass.thisClass = fromConstants(removeQuotes(ctx->STRING()->toString()));
     // TODO: Add type parameter support
     klass.typeParams = fromConstants(CpInfo::fromArray({}));
     klass.supers = ctx->supers != null
@@ -372,24 +388,24 @@ std::any AssemblyBaseVisitor::visitClass(AssemblyParser::ClassContext *ctx) {
 }
 
 std::any AssemblyBaseVisitor::visitAccessor(AssemblyParser::AccessorContext *ctx) {
-    auto text = ctx->modifier->toString();
-    const map<string, uint16> MODIFIER_TABLE = {
-            {"PRIVATE",         0x0001},
-            {"INTERNAL",        0x0002},
-            {"PACKAGE_PRIVATE", 0x0004},
-            {"PROTECTED",       0x0008},
-            {"PUBLIC",          0x0010},
-            {"ABSTRACT",        0x0020},
-            {"FINAL",           0x0040},
-            {"STATIC",          0x0080},
-            {"INLINE",          0x0100},
+    auto text = ctx->modifier->getText();
+    const std::map<string, uint16> MODIFIER_TABLE = {
+            {"STATIC",          0b0000000000000001},
+            {"ABSTRACT",        0b0000000000000010},
+            {"FINAL",           0b0000000000000100},
+            {"OPERATOR",        0b0000000000001000},
+            {"PRIVATE",         0b0000000100000000},
+            {"INTERNAL",        0b0000001000000000},
+            {"PACKAGE_PRIVATE", 0b0000010000000000},
+            {"PROTECTED",       0b0000100000000000},
+            {"PUBLIC",          0b0001000000000000},
     };
     return MODIFIER_TABLE.at(text);
 }
 
 std::any AssemblyBaseVisitor::visitField(AssemblyParser::FieldContext *ctx) {
     FieldInfo field{};
-    field.accessFlags = getAccessFlag(ctx->accessor());
+    field.flags = getAccessFlag(ctx->accessor());
     field.thisField = fromConstants(removeQuotes(ctx->STRING(0)->toString()));
     field.type = fromConstants(removeQuotes(ctx->STRING(1)->toString()));
     return field;
@@ -399,7 +415,7 @@ std::any AssemblyBaseVisitor::visitValue(AssemblyParser::ValueContext *ctx) {
     if (ctx->NUMBER() != null) {
         return CpInfo::fromInt(stoi(ctx->NUMBER()->toString()));
     } else if (ctx->STRING() != null) {
-        return CpInfo::fromString(ctx->STRING()->toString());
+        return CpInfo::fromString(removeQuotes(ctx->STRING()->toString()));
     } else if (ctx->CSTRING() != null) {
         return CpInfo::fromChar(ctx->CSTRING()->toString()[1]);
     } else if (ctx->array() != null) {
