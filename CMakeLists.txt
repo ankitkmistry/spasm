@@ -3,13 +3,15 @@ project(spasm)
 
 list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
 
-set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD 20)
 
-add_executable(spasm main.cpp assembler/Visitor.cpp utils/utils.cpp
-        assembler/AssemblyVisitor.cpp
-        assembler/AssemblyLexer.cpp
-        assembler/AssemblyParser.cpp
-        assembler/AssemblyBaseVisitor.cpp)
+add_executable(spasm src/main.cpp
+        src/assembler/Visitor.cpp
+        src/utils/utils.cpp
+        src/assembler/AssemblyVisitor.cpp
+        src/assembler/AssemblyLexer.cpp
+        src/assembler/AssemblyParser.cpp
+        src/assembler/AssemblyBaseVisitor.cpp)
 
 # required if linking to static library
 add_definitions(-DANTLR4CPP_STATIC)
@@ -37,7 +39,7 @@ find_package(ANTLR REQUIRED)
 target_link_libraries(spasm antlr4_static)
 #target_link_libraries(spasm PRIVATE antlr4_shared)
 
-include_directories("D:/Programming (Ankit)/Projects/spade/1.0/elpops")
-target_include_directories(spasm PRIVATE "D:/Programming (Ankit)/Projects/spade/1.0/elpops")
+include_directories(../sputils/src)
+target_include_directories(spasm PRIVATE ../sputils/src)
 
-target_link_libraries(spasm "D:/Programming (Ankit)/Projects/spade/1.0/elpops/debug-build/libelpops.a")
+target_link_libraries(spasm "D:/Programming (Ankit)/Projects/spade/1.0/sputils/build-debug/libsputils.a")

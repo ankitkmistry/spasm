@@ -1,5 +1,5 @@
 
-// Generated from assembler/Assembly.g4 by ANTLR 4.12.0
+// Generated from src/assembler/Assembly.g4 by ANTLR 4.12.0
 
 #pragma once
 
@@ -44,6 +44,22 @@ public:
     virtual std::any visitArray(AssemblyParser::ArrayContext *context) = 0;
 
     virtual std::any visitFloat(AssemblyParser::FloatContext *context) = 0;
+
+    virtual std::any visitName(AssemblyParser::NameContext *context) = 0;
+
+    virtual std::any visitSignature(AssemblyParser::SignatureContext *context) = 0;
+
+    virtual std::any visitSignModule(AssemblyParser::SignModuleContext *context) = 0;
+
+    virtual std::any visitSignClass(AssemblyParser::SignClassContext *context) = 0;
+
+    virtual std::any visitSignMethod(AssemblyParser::SignMethodContext *context) = 0;
+
+    virtual std::any visitSignParams(AssemblyParser::SignParamsContext *context) = 0;
+
+    virtual std::any visitSignParam(AssemblyParser::SignParamContext *context) = 0;
+
+    virtual std::any visitSignTypeParams(AssemblyParser::SignTypeParamsContext *context) = 0;
 
 
 };

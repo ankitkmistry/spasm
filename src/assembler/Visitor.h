@@ -3,25 +3,19 @@
 
 #pragma once
 
-#include <stack>
-#include <utility>
-
-#include "antlr4-runtime.h"
-#include "AssemblyVisitor.h"
-#include "elpops/elpdef.hpp"
-#include "elpops/opcode.hpp"
 #include "../utils/exceptions.hpp"
 #include "../utils/utils.hpp"
-
+#include "antlr4-runtime.h"
+#include "AssemblyVisitor.h"
 
 /**
  * This class provides an empty implementation of AssemblyVisitor, which can be
  * extended to create a visitor which only needs to handle a subset of the available methods.
  */
 class AssemblyBaseVisitor : public AssemblyVisitor {
-private:
+  private:
     class State {
-    private:
+      private:
         vector<uint8> code = {};
         std::map<string, uint32> labels = {};
         std::map<string, vector<uint32>> unresolvedLabels = {};
@@ -29,10 +23,8 @@ private:
         vector<uint32> marks = {};
         uint32 pc = 0;
 
-    public:
-        enum class Type {
-            METHOD, CLASS, TOP
-        } type;
+      public:
+        enum class Type { METHOD, CLASS, TOP } type;
 
         explicit State(Type type) : type(type) {}
 
@@ -68,10 +60,9 @@ private:
     vector<CpInfo> constantPool = {};
     uint32 classLevel;
 
-public:
+  public:
     explicit AssemblyBaseVisitor(string compiledFrom)
-            : compiledFrom(std::move(compiledFrom)), states(), entry(),
-              classLevel(0) {}
+        : compiledFrom(std::move(compiledFrom)), states(), entry(), classLevel(0) {}
 
     void newLevel(State::Type type) { states.emplace_back(type); }
 
@@ -89,31 +80,27 @@ public:
     State &getState() { return states.end()[-1]; }
 
     std::any visitAssembly(AssemblyParser::AssemblyContext *ctx) override;
-
     std::any visitGlobal(AssemblyParser::GlobalContext *ctx) override;
-
     std::any visitMethod(AssemblyParser::MethodContext *ctx) override;
-
     std::any visitArg(AssemblyParser::ArgContext *ctx) override;
-
     std::any visitLocal(AssemblyParser::LocalContext *ctx) override;
-
     std::any visitLine(AssemblyParser::LineContext *ctx) override;
-
     std::any visitExceptionItem(AssemblyParser::ExceptionItemContext *ctx) override;
 
     uint16 getAccessFlag(const vector<AssemblyParser::AccessorContext *> &accessors);
 
     std::any visitClass(AssemblyParser::ClassContext *ctx) override;
-
     std::any visitAccessor(AssemblyParser::AccessorContext *ctx) override;
-
     std::any visitField(AssemblyParser::FieldContext *ctx) override;
-
     std::any visitValue(AssemblyParser::ValueContext *ctx) override;
-
     std::any visitArray(AssemblyParser::ArrayContext *ctx) override;
-
     std::any visitFloat(AssemblyParser::FloatContext *ctx) override;
+    std::any visitName(AssemblyParser::NameContext *context) override;
+    std::any visitSignature(AssemblyParser::SignatureContext *context) override;
+    std::any visitSignModule(AssemblyParser::SignModuleContext *context) override;
+    std::any visitSignClass(AssemblyParser::SignClassContext *context) override;
+    std::any visitSignMethod(AssemblyParser::SignMethodContext *context) override;
+    std::any visitSignTypeParams(AssemblyParser::SignTypeParamsContext *context) override;
+    std::any visitSignParams(AssemblyParser::SignParamsContext *context) override;
+    std::any visitSignParam(AssemblyParser::SignParamContext *context) override;
 };
-

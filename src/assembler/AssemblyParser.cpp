@@ -1,5 +1,5 @@
 
-// Generated from assembler/Assembly.g4 by ANTLR 4.12.0
+// Generated from src/assembler/Assembly.g4 by ANTLR 4.12.0
 
 
 #include "AssemblyVisitor.h"
@@ -44,7 +44,9 @@ void assemblyParserInitialize() {
   auto staticData = std::make_unique<AssemblyParserStaticData>(
     std::vector<std::string>{
       "assembly", "global", "method", "arg", "local", "line", "exceptionItem", 
-      "class", "accessor", "field", "value", "array", "float"
+      "class", "accessor", "field", "value", "array", "float", "name", "signature", 
+      "signModule", "signClass", "signMethod", "signParams", "signParam", 
+      "signTypeParams"
     },
     std::vector<std::string>{
       "", "'module'", "':'", "'imports'", "'globals'", "';'", "'VAR'", "'CONST'", 
@@ -53,95 +55,133 @@ void assemblyParserInitialize() {
       "'class'", "'type'", "'CLASS'", "'INTERFACE'", "'ENUM'", "'ANNOTATION'", 
       "'accessors'", "'supers'", "'fields'", "'PRIVATE'", "'INTERNAL'", 
       "'PACKAGE_PRIVATE'", "'PROTECTED'", "'PUBLIC'", "'ABSTRACT'", "'FINAL'", 
-      "'STATIC'", "'INLINE'", "','", "'.'"
+      "'STATIC'", "'INLINE'", "','", "'.'", "'<'", "'>'", "'::'", "'('", 
+      "')'"
     },
     std::vector<std::string>{
       "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", 
       "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", 
-      "", "", "", "", "", "", "", "NUMBER", "STRING", "CSTRING", "ID", "LABEL", 
-      "WS", "COMMENT"
+      "", "", "", "", "", "", "", "", "", "", "", "", "NUMBER", "STRING", 
+      "CSTRING", "ID", "LABEL", "WS", "COMMENT"
     }
   );
   static const int32_t serializedATNSegment[] = {
-  	4,1,47,244,2,0,7,0,2,1,7,1,2,2,7,2,2,3,7,3,2,4,7,4,2,5,7,5,2,6,7,6,2,
-  	7,7,7,2,8,7,8,2,9,7,9,2,10,7,10,2,11,7,11,2,12,7,12,1,0,1,0,1,0,1,0,1,
-  	0,1,0,1,0,3,0,34,8,0,1,0,1,0,1,0,5,0,39,8,0,10,0,12,0,42,9,0,1,0,3,0,
-  	45,8,0,1,0,5,0,48,8,0,10,0,12,0,51,9,0,1,0,5,0,54,8,0,10,0,12,0,57,9,
-  	0,1,0,1,0,1,1,1,1,1,1,1,1,1,1,1,2,3,2,67,8,2,1,2,1,2,1,2,1,2,1,2,1,2,
-  	5,2,75,8,2,10,2,12,2,78,9,2,1,2,3,2,81,8,2,1,2,1,2,1,2,1,2,1,2,1,2,3,
-  	2,89,8,2,1,2,1,2,5,2,93,8,2,10,2,12,2,96,9,2,1,2,3,2,99,8,2,1,2,1,2,1,
-  	2,1,2,1,2,1,2,1,2,5,2,108,8,2,10,2,12,2,111,9,2,1,2,3,2,114,8,2,1,2,1,
-  	2,1,2,5,2,119,8,2,10,2,12,2,122,9,2,1,2,3,2,125,8,2,1,2,1,2,1,3,1,3,1,
-  	3,1,3,1,4,1,4,1,4,1,4,1,5,1,5,3,5,139,8,5,1,5,1,5,1,5,3,5,144,8,5,1,6,
-  	1,6,1,6,1,6,1,6,1,6,1,6,1,6,1,7,1,7,1,7,1,7,1,7,1,7,1,7,1,7,1,7,1,7,5,
-  	7,164,8,7,10,7,12,7,167,9,7,1,7,1,7,1,7,3,7,172,8,7,1,7,1,7,1,7,5,7,177,
-  	8,7,10,7,12,7,180,9,7,1,7,3,7,183,8,7,1,7,5,7,186,8,7,10,7,12,7,189,9,
-  	7,1,7,5,7,192,8,7,10,7,12,7,195,9,7,1,7,1,7,1,8,1,8,1,9,5,9,202,8,9,10,
-  	9,12,9,205,9,9,1,9,1,9,1,9,1,9,1,9,1,10,1,10,1,10,1,10,1,10,3,10,217,
-  	8,10,1,11,1,11,1,11,1,11,5,11,223,8,11,10,11,12,11,226,9,11,1,11,3,11,
-  	229,8,11,3,11,231,8,11,1,11,1,11,1,12,1,12,1,12,1,12,1,12,1,12,1,12,3,
-  	12,242,8,12,1,12,0,0,13,0,2,4,6,8,10,12,14,16,18,20,22,24,0,4,1,0,6,7,
-  	1,0,8,9,1,0,23,26,1,0,30,38,264,0,26,1,0,0,0,2,60,1,0,0,0,4,66,1,0,0,
-  	0,6,128,1,0,0,0,8,132,1,0,0,0,10,138,1,0,0,0,12,145,1,0,0,0,14,153,1,
-  	0,0,0,16,198,1,0,0,0,18,203,1,0,0,0,20,216,1,0,0,0,22,218,1,0,0,0,24,
-  	241,1,0,0,0,26,27,5,1,0,0,27,28,5,2,0,0,28,29,5,44,0,0,29,33,1,0,0,0,
-  	30,31,5,3,0,0,31,32,5,2,0,0,32,34,3,22,11,0,33,30,1,0,0,0,33,34,1,0,0,
-  	0,34,44,1,0,0,0,35,36,5,4,0,0,36,40,5,2,0,0,37,39,3,2,1,0,38,37,1,0,0,
-  	0,39,42,1,0,0,0,40,38,1,0,0,0,40,41,1,0,0,0,41,43,1,0,0,0,42,40,1,0,0,
-  	0,43,45,5,5,0,0,44,35,1,0,0,0,44,45,1,0,0,0,45,49,1,0,0,0,46,48,3,4,2,
-  	0,47,46,1,0,0,0,48,51,1,0,0,0,49,47,1,0,0,0,49,50,1,0,0,0,50,55,1,0,0,
-  	0,51,49,1,0,0,0,52,54,3,14,7,0,53,52,1,0,0,0,54,57,1,0,0,0,55,53,1,0,
-  	0,0,55,56,1,0,0,0,56,58,1,0,0,0,57,55,1,0,0,0,58,59,5,0,0,1,59,1,1,0,
-  	0,0,60,61,7,0,0,0,61,62,5,42,0,0,62,63,5,2,0,0,63,64,5,42,0,0,64,3,1,
-  	0,0,0,65,67,7,1,0,0,66,65,1,0,0,0,66,67,1,0,0,0,67,68,1,0,0,0,68,69,5,
-  	10,0,0,69,70,5,42,0,0,70,80,5,2,0,0,71,72,5,11,0,0,72,76,5,2,0,0,73,75,
-  	3,6,3,0,74,73,1,0,0,0,75,78,1,0,0,0,76,74,1,0,0,0,76,77,1,0,0,0,77,79,
-  	1,0,0,0,78,76,1,0,0,0,79,81,5,5,0,0,80,71,1,0,0,0,80,81,1,0,0,0,81,98,
-  	1,0,0,0,82,88,5,12,0,0,83,84,5,13,0,0,84,85,5,14,0,0,85,86,5,2,0,0,86,
-  	87,5,41,0,0,87,89,5,15,0,0,88,83,1,0,0,0,88,89,1,0,0,0,89,90,1,0,0,0,
-  	90,94,5,2,0,0,91,93,3,8,4,0,92,91,1,0,0,0,93,96,1,0,0,0,94,92,1,0,0,0,
-  	94,95,1,0,0,0,95,97,1,0,0,0,96,94,1,0,0,0,97,99,5,5,0,0,98,82,1,0,0,0,
-  	98,99,1,0,0,0,99,100,1,0,0,0,100,101,5,16,0,0,101,102,5,2,0,0,102,103,
-  	5,41,0,0,103,113,5,5,0,0,104,105,5,17,0,0,105,109,5,2,0,0,106,108,3,10,
-  	5,0,107,106,1,0,0,0,108,111,1,0,0,0,109,107,1,0,0,0,109,110,1,0,0,0,110,
-  	112,1,0,0,0,111,109,1,0,0,0,112,114,5,5,0,0,113,104,1,0,0,0,113,114,1,
-  	0,0,0,114,124,1,0,0,0,115,116,5,18,0,0,116,120,5,2,0,0,117,119,3,12,6,
-  	0,118,117,1,0,0,0,119,122,1,0,0,0,120,118,1,0,0,0,120,121,1,0,0,0,121,
-  	123,1,0,0,0,122,120,1,0,0,0,123,125,5,5,0,0,124,115,1,0,0,0,124,125,1,
-  	0,0,0,125,126,1,0,0,0,126,127,5,5,0,0,127,5,1,0,0,0,128,129,5,42,0,0,
-  	129,130,5,2,0,0,130,131,5,42,0,0,131,7,1,0,0,0,132,133,5,42,0,0,133,134,
-  	5,2,0,0,134,135,5,42,0,0,135,9,1,0,0,0,136,137,5,45,0,0,137,139,5,2,0,
-  	0,138,136,1,0,0,0,138,139,1,0,0,0,139,140,1,0,0,0,140,143,5,44,0,0,141,
-  	144,3,20,10,0,142,144,5,45,0,0,143,141,1,0,0,0,143,142,1,0,0,0,143,144,
-  	1,0,0,0,144,11,1,0,0,0,145,146,5,44,0,0,146,147,5,19,0,0,147,148,5,44,
-  	0,0,148,149,5,20,0,0,149,150,5,44,0,0,150,151,5,2,0,0,151,152,5,42,0,
-  	0,152,13,1,0,0,0,153,154,5,21,0,0,154,155,5,42,0,0,155,156,5,2,0,0,156,
-  	157,5,22,0,0,157,158,5,2,0,0,158,159,7,2,0,0,159,160,5,5,0,0,160,161,
-  	5,27,0,0,161,165,5,2,0,0,162,164,3,16,8,0,163,162,1,0,0,0,164,167,1,0,
-  	0,0,165,163,1,0,0,0,165,166,1,0,0,0,166,171,1,0,0,0,167,165,1,0,0,0,168,
-  	169,5,28,0,0,169,170,5,2,0,0,170,172,3,22,11,0,171,168,1,0,0,0,171,172,
-  	1,0,0,0,172,182,1,0,0,0,173,174,5,29,0,0,174,178,5,2,0,0,175,177,3,18,
-  	9,0,176,175,1,0,0,0,177,180,1,0,0,0,178,176,1,0,0,0,178,179,1,0,0,0,179,
-  	181,1,0,0,0,180,178,1,0,0,0,181,183,5,5,0,0,182,173,1,0,0,0,182,183,1,
-  	0,0,0,183,187,1,0,0,0,184,186,3,4,2,0,185,184,1,0,0,0,186,189,1,0,0,0,
-  	187,185,1,0,0,0,187,188,1,0,0,0,188,193,1,0,0,0,189,187,1,0,0,0,190,192,
-  	3,14,7,0,191,190,1,0,0,0,192,195,1,0,0,0,193,191,1,0,0,0,193,194,1,0,
-  	0,0,194,196,1,0,0,0,195,193,1,0,0,0,196,197,5,5,0,0,197,15,1,0,0,0,198,
-  	199,7,3,0,0,199,17,1,0,0,0,200,202,3,16,8,0,201,200,1,0,0,0,202,205,1,
-  	0,0,0,203,201,1,0,0,0,203,204,1,0,0,0,204,206,1,0,0,0,205,203,1,0,0,0,
-  	206,207,7,0,0,0,207,208,5,42,0,0,208,209,5,2,0,0,209,210,5,42,0,0,210,
-  	19,1,0,0,0,211,217,5,41,0,0,212,217,5,42,0,0,213,217,5,43,0,0,214,217,
-  	3,22,11,0,215,217,3,24,12,0,216,211,1,0,0,0,216,212,1,0,0,0,216,213,1,
-  	0,0,0,216,214,1,0,0,0,216,215,1,0,0,0,217,21,1,0,0,0,218,230,5,13,0,0,
-  	219,224,3,20,10,0,220,221,5,39,0,0,221,223,3,20,10,0,222,220,1,0,0,0,
-  	223,226,1,0,0,0,224,222,1,0,0,0,224,225,1,0,0,0,225,228,1,0,0,0,226,224,
-  	1,0,0,0,227,229,5,39,0,0,228,227,1,0,0,0,228,229,1,0,0,0,229,231,1,0,
-  	0,0,230,219,1,0,0,0,230,231,1,0,0,0,231,232,1,0,0,0,232,233,5,15,0,0,
-  	233,23,1,0,0,0,234,235,5,41,0,0,235,236,5,40,0,0,236,242,5,41,0,0,237,
-  	238,5,41,0,0,238,242,5,40,0,0,239,240,5,40,0,0,240,242,5,41,0,0,241,234,
-  	1,0,0,0,241,237,1,0,0,0,241,239,1,0,0,0,242,25,1,0,0,0,29,33,40,44,49,
-  	55,66,76,80,88,94,98,109,113,120,124,138,143,165,171,178,182,187,193,
-  	203,216,224,228,230,241
+  	4,1,52,347,2,0,7,0,2,1,7,1,2,2,7,2,2,3,7,3,2,4,7,4,2,5,7,5,2,6,7,6,2,
+  	7,7,7,2,8,7,8,2,9,7,9,2,10,7,10,2,11,7,11,2,12,7,12,2,13,7,13,2,14,7,
+  	14,2,15,7,15,2,16,7,16,2,17,7,17,2,18,7,18,2,19,7,19,2,20,7,20,1,0,1,
+  	0,1,0,1,0,1,0,1,0,1,0,3,0,50,8,0,1,0,1,0,1,0,5,0,55,8,0,10,0,12,0,58,
+  	9,0,1,0,3,0,61,8,0,1,0,5,0,64,8,0,10,0,12,0,67,9,0,1,0,5,0,70,8,0,10,
+  	0,12,0,73,9,0,1,0,1,0,1,1,1,1,1,1,1,1,1,1,1,2,3,2,83,8,2,1,2,1,2,1,2,
+  	1,2,1,2,1,2,5,2,91,8,2,10,2,12,2,94,9,2,1,2,3,2,97,8,2,1,2,1,2,1,2,1,
+  	2,1,2,1,2,3,2,105,8,2,1,2,1,2,5,2,109,8,2,10,2,12,2,112,9,2,1,2,3,2,115,
+  	8,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,5,2,124,8,2,10,2,12,2,127,9,2,1,2,3,2,
+  	130,8,2,1,2,1,2,1,2,5,2,135,8,2,10,2,12,2,138,9,2,1,2,3,2,141,8,2,1,2,
+  	1,2,1,3,1,3,1,3,1,3,1,4,1,4,1,4,1,4,1,5,1,5,3,5,155,8,5,1,5,1,5,1,5,3,
+  	5,160,8,5,1,6,1,6,1,6,1,6,1,6,1,6,1,6,1,6,1,7,1,7,1,7,1,7,1,7,1,7,1,7,
+  	1,7,1,7,1,7,5,7,180,8,7,10,7,12,7,183,9,7,1,7,1,7,1,7,3,7,188,8,7,1,7,
+  	1,7,1,7,5,7,193,8,7,10,7,12,7,196,9,7,1,7,3,7,199,8,7,1,7,5,7,202,8,7,
+  	10,7,12,7,205,9,7,1,7,5,7,208,8,7,10,7,12,7,211,9,7,1,7,1,7,1,8,1,8,1,
+  	9,5,9,218,8,9,10,9,12,9,221,9,9,1,9,1,9,1,9,1,9,1,9,1,10,1,10,1,10,1,
+  	10,1,10,1,10,3,10,234,8,10,1,11,1,11,1,11,1,11,5,11,240,8,11,10,11,12,
+  	11,243,9,11,1,11,3,11,246,8,11,3,11,248,8,11,1,11,1,11,1,12,1,12,1,12,
+  	1,12,1,12,1,12,1,12,3,12,259,8,12,1,13,1,13,1,14,1,14,1,14,1,14,3,14,
+  	267,8,14,5,14,269,8,14,10,14,12,14,272,9,14,1,14,1,14,1,14,3,14,277,8,
+  	14,4,14,279,8,14,11,14,12,14,280,1,14,1,14,1,14,3,14,286,8,14,1,15,1,
+  	15,1,15,5,15,291,8,15,10,15,12,15,294,9,15,1,16,1,16,3,16,298,8,16,1,
+  	17,1,17,3,17,302,8,17,1,17,1,17,1,18,1,18,1,18,1,18,5,18,310,8,18,10,
+  	18,12,18,313,9,18,3,18,315,8,18,1,18,1,18,1,19,3,19,320,8,19,1,19,1,19,
+  	4,19,324,8,19,11,19,12,19,325,1,19,1,19,1,19,3,19,331,8,19,1,19,3,19,
+  	334,8,19,1,20,1,20,1,20,1,20,5,20,340,8,20,10,20,12,20,343,9,20,1,20,
+  	1,20,1,20,0,0,21,0,2,4,6,8,10,12,14,16,18,20,22,24,26,28,30,32,34,36,
+  	38,40,0,5,1,0,6,7,1,0,8,9,1,0,23,26,1,0,30,38,2,0,47,47,49,49,376,0,42,
+  	1,0,0,0,2,76,1,0,0,0,4,82,1,0,0,0,6,144,1,0,0,0,8,148,1,0,0,0,10,154,
+  	1,0,0,0,12,161,1,0,0,0,14,169,1,0,0,0,16,214,1,0,0,0,18,219,1,0,0,0,20,
+  	233,1,0,0,0,22,235,1,0,0,0,24,258,1,0,0,0,26,260,1,0,0,0,28,285,1,0,0,
+  	0,30,287,1,0,0,0,32,295,1,0,0,0,34,299,1,0,0,0,36,305,1,0,0,0,38,330,
+  	1,0,0,0,40,335,1,0,0,0,42,43,5,1,0,0,43,44,5,2,0,0,44,45,5,49,0,0,45,
+  	49,1,0,0,0,46,47,5,3,0,0,47,48,5,2,0,0,48,50,3,22,11,0,49,46,1,0,0,0,
+  	49,50,1,0,0,0,50,60,1,0,0,0,51,52,5,4,0,0,52,56,5,2,0,0,53,55,3,2,1,0,
+  	54,53,1,0,0,0,55,58,1,0,0,0,56,54,1,0,0,0,56,57,1,0,0,0,57,59,1,0,0,0,
+  	58,56,1,0,0,0,59,61,5,5,0,0,60,51,1,0,0,0,60,61,1,0,0,0,61,65,1,0,0,0,
+  	62,64,3,4,2,0,63,62,1,0,0,0,64,67,1,0,0,0,65,63,1,0,0,0,65,66,1,0,0,0,
+  	66,71,1,0,0,0,67,65,1,0,0,0,68,70,3,14,7,0,69,68,1,0,0,0,70,73,1,0,0,
+  	0,71,69,1,0,0,0,71,72,1,0,0,0,72,74,1,0,0,0,73,71,1,0,0,0,74,75,5,0,0,
+  	1,75,1,1,0,0,0,76,77,7,0,0,0,77,78,3,26,13,0,78,79,5,2,0,0,79,80,3,28,
+  	14,0,80,3,1,0,0,0,81,83,7,1,0,0,82,81,1,0,0,0,82,83,1,0,0,0,83,84,1,0,
+  	0,0,84,85,5,10,0,0,85,86,3,28,14,0,86,96,5,2,0,0,87,88,5,11,0,0,88,92,
+  	5,2,0,0,89,91,3,6,3,0,90,89,1,0,0,0,91,94,1,0,0,0,92,90,1,0,0,0,92,93,
+  	1,0,0,0,93,95,1,0,0,0,94,92,1,0,0,0,95,97,5,5,0,0,96,87,1,0,0,0,96,97,
+  	1,0,0,0,97,114,1,0,0,0,98,104,5,12,0,0,99,100,5,13,0,0,100,101,5,14,0,
+  	0,101,102,5,2,0,0,102,103,5,46,0,0,103,105,5,15,0,0,104,99,1,0,0,0,104,
+  	105,1,0,0,0,105,106,1,0,0,0,106,110,5,2,0,0,107,109,3,8,4,0,108,107,1,
+  	0,0,0,109,112,1,0,0,0,110,108,1,0,0,0,110,111,1,0,0,0,111,113,1,0,0,0,
+  	112,110,1,0,0,0,113,115,5,5,0,0,114,98,1,0,0,0,114,115,1,0,0,0,115,116,
+  	1,0,0,0,116,117,5,16,0,0,117,118,5,2,0,0,118,119,5,46,0,0,119,129,5,5,
+  	0,0,120,121,5,17,0,0,121,125,5,2,0,0,122,124,3,10,5,0,123,122,1,0,0,0,
+  	124,127,1,0,0,0,125,123,1,0,0,0,125,126,1,0,0,0,126,128,1,0,0,0,127,125,
+  	1,0,0,0,128,130,5,5,0,0,129,120,1,0,0,0,129,130,1,0,0,0,130,140,1,0,0,
+  	0,131,132,5,18,0,0,132,136,5,2,0,0,133,135,3,12,6,0,134,133,1,0,0,0,135,
+  	138,1,0,0,0,136,134,1,0,0,0,136,137,1,0,0,0,137,139,1,0,0,0,138,136,1,
+  	0,0,0,139,141,5,5,0,0,140,131,1,0,0,0,140,141,1,0,0,0,141,142,1,0,0,0,
+  	142,143,5,5,0,0,143,5,1,0,0,0,144,145,3,26,13,0,145,146,5,2,0,0,146,147,
+  	3,28,14,0,147,7,1,0,0,0,148,149,3,26,13,0,149,150,5,2,0,0,150,151,3,28,
+  	14,0,151,9,1,0,0,0,152,153,5,50,0,0,153,155,5,2,0,0,154,152,1,0,0,0,154,
+  	155,1,0,0,0,155,156,1,0,0,0,156,159,5,49,0,0,157,160,3,20,10,0,158,160,
+  	5,50,0,0,159,157,1,0,0,0,159,158,1,0,0,0,159,160,1,0,0,0,160,11,1,0,0,
+  	0,161,162,5,49,0,0,162,163,5,19,0,0,163,164,5,49,0,0,164,165,5,20,0,0,
+  	165,166,5,49,0,0,166,167,5,2,0,0,167,168,3,28,14,0,168,13,1,0,0,0,169,
+  	170,5,21,0,0,170,171,3,28,14,0,171,172,5,2,0,0,172,173,5,22,0,0,173,174,
+  	5,2,0,0,174,175,7,2,0,0,175,176,5,5,0,0,176,177,5,27,0,0,177,181,5,2,
+  	0,0,178,180,3,16,8,0,179,178,1,0,0,0,180,183,1,0,0,0,181,179,1,0,0,0,
+  	181,182,1,0,0,0,182,187,1,0,0,0,183,181,1,0,0,0,184,185,5,28,0,0,185,
+  	186,5,2,0,0,186,188,3,22,11,0,187,184,1,0,0,0,187,188,1,0,0,0,188,198,
+  	1,0,0,0,189,190,5,29,0,0,190,194,5,2,0,0,191,193,3,18,9,0,192,191,1,0,
+  	0,0,193,196,1,0,0,0,194,192,1,0,0,0,194,195,1,0,0,0,195,197,1,0,0,0,196,
+  	194,1,0,0,0,197,199,5,5,0,0,198,189,1,0,0,0,198,199,1,0,0,0,199,203,1,
+  	0,0,0,200,202,3,4,2,0,201,200,1,0,0,0,202,205,1,0,0,0,203,201,1,0,0,0,
+  	203,204,1,0,0,0,204,209,1,0,0,0,205,203,1,0,0,0,206,208,3,14,7,0,207,
+  	206,1,0,0,0,208,211,1,0,0,0,209,207,1,0,0,0,209,210,1,0,0,0,210,212,1,
+  	0,0,0,211,209,1,0,0,0,212,213,5,5,0,0,213,15,1,0,0,0,214,215,7,3,0,0,
+  	215,17,1,0,0,0,216,218,3,16,8,0,217,216,1,0,0,0,218,221,1,0,0,0,219,217,
+  	1,0,0,0,219,220,1,0,0,0,220,222,1,0,0,0,221,219,1,0,0,0,222,223,7,0,0,
+  	0,223,224,3,26,13,0,224,225,5,2,0,0,225,226,3,28,14,0,226,19,1,0,0,0,
+  	227,234,5,46,0,0,228,234,5,47,0,0,229,234,5,48,0,0,230,234,3,22,11,0,
+  	231,234,3,24,12,0,232,234,3,28,14,0,233,227,1,0,0,0,233,228,1,0,0,0,233,
+  	229,1,0,0,0,233,230,1,0,0,0,233,231,1,0,0,0,233,232,1,0,0,0,234,21,1,
+  	0,0,0,235,247,5,13,0,0,236,241,3,20,10,0,237,238,5,39,0,0,238,240,3,20,
+  	10,0,239,237,1,0,0,0,240,243,1,0,0,0,241,239,1,0,0,0,241,242,1,0,0,0,
+  	242,245,1,0,0,0,243,241,1,0,0,0,244,246,5,39,0,0,245,244,1,0,0,0,245,
+  	246,1,0,0,0,246,248,1,0,0,0,247,236,1,0,0,0,247,248,1,0,0,0,248,249,1,
+  	0,0,0,249,250,5,15,0,0,250,23,1,0,0,0,251,252,5,46,0,0,252,253,5,40,0,
+  	0,253,259,5,46,0,0,254,255,5,46,0,0,255,259,5,40,0,0,256,257,5,40,0,0,
+  	257,259,5,46,0,0,258,251,1,0,0,0,258,254,1,0,0,0,258,256,1,0,0,0,259,
+  	25,1,0,0,0,260,261,7,4,0,0,261,27,1,0,0,0,262,270,3,30,15,0,263,266,5,
+  	40,0,0,264,267,3,32,16,0,265,267,3,34,17,0,266,264,1,0,0,0,266,265,1,
+  	0,0,0,267,269,1,0,0,0,268,263,1,0,0,0,269,272,1,0,0,0,270,268,1,0,0,0,
+  	270,271,1,0,0,0,271,286,1,0,0,0,272,270,1,0,0,0,273,276,5,40,0,0,274,
+  	277,3,32,16,0,275,277,3,34,17,0,276,274,1,0,0,0,276,275,1,0,0,0,277,279,
+  	1,0,0,0,278,273,1,0,0,0,279,280,1,0,0,0,280,278,1,0,0,0,280,281,1,0,0,
+  	0,281,286,1,0,0,0,282,283,5,41,0,0,283,284,5,49,0,0,284,286,5,42,0,0,
+  	285,262,1,0,0,0,285,278,1,0,0,0,285,282,1,0,0,0,286,29,1,0,0,0,287,292,
+  	5,49,0,0,288,289,5,43,0,0,289,291,5,49,0,0,290,288,1,0,0,0,291,294,1,
+  	0,0,0,292,290,1,0,0,0,292,293,1,0,0,0,293,31,1,0,0,0,294,292,1,0,0,0,
+  	295,297,5,49,0,0,296,298,3,40,20,0,297,296,1,0,0,0,297,298,1,0,0,0,298,
+  	33,1,0,0,0,299,301,5,49,0,0,300,302,3,40,20,0,301,300,1,0,0,0,301,302,
+  	1,0,0,0,302,303,1,0,0,0,303,304,3,36,18,0,304,35,1,0,0,0,305,314,5,44,
+  	0,0,306,311,3,38,19,0,307,308,5,39,0,0,308,310,3,38,19,0,309,307,1,0,
+  	0,0,310,313,1,0,0,0,311,309,1,0,0,0,311,312,1,0,0,0,312,315,1,0,0,0,313,
+  	311,1,0,0,0,314,306,1,0,0,0,314,315,1,0,0,0,315,316,1,0,0,0,316,317,5,
+  	45,0,0,317,37,1,0,0,0,318,320,3,30,15,0,319,318,1,0,0,0,319,320,1,0,0,
+  	0,320,323,1,0,0,0,321,322,5,40,0,0,322,324,3,32,16,0,323,321,1,0,0,0,
+  	324,325,1,0,0,0,325,323,1,0,0,0,325,326,1,0,0,0,326,331,1,0,0,0,327,328,
+  	5,41,0,0,328,329,5,49,0,0,329,331,5,42,0,0,330,319,1,0,0,0,330,327,1,
+  	0,0,0,331,333,1,0,0,0,332,334,3,36,18,0,333,332,1,0,0,0,333,334,1,0,0,
+  	0,334,39,1,0,0,0,335,336,5,41,0,0,336,341,5,49,0,0,337,338,5,39,0,0,338,
+  	340,5,49,0,0,339,337,1,0,0,0,340,343,1,0,0,0,341,339,1,0,0,0,341,342,
+  	1,0,0,0,342,344,1,0,0,0,343,341,1,0,0,0,344,345,5,42,0,0,345,41,1,0,0,
+  	0,44,49,56,60,65,71,82,92,96,104,110,114,125,129,136,140,154,159,181,
+  	187,194,198,203,209,219,233,241,245,247,258,266,270,276,280,285,292,297,
+  	301,311,314,319,325,330,333,341
   };
   staticData->serializedATN = antlr4::atn::SerializedATNView(serializedATNSegment, sizeof(serializedATNSegment) / sizeof(serializedATNSegment[0]));
 
@@ -259,70 +299,70 @@ AssemblyParser::AssemblyContext* AssemblyParser::assembly() {
   });
   try {
     enterOuterAlt(_localctx, 1);
-    setState(26);
+    setState(42);
     match(AssemblyParser::T__0);
-    setState(27);
+    setState(43);
     match(AssemblyParser::T__1);
-    setState(28);
+    setState(44);
     antlrcpp::downCast<AssemblyContext *>(_localctx)->module = match(AssemblyParser::ID);
-    setState(33);
+    setState(49);
     _errHandler->sync(this);
 
     _la = _input->LA(1);
     if (_la == AssemblyParser::T__2) {
-      setState(30);
+      setState(46);
       match(AssemblyParser::T__2);
-      setState(31);
+      setState(47);
       match(AssemblyParser::T__1);
-      setState(32);
+      setState(48);
       array();
     }
-    setState(44);
+    setState(60);
     _errHandler->sync(this);
 
     _la = _input->LA(1);
     if (_la == AssemblyParser::T__3) {
-      setState(35);
+      setState(51);
       match(AssemblyParser::T__3);
-      setState(36);
+      setState(52);
       match(AssemblyParser::T__1);
-      setState(40);
+      setState(56);
       _errHandler->sync(this);
       _la = _input->LA(1);
       while (_la == AssemblyParser::T__5
 
       || _la == AssemblyParser::T__6) {
-        setState(37);
+        setState(53);
         global();
-        setState(42);
+        setState(58);
         _errHandler->sync(this);
         _la = _input->LA(1);
       }
-      setState(43);
+      setState(59);
       match(AssemblyParser::T__4);
     }
-    setState(49);
+    setState(65);
     _errHandler->sync(this);
     _la = _input->LA(1);
     while ((((_la & ~ 0x3fULL) == 0) &&
       ((1ULL << _la) & 1792) != 0)) {
-      setState(46);
+      setState(62);
       method();
-      setState(51);
+      setState(67);
       _errHandler->sync(this);
       _la = _input->LA(1);
     }
-    setState(55);
+    setState(71);
     _errHandler->sync(this);
     _la = _input->LA(1);
     while (_la == AssemblyParser::T__20) {
-      setState(52);
+      setState(68);
       class_();
-      setState(57);
+      setState(73);
       _errHandler->sync(this);
       _la = _input->LA(1);
     }
-    setState(58);
+    setState(74);
     match(AssemblyParser::EOF);
    
   }
@@ -341,12 +381,12 @@ AssemblyParser::GlobalContext::GlobalContext(ParserRuleContext *parent, size_t i
   : ParserRuleContext(parent, invokingState) {
 }
 
-std::vector<tree::TerminalNode *> AssemblyParser::GlobalContext::STRING() {
-  return getTokens(AssemblyParser::STRING);
+AssemblyParser::NameContext* AssemblyParser::GlobalContext::name() {
+  return getRuleContext<AssemblyParser::NameContext>(0);
 }
 
-tree::TerminalNode* AssemblyParser::GlobalContext::STRING(size_t i) {
-  return getToken(AssemblyParser::STRING, i);
+AssemblyParser::SignatureContext* AssemblyParser::GlobalContext::signature() {
+  return getRuleContext<AssemblyParser::SignatureContext>(0);
 }
 
 
@@ -376,7 +416,7 @@ AssemblyParser::GlobalContext* AssemblyParser::global() {
   });
   try {
     enterOuterAlt(_localctx, 1);
-    setState(60);
+    setState(76);
     antlrcpp::downCast<GlobalContext *>(_localctx)->type = _input->LT(1);
     _la = _input->LA(1);
     if (!(_la == AssemblyParser::T__5
@@ -388,12 +428,12 @@ AssemblyParser::GlobalContext* AssemblyParser::global() {
       _errHandler->reportMatch(this);
       consume();
     }
-    setState(61);
-    match(AssemblyParser::STRING);
-    setState(62);
+    setState(77);
+    name();
+    setState(78);
     match(AssemblyParser::T__1);
-    setState(63);
-    match(AssemblyParser::STRING);
+    setState(79);
+    signature();
    
   }
   catch (RecognitionException &e) {
@@ -411,8 +451,8 @@ AssemblyParser::MethodContext::MethodContext(ParserRuleContext *parent, size_t i
   : ParserRuleContext(parent, invokingState) {
 }
 
-tree::TerminalNode* AssemblyParser::MethodContext::STRING() {
-  return getToken(AssemblyParser::STRING, 0);
+AssemblyParser::SignatureContext* AssemblyParser::MethodContext::signature() {
+  return getRuleContext<AssemblyParser::SignatureContext>(0);
 }
 
 std::vector<tree::TerminalNode *> AssemblyParser::MethodContext::NUMBER() {
@@ -482,14 +522,14 @@ AssemblyParser::MethodContext* AssemblyParser::method() {
   });
   try {
     enterOuterAlt(_localctx, 1);
-    setState(66);
+    setState(82);
     _errHandler->sync(this);
 
     _la = _input->LA(1);
     if (_la == AssemblyParser::T__7
 
     || _la == AssemblyParser::T__8) {
-      setState(65);
+      setState(81);
       antlrcpp::downCast<MethodContext *>(_localctx)->kind = _input->LT(1);
       _la = _input->LA(1);
       if (!(_la == AssemblyParser::T__7
@@ -502,127 +542,131 @@ AssemblyParser::MethodContext* AssemblyParser::method() {
         consume();
       }
     }
-    setState(68);
+    setState(84);
     match(AssemblyParser::T__9);
-    setState(69);
-    match(AssemblyParser::STRING);
-    setState(70);
+    setState(85);
+    signature();
+    setState(86);
     match(AssemblyParser::T__1);
-    setState(80);
+    setState(96);
     _errHandler->sync(this);
 
     _la = _input->LA(1);
     if (_la == AssemblyParser::T__10) {
-      setState(71);
+      setState(87);
       match(AssemblyParser::T__10);
-      setState(72);
+      setState(88);
       match(AssemblyParser::T__1);
-      setState(76);
+      setState(92);
       _errHandler->sync(this);
       _la = _input->LA(1);
-      while (_la == AssemblyParser::STRING) {
-        setState(73);
+      while (_la == AssemblyParser::STRING
+
+      || _la == AssemblyParser::ID) {
+        setState(89);
         arg();
-        setState(78);
+        setState(94);
         _errHandler->sync(this);
         _la = _input->LA(1);
       }
-      setState(79);
+      setState(95);
       match(AssemblyParser::T__4);
     }
-    setState(98);
+    setState(114);
     _errHandler->sync(this);
 
     _la = _input->LA(1);
     if (_la == AssemblyParser::T__11) {
-      setState(82);
+      setState(98);
       match(AssemblyParser::T__11);
-      setState(88);
+      setState(104);
       _errHandler->sync(this);
 
       _la = _input->LA(1);
       if (_la == AssemblyParser::T__12) {
-        setState(83);
+        setState(99);
         match(AssemblyParser::T__12);
-        setState(84);
+        setState(100);
         match(AssemblyParser::T__13);
-        setState(85);
+        setState(101);
         match(AssemblyParser::T__1);
-        setState(86);
+        setState(102);
         match(AssemblyParser::NUMBER);
-        setState(87);
+        setState(103);
         match(AssemblyParser::T__14);
       }
-      setState(90);
+      setState(106);
       match(AssemblyParser::T__1);
-      setState(94);
+      setState(110);
       _errHandler->sync(this);
       _la = _input->LA(1);
-      while (_la == AssemblyParser::STRING) {
-        setState(91);
+      while (_la == AssemblyParser::STRING
+
+      || _la == AssemblyParser::ID) {
+        setState(107);
         local();
-        setState(96);
+        setState(112);
         _errHandler->sync(this);
         _la = _input->LA(1);
       }
-      setState(97);
+      setState(113);
       match(AssemblyParser::T__4);
     }
-    setState(100);
+    setState(116);
     match(AssemblyParser::T__15);
-    setState(101);
+    setState(117);
     match(AssemblyParser::T__1);
-    setState(102);
+    setState(118);
     match(AssemblyParser::NUMBER);
-    setState(103);
+    setState(119);
     match(AssemblyParser::T__4);
-    setState(113);
+    setState(129);
     _errHandler->sync(this);
 
     _la = _input->LA(1);
     if (_la == AssemblyParser::T__16) {
-      setState(104);
+      setState(120);
       match(AssemblyParser::T__16);
-      setState(105);
+      setState(121);
       match(AssemblyParser::T__1);
-      setState(109);
+      setState(125);
       _errHandler->sync(this);
       _la = _input->LA(1);
       while (_la == AssemblyParser::ID
 
       || _la == AssemblyParser::LABEL) {
-        setState(106);
+        setState(122);
         line();
-        setState(111);
+        setState(127);
         _errHandler->sync(this);
         _la = _input->LA(1);
       }
-      setState(112);
+      setState(128);
       match(AssemblyParser::T__4);
     }
-    setState(124);
+    setState(140);
     _errHandler->sync(this);
 
     _la = _input->LA(1);
     if (_la == AssemblyParser::T__17) {
-      setState(115);
+      setState(131);
       match(AssemblyParser::T__17);
-      setState(116);
+      setState(132);
       match(AssemblyParser::T__1);
-      setState(120);
+      setState(136);
       _errHandler->sync(this);
       _la = _input->LA(1);
       while (_la == AssemblyParser::ID) {
-        setState(117);
+        setState(133);
         exceptionItem();
-        setState(122);
+        setState(138);
         _errHandler->sync(this);
         _la = _input->LA(1);
       }
-      setState(123);
+      setState(139);
       match(AssemblyParser::T__4);
     }
-    setState(126);
+    setState(142);
     match(AssemblyParser::T__4);
    
   }
@@ -641,12 +685,12 @@ AssemblyParser::ArgContext::ArgContext(ParserRuleContext *parent, size_t invokin
   : ParserRuleContext(parent, invokingState) {
 }
 
-std::vector<tree::TerminalNode *> AssemblyParser::ArgContext::STRING() {
-  return getTokens(AssemblyParser::STRING);
+AssemblyParser::NameContext* AssemblyParser::ArgContext::name() {
+  return getRuleContext<AssemblyParser::NameContext>(0);
 }
 
-tree::TerminalNode* AssemblyParser::ArgContext::STRING(size_t i) {
-  return getToken(AssemblyParser::STRING, i);
+AssemblyParser::SignatureContext* AssemblyParser::ArgContext::signature() {
+  return getRuleContext<AssemblyParser::SignatureContext>(0);
 }
 
 
@@ -675,12 +719,12 @@ AssemblyParser::ArgContext* AssemblyParser::arg() {
   });
   try {
     enterOuterAlt(_localctx, 1);
-    setState(128);
-    match(AssemblyParser::STRING);
-    setState(129);
+    setState(144);
+    name();
+    setState(145);
     match(AssemblyParser::T__1);
-    setState(130);
-    match(AssemblyParser::STRING);
+    setState(146);
+    signature();
    
   }
   catch (RecognitionException &e) {
@@ -698,12 +742,12 @@ AssemblyParser::LocalContext::LocalContext(ParserRuleContext *parent, size_t inv
   : ParserRuleContext(parent, invokingState) {
 }
 
-std::vector<tree::TerminalNode *> AssemblyParser::LocalContext::STRING() {
-  return getTokens(AssemblyParser::STRING);
+AssemblyParser::NameContext* AssemblyParser::LocalContext::name() {
+  return getRuleContext<AssemblyParser::NameContext>(0);
 }
 
-tree::TerminalNode* AssemblyParser::LocalContext::STRING(size_t i) {
-  return getToken(AssemblyParser::STRING, i);
+AssemblyParser::SignatureContext* AssemblyParser::LocalContext::signature() {
+  return getRuleContext<AssemblyParser::SignatureContext>(0);
 }
 
 
@@ -732,12 +776,12 @@ AssemblyParser::LocalContext* AssemblyParser::local() {
   });
   try {
     enterOuterAlt(_localctx, 1);
-    setState(132);
-    match(AssemblyParser::STRING);
-    setState(133);
+    setState(148);
+    name();
+    setState(149);
     match(AssemblyParser::T__1);
-    setState(134);
-    match(AssemblyParser::STRING);
+    setState(150);
+    signature();
    
   }
   catch (RecognitionException &e) {
@@ -798,30 +842,30 @@ AssemblyParser::LineContext* AssemblyParser::line() {
   });
   try {
     enterOuterAlt(_localctx, 1);
-    setState(138);
+    setState(154);
     _errHandler->sync(this);
 
     _la = _input->LA(1);
     if (_la == AssemblyParser::LABEL) {
-      setState(136);
+      setState(152);
       antlrcpp::downCast<LineContext *>(_localctx)->label = match(AssemblyParser::LABEL);
-      setState(137);
+      setState(153);
       match(AssemblyParser::T__1);
     }
-    setState(140);
+    setState(156);
     antlrcpp::downCast<LineContext *>(_localctx)->opcode = match(AssemblyParser::ID);
-    setState(143);
+    setState(159);
     _errHandler->sync(this);
 
     switch (getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 16, _ctx)) {
     case 1: {
-      setState(141);
+      setState(157);
       value();
       break;
     }
 
     case 2: {
-      setState(142);
+      setState(158);
       antlrcpp::downCast<LineContext *>(_localctx)->dest = match(AssemblyParser::LABEL);
       break;
     }
@@ -854,8 +898,8 @@ tree::TerminalNode* AssemblyParser::ExceptionItemContext::ID(size_t i) {
   return getToken(AssemblyParser::ID, i);
 }
 
-tree::TerminalNode* AssemblyParser::ExceptionItemContext::STRING() {
-  return getToken(AssemblyParser::STRING, 0);
+AssemblyParser::SignatureContext* AssemblyParser::ExceptionItemContext::signature() {
+  return getRuleContext<AssemblyParser::SignatureContext>(0);
 }
 
 
@@ -884,20 +928,20 @@ AssemblyParser::ExceptionItemContext* AssemblyParser::exceptionItem() {
   });
   try {
     enterOuterAlt(_localctx, 1);
-    setState(145);
+    setState(161);
     match(AssemblyParser::ID);
-    setState(146);
+    setState(162);
     match(AssemblyParser::T__18);
-    setState(147);
+    setState(163);
     match(AssemblyParser::ID);
-    setState(148);
+    setState(164);
     match(AssemblyParser::T__19);
-    setState(149);
+    setState(165);
     match(AssemblyParser::ID);
-    setState(150);
+    setState(166);
     match(AssemblyParser::T__1);
-    setState(151);
-    match(AssemblyParser::STRING);
+    setState(167);
+    signature();
    
   }
   catch (RecognitionException &e) {
@@ -915,8 +959,8 @@ AssemblyParser::ClassContext::ClassContext(ParserRuleContext *parent, size_t inv
   : ParserRuleContext(parent, invokingState) {
 }
 
-tree::TerminalNode* AssemblyParser::ClassContext::STRING() {
-  return getToken(AssemblyParser::STRING, 0);
+AssemblyParser::SignatureContext* AssemblyParser::ClassContext::signature() {
+  return getRuleContext<AssemblyParser::SignatureContext>(0);
 }
 
 std::vector<AssemblyParser::AccessorContext *> AssemblyParser::ClassContext::accessor() {
@@ -982,17 +1026,17 @@ AssemblyParser::ClassContext* AssemblyParser::class_() {
   });
   try {
     enterOuterAlt(_localctx, 1);
-    setState(153);
+    setState(169);
     match(AssemblyParser::T__20);
-    setState(154);
-    match(AssemblyParser::STRING);
-    setState(155);
+    setState(170);
+    signature();
+    setState(171);
     match(AssemblyParser::T__1);
-    setState(156);
+    setState(172);
     match(AssemblyParser::T__21);
-    setState(157);
+    setState(173);
     match(AssemblyParser::T__1);
-    setState(158);
+    setState(174);
     antlrcpp::downCast<ClassContext *>(_localctx)->type = _input->LT(1);
     _la = _input->LA(1);
     if (!((((_la & ~ 0x3fULL) == 0) &&
@@ -1003,80 +1047,80 @@ AssemblyParser::ClassContext* AssemblyParser::class_() {
       _errHandler->reportMatch(this);
       consume();
     }
-    setState(159);
+    setState(175);
     match(AssemblyParser::T__4);
-    setState(160);
+    setState(176);
     match(AssemblyParser::T__26);
-    setState(161);
+    setState(177);
     match(AssemblyParser::T__1);
-    setState(165);
+    setState(181);
     _errHandler->sync(this);
     _la = _input->LA(1);
     while ((((_la & ~ 0x3fULL) == 0) &&
       ((1ULL << _la) & 548682072064) != 0)) {
-      setState(162);
+      setState(178);
       accessor();
-      setState(167);
+      setState(183);
       _errHandler->sync(this);
       _la = _input->LA(1);
     }
-    setState(171);
+    setState(187);
     _errHandler->sync(this);
 
     _la = _input->LA(1);
     if (_la == AssemblyParser::T__27) {
-      setState(168);
+      setState(184);
       match(AssemblyParser::T__27);
-      setState(169);
+      setState(185);
       match(AssemblyParser::T__1);
-      setState(170);
+      setState(186);
       antlrcpp::downCast<ClassContext *>(_localctx)->supers = array();
     }
-    setState(182);
+    setState(198);
     _errHandler->sync(this);
 
     _la = _input->LA(1);
     if (_la == AssemblyParser::T__28) {
-      setState(173);
+      setState(189);
       match(AssemblyParser::T__28);
-      setState(174);
+      setState(190);
       match(AssemblyParser::T__1);
-      setState(178);
+      setState(194);
       _errHandler->sync(this);
       _la = _input->LA(1);
       while ((((_la & ~ 0x3fULL) == 0) &&
         ((1ULL << _la) & 548682072256) != 0)) {
-        setState(175);
+        setState(191);
         field();
-        setState(180);
+        setState(196);
         _errHandler->sync(this);
         _la = _input->LA(1);
       }
-      setState(181);
+      setState(197);
       match(AssemblyParser::T__4);
     }
-    setState(187);
+    setState(203);
     _errHandler->sync(this);
     _la = _input->LA(1);
     while ((((_la & ~ 0x3fULL) == 0) &&
       ((1ULL << _la) & 1792) != 0)) {
-      setState(184);
+      setState(200);
       method();
-      setState(189);
+      setState(205);
       _errHandler->sync(this);
       _la = _input->LA(1);
     }
-    setState(193);
+    setState(209);
     _errHandler->sync(this);
     _la = _input->LA(1);
     while (_la == AssemblyParser::T__20) {
-      setState(190);
+      setState(206);
       class_();
-      setState(195);
+      setState(211);
       _errHandler->sync(this);
       _la = _input->LA(1);
     }
-    setState(196);
+    setState(212);
     match(AssemblyParser::T__4);
    
   }
@@ -1122,7 +1166,7 @@ AssemblyParser::AccessorContext* AssemblyParser::accessor() {
   });
   try {
     enterOuterAlt(_localctx, 1);
-    setState(198);
+    setState(214);
     antlrcpp::downCast<AccessorContext *>(_localctx)->modifier = _input->LT(1);
     _la = _input->LA(1);
     if (!((((_la & ~ 0x3fULL) == 0) &&
@@ -1150,12 +1194,12 @@ AssemblyParser::FieldContext::FieldContext(ParserRuleContext *parent, size_t inv
   : ParserRuleContext(parent, invokingState) {
 }
 
-std::vector<tree::TerminalNode *> AssemblyParser::FieldContext::STRING() {
-  return getTokens(AssemblyParser::STRING);
+AssemblyParser::NameContext* AssemblyParser::FieldContext::name() {
+  return getRuleContext<AssemblyParser::NameContext>(0);
 }
 
-tree::TerminalNode* AssemblyParser::FieldContext::STRING(size_t i) {
-  return getToken(AssemblyParser::STRING, i);
+AssemblyParser::SignatureContext* AssemblyParser::FieldContext::signature() {
+  return getRuleContext<AssemblyParser::SignatureContext>(0);
 }
 
 std::vector<AssemblyParser::AccessorContext *> AssemblyParser::FieldContext::accessor() {
@@ -1193,18 +1237,18 @@ AssemblyParser::FieldContext* AssemblyParser::field() {
   });
   try {
     enterOuterAlt(_localctx, 1);
-    setState(203);
+    setState(219);
     _errHandler->sync(this);
     _la = _input->LA(1);
     while ((((_la & ~ 0x3fULL) == 0) &&
       ((1ULL << _la) & 548682072064) != 0)) {
-      setState(200);
+      setState(216);
       accessor();
-      setState(205);
+      setState(221);
       _errHandler->sync(this);
       _la = _input->LA(1);
     }
-    setState(206);
+    setState(222);
     antlrcpp::downCast<FieldContext *>(_localctx)->type = _input->LT(1);
     _la = _input->LA(1);
     if (!(_la == AssemblyParser::T__5
@@ -1216,12 +1260,12 @@ AssemblyParser::FieldContext* AssemblyParser::field() {
       _errHandler->reportMatch(this);
       consume();
     }
-    setState(207);
-    match(AssemblyParser::STRING);
-    setState(208);
+    setState(223);
+    name();
+    setState(224);
     match(AssemblyParser::T__1);
-    setState(209);
-    match(AssemblyParser::STRING);
+    setState(225);
+    signature();
    
   }
   catch (RecognitionException &e) {
@@ -1259,6 +1303,10 @@ AssemblyParser::FloatContext* AssemblyParser::ValueContext::float_() {
   return getRuleContext<AssemblyParser::FloatContext>(0);
 }
 
+AssemblyParser::SignatureContext* AssemblyParser::ValueContext::signature() {
+  return getRuleContext<AssemblyParser::SignatureContext>(0);
+}
+
 
 size_t AssemblyParser::ValueContext::getRuleIndex() const {
   return AssemblyParser::RuleValue;
@@ -1284,41 +1332,48 @@ AssemblyParser::ValueContext* AssemblyParser::value() {
     exitRule();
   });
   try {
-    setState(216);
+    setState(233);
     _errHandler->sync(this);
     switch (getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 24, _ctx)) {
     case 1: {
       enterOuterAlt(_localctx, 1);
-      setState(211);
+      setState(227);
       match(AssemblyParser::NUMBER);
       break;
     }
 
     case 2: {
       enterOuterAlt(_localctx, 2);
-      setState(212);
+      setState(228);
       match(AssemblyParser::STRING);
       break;
     }
 
     case 3: {
       enterOuterAlt(_localctx, 3);
-      setState(213);
+      setState(229);
       match(AssemblyParser::CSTRING);
       break;
     }
 
     case 4: {
       enterOuterAlt(_localctx, 4);
-      setState(214);
+      setState(230);
       array();
       break;
     }
 
     case 5: {
       enterOuterAlt(_localctx, 5);
-      setState(215);
+      setState(231);
       float_();
+      break;
+    }
+
+    case 6: {
+      enterOuterAlt(_localctx, 6);
+      setState(232);
+      signature();
       break;
     }
 
@@ -1378,40 +1433,40 @@ AssemblyParser::ArrayContext* AssemblyParser::array() {
   try {
     size_t alt;
     enterOuterAlt(_localctx, 1);
-    setState(218);
+    setState(235);
     match(AssemblyParser::T__12);
-    setState(230);
+    setState(247);
     _errHandler->sync(this);
 
     _la = _input->LA(1);
     if ((((_la & ~ 0x3fULL) == 0) &&
-      ((1ULL << _la) & 16492674424832) != 0)) {
-      setState(219);
+      ((1ULL << _la) & 1058829697556480) != 0)) {
+      setState(236);
       value();
-      setState(224);
+      setState(241);
       _errHandler->sync(this);
       alt = getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 25, _ctx);
       while (alt != 2 && alt != atn::ATN::INVALID_ALT_NUMBER) {
         if (alt == 1) {
-          setState(220);
+          setState(237);
           match(AssemblyParser::T__38);
-          setState(221);
+          setState(238);
           value(); 
         }
-        setState(226);
+        setState(243);
         _errHandler->sync(this);
         alt = getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 25, _ctx);
       }
-      setState(228);
+      setState(245);
       _errHandler->sync(this);
 
       _la = _input->LA(1);
       if (_la == AssemblyParser::T__38) {
-        setState(227);
+        setState(244);
         match(AssemblyParser::T__38);
       }
     }
-    setState(232);
+    setState(249);
     match(AssemblyParser::T__14);
    
   }
@@ -1463,34 +1518,34 @@ AssemblyParser::FloatContext* AssemblyParser::float_() {
     exitRule();
   });
   try {
-    setState(241);
+    setState(258);
     _errHandler->sync(this);
     switch (getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 28, _ctx)) {
     case 1: {
       enterOuterAlt(_localctx, 1);
-      setState(234);
+      setState(251);
       match(AssemblyParser::NUMBER);
-      setState(235);
+      setState(252);
       match(AssemblyParser::T__39);
-      setState(236);
+      setState(253);
       match(AssemblyParser::NUMBER);
       break;
     }
 
     case 2: {
       enterOuterAlt(_localctx, 2);
-      setState(237);
+      setState(254);
       match(AssemblyParser::NUMBER);
-      setState(238);
+      setState(255);
       match(AssemblyParser::T__39);
       break;
     }
 
     case 3: {
       enterOuterAlt(_localctx, 3);
-      setState(239);
+      setState(256);
       match(AssemblyParser::T__39);
-      setState(240);
+      setState(257);
       match(AssemblyParser::NUMBER);
       break;
     }
@@ -1498,6 +1553,677 @@ AssemblyParser::FloatContext* AssemblyParser::float_() {
     default:
       break;
     }
+   
+  }
+  catch (RecognitionException &e) {
+    _errHandler->reportError(this, e);
+    _localctx->exception = std::current_exception();
+    _errHandler->recover(this, _localctx->exception);
+  }
+
+  return _localctx;
+}
+
+//----------------- NameContext ------------------------------------------------------------------
+
+AssemblyParser::NameContext::NameContext(ParserRuleContext *parent, size_t invokingState)
+  : ParserRuleContext(parent, invokingState) {
+}
+
+tree::TerminalNode* AssemblyParser::NameContext::ID() {
+  return getToken(AssemblyParser::ID, 0);
+}
+
+tree::TerminalNode* AssemblyParser::NameContext::STRING() {
+  return getToken(AssemblyParser::STRING, 0);
+}
+
+
+size_t AssemblyParser::NameContext::getRuleIndex() const {
+  return AssemblyParser::RuleName;
+}
+
+
+std::any AssemblyParser::NameContext::accept(tree::ParseTreeVisitor *visitor) {
+  if (auto parserVisitor = dynamic_cast<AssemblyVisitor*>(visitor))
+    return parserVisitor->visitName(this);
+  else
+    return visitor->visitChildren(this);
+}
+
+AssemblyParser::NameContext* AssemblyParser::name() {
+  NameContext *_localctx = _tracker.createInstance<NameContext>(_ctx, getState());
+  enterRule(_localctx, 26, AssemblyParser::RuleName);
+  size_t _la = 0;
+
+#if __cplusplus > 201703L
+  auto onExit = finally([=, this] {
+#else
+  auto onExit = finally([=] {
+#endif
+    exitRule();
+  });
+  try {
+    enterOuterAlt(_localctx, 1);
+    setState(260);
+    _la = _input->LA(1);
+    if (!(_la == AssemblyParser::STRING
+
+    || _la == AssemblyParser::ID)) {
+    _errHandler->recoverInline(this);
+    }
+    else {
+      _errHandler->reportMatch(this);
+      consume();
+    }
+   
+  }
+  catch (RecognitionException &e) {
+    _errHandler->reportError(this, e);
+    _localctx->exception = std::current_exception();
+    _errHandler->recover(this, _localctx->exception);
+  }
+
+  return _localctx;
+}
+
+//----------------- SignatureContext ------------------------------------------------------------------
+
+AssemblyParser::SignatureContext::SignatureContext(ParserRuleContext *parent, size_t invokingState)
+  : ParserRuleContext(parent, invokingState) {
+}
+
+AssemblyParser::SignModuleContext* AssemblyParser::SignatureContext::signModule() {
+  return getRuleContext<AssemblyParser::SignModuleContext>(0);
+}
+
+std::vector<AssemblyParser::SignClassContext *> AssemblyParser::SignatureContext::signClass() {
+  return getRuleContexts<AssemblyParser::SignClassContext>();
+}
+
+AssemblyParser::SignClassContext* AssemblyParser::SignatureContext::signClass(size_t i) {
+  return getRuleContext<AssemblyParser::SignClassContext>(i);
+}
+
+std::vector<AssemblyParser::SignMethodContext *> AssemblyParser::SignatureContext::signMethod() {
+  return getRuleContexts<AssemblyParser::SignMethodContext>();
+}
+
+AssemblyParser::SignMethodContext* AssemblyParser::SignatureContext::signMethod(size_t i) {
+  return getRuleContext<AssemblyParser::SignMethodContext>(i);
+}
+
+tree::TerminalNode* AssemblyParser::SignatureContext::ID() {
+  return getToken(AssemblyParser::ID, 0);
+}
+
+
+size_t AssemblyParser::SignatureContext::getRuleIndex() const {
+  return AssemblyParser::RuleSignature;
+}
+
+
+std::any AssemblyParser::SignatureContext::accept(tree::ParseTreeVisitor *visitor) {
+  if (auto parserVisitor = dynamic_cast<AssemblyVisitor*>(visitor))
+    return parserVisitor->visitSignature(this);
+  else
+    return visitor->visitChildren(this);
+}
+
+AssemblyParser::SignatureContext* AssemblyParser::signature() {
+  SignatureContext *_localctx = _tracker.createInstance<SignatureContext>(_ctx, getState());
+  enterRule(_localctx, 28, AssemblyParser::RuleSignature);
+  size_t _la = 0;
+
+#if __cplusplus > 201703L
+  auto onExit = finally([=, this] {
+#else
+  auto onExit = finally([=] {
+#endif
+    exitRule();
+  });
+  try {
+    setState(285);
+    _errHandler->sync(this);
+    switch (_input->LA(1)) {
+      case AssemblyParser::ID: {
+        enterOuterAlt(_localctx, 1);
+        setState(262);
+        signModule();
+        setState(270);
+        _errHandler->sync(this);
+        _la = _input->LA(1);
+        while (_la == AssemblyParser::T__39) {
+          setState(263);
+          match(AssemblyParser::T__39);
+          setState(266);
+          _errHandler->sync(this);
+          switch (getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 29, _ctx)) {
+          case 1: {
+            setState(264);
+            signClass();
+            break;
+          }
+
+          case 2: {
+            setState(265);
+            signMethod();
+            break;
+          }
+
+          default:
+            break;
+          }
+          setState(272);
+          _errHandler->sync(this);
+          _la = _input->LA(1);
+        }
+        break;
+      }
+
+      case AssemblyParser::T__39: {
+        enterOuterAlt(_localctx, 2);
+        setState(278); 
+        _errHandler->sync(this);
+        _la = _input->LA(1);
+        do {
+          setState(273);
+          match(AssemblyParser::T__39);
+          setState(276);
+          _errHandler->sync(this);
+          switch (getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 31, _ctx)) {
+          case 1: {
+            setState(274);
+            signClass();
+            break;
+          }
+
+          case 2: {
+            setState(275);
+            signMethod();
+            break;
+          }
+
+          default:
+            break;
+          }
+          setState(280); 
+          _errHandler->sync(this);
+          _la = _input->LA(1);
+        } while (_la == AssemblyParser::T__39);
+        break;
+      }
+
+      case AssemblyParser::T__40: {
+        enterOuterAlt(_localctx, 3);
+        setState(282);
+        match(AssemblyParser::T__40);
+        setState(283);
+        match(AssemblyParser::ID);
+        setState(284);
+        match(AssemblyParser::T__41);
+        break;
+      }
+
+    default:
+      throw NoViableAltException(this);
+    }
+   
+  }
+  catch (RecognitionException &e) {
+    _errHandler->reportError(this, e);
+    _localctx->exception = std::current_exception();
+    _errHandler->recover(this, _localctx->exception);
+  }
+
+  return _localctx;
+}
+
+//----------------- SignModuleContext ------------------------------------------------------------------
+
+AssemblyParser::SignModuleContext::SignModuleContext(ParserRuleContext *parent, size_t invokingState)
+  : ParserRuleContext(parent, invokingState) {
+}
+
+std::vector<tree::TerminalNode *> AssemblyParser::SignModuleContext::ID() {
+  return getTokens(AssemblyParser::ID);
+}
+
+tree::TerminalNode* AssemblyParser::SignModuleContext::ID(size_t i) {
+  return getToken(AssemblyParser::ID, i);
+}
+
+
+size_t AssemblyParser::SignModuleContext::getRuleIndex() const {
+  return AssemblyParser::RuleSignModule;
+}
+
+
+std::any AssemblyParser::SignModuleContext::accept(tree::ParseTreeVisitor *visitor) {
+  if (auto parserVisitor = dynamic_cast<AssemblyVisitor*>(visitor))
+    return parserVisitor->visitSignModule(this);
+  else
+    return visitor->visitChildren(this);
+}
+
+AssemblyParser::SignModuleContext* AssemblyParser::signModule() {
+  SignModuleContext *_localctx = _tracker.createInstance<SignModuleContext>(_ctx, getState());
+  enterRule(_localctx, 30, AssemblyParser::RuleSignModule);
+  size_t _la = 0;
+
+#if __cplusplus > 201703L
+  auto onExit = finally([=, this] {
+#else
+  auto onExit = finally([=] {
+#endif
+    exitRule();
+  });
+  try {
+    enterOuterAlt(_localctx, 1);
+    setState(287);
+    match(AssemblyParser::ID);
+    setState(292);
+    _errHandler->sync(this);
+    _la = _input->LA(1);
+    while (_la == AssemblyParser::T__42) {
+      setState(288);
+      match(AssemblyParser::T__42);
+      setState(289);
+      match(AssemblyParser::ID);
+      setState(294);
+      _errHandler->sync(this);
+      _la = _input->LA(1);
+    }
+   
+  }
+  catch (RecognitionException &e) {
+    _errHandler->reportError(this, e);
+    _localctx->exception = std::current_exception();
+    _errHandler->recover(this, _localctx->exception);
+  }
+
+  return _localctx;
+}
+
+//----------------- SignClassContext ------------------------------------------------------------------
+
+AssemblyParser::SignClassContext::SignClassContext(ParserRuleContext *parent, size_t invokingState)
+  : ParserRuleContext(parent, invokingState) {
+}
+
+tree::TerminalNode* AssemblyParser::SignClassContext::ID() {
+  return getToken(AssemblyParser::ID, 0);
+}
+
+AssemblyParser::SignTypeParamsContext* AssemblyParser::SignClassContext::signTypeParams() {
+  return getRuleContext<AssemblyParser::SignTypeParamsContext>(0);
+}
+
+
+size_t AssemblyParser::SignClassContext::getRuleIndex() const {
+  return AssemblyParser::RuleSignClass;
+}
+
+
+std::any AssemblyParser::SignClassContext::accept(tree::ParseTreeVisitor *visitor) {
+  if (auto parserVisitor = dynamic_cast<AssemblyVisitor*>(visitor))
+    return parserVisitor->visitSignClass(this);
+  else
+    return visitor->visitChildren(this);
+}
+
+AssemblyParser::SignClassContext* AssemblyParser::signClass() {
+  SignClassContext *_localctx = _tracker.createInstance<SignClassContext>(_ctx, getState());
+  enterRule(_localctx, 32, AssemblyParser::RuleSignClass);
+  size_t _la = 0;
+
+#if __cplusplus > 201703L
+  auto onExit = finally([=, this] {
+#else
+  auto onExit = finally([=] {
+#endif
+    exitRule();
+  });
+  try {
+    enterOuterAlt(_localctx, 1);
+    setState(295);
+    match(AssemblyParser::ID);
+    setState(297);
+    _errHandler->sync(this);
+
+    _la = _input->LA(1);
+    if (_la == AssemblyParser::T__40) {
+      setState(296);
+      signTypeParams();
+    }
+   
+  }
+  catch (RecognitionException &e) {
+    _errHandler->reportError(this, e);
+    _localctx->exception = std::current_exception();
+    _errHandler->recover(this, _localctx->exception);
+  }
+
+  return _localctx;
+}
+
+//----------------- SignMethodContext ------------------------------------------------------------------
+
+AssemblyParser::SignMethodContext::SignMethodContext(ParserRuleContext *parent, size_t invokingState)
+  : ParserRuleContext(parent, invokingState) {
+}
+
+tree::TerminalNode* AssemblyParser::SignMethodContext::ID() {
+  return getToken(AssemblyParser::ID, 0);
+}
+
+AssemblyParser::SignParamsContext* AssemblyParser::SignMethodContext::signParams() {
+  return getRuleContext<AssemblyParser::SignParamsContext>(0);
+}
+
+AssemblyParser::SignTypeParamsContext* AssemblyParser::SignMethodContext::signTypeParams() {
+  return getRuleContext<AssemblyParser::SignTypeParamsContext>(0);
+}
+
+
+size_t AssemblyParser::SignMethodContext::getRuleIndex() const {
+  return AssemblyParser::RuleSignMethod;
+}
+
+
+std::any AssemblyParser::SignMethodContext::accept(tree::ParseTreeVisitor *visitor) {
+  if (auto parserVisitor = dynamic_cast<AssemblyVisitor*>(visitor))
+    return parserVisitor->visitSignMethod(this);
+  else
+    return visitor->visitChildren(this);
+}
+
+AssemblyParser::SignMethodContext* AssemblyParser::signMethod() {
+  SignMethodContext *_localctx = _tracker.createInstance<SignMethodContext>(_ctx, getState());
+  enterRule(_localctx, 34, AssemblyParser::RuleSignMethod);
+  size_t _la = 0;
+
+#if __cplusplus > 201703L
+  auto onExit = finally([=, this] {
+#else
+  auto onExit = finally([=] {
+#endif
+    exitRule();
+  });
+  try {
+    enterOuterAlt(_localctx, 1);
+    setState(299);
+    match(AssemblyParser::ID);
+    setState(301);
+    _errHandler->sync(this);
+
+    _la = _input->LA(1);
+    if (_la == AssemblyParser::T__40) {
+      setState(300);
+      signTypeParams();
+    }
+    setState(303);
+    signParams();
+   
+  }
+  catch (RecognitionException &e) {
+    _errHandler->reportError(this, e);
+    _localctx->exception = std::current_exception();
+    _errHandler->recover(this, _localctx->exception);
+  }
+
+  return _localctx;
+}
+
+//----------------- SignParamsContext ------------------------------------------------------------------
+
+AssemblyParser::SignParamsContext::SignParamsContext(ParserRuleContext *parent, size_t invokingState)
+  : ParserRuleContext(parent, invokingState) {
+}
+
+std::vector<AssemblyParser::SignParamContext *> AssemblyParser::SignParamsContext::signParam() {
+  return getRuleContexts<AssemblyParser::SignParamContext>();
+}
+
+AssemblyParser::SignParamContext* AssemblyParser::SignParamsContext::signParam(size_t i) {
+  return getRuleContext<AssemblyParser::SignParamContext>(i);
+}
+
+
+size_t AssemblyParser::SignParamsContext::getRuleIndex() const {
+  return AssemblyParser::RuleSignParams;
+}
+
+
+std::any AssemblyParser::SignParamsContext::accept(tree::ParseTreeVisitor *visitor) {
+  if (auto parserVisitor = dynamic_cast<AssemblyVisitor*>(visitor))
+    return parserVisitor->visitSignParams(this);
+  else
+    return visitor->visitChildren(this);
+}
+
+AssemblyParser::SignParamsContext* AssemblyParser::signParams() {
+  SignParamsContext *_localctx = _tracker.createInstance<SignParamsContext>(_ctx, getState());
+  enterRule(_localctx, 36, AssemblyParser::RuleSignParams);
+  size_t _la = 0;
+
+#if __cplusplus > 201703L
+  auto onExit = finally([=, this] {
+#else
+  auto onExit = finally([=] {
+#endif
+    exitRule();
+  });
+  try {
+    enterOuterAlt(_localctx, 1);
+    setState(305);
+    match(AssemblyParser::T__43);
+    setState(314);
+    _errHandler->sync(this);
+
+    _la = _input->LA(1);
+    if ((((_la & ~ 0x3fULL) == 0) &&
+      ((1ULL << _la) & 566248488304640) != 0)) {
+      setState(306);
+      signParam();
+      setState(311);
+      _errHandler->sync(this);
+      _la = _input->LA(1);
+      while (_la == AssemblyParser::T__38) {
+        setState(307);
+        match(AssemblyParser::T__38);
+        setState(308);
+        signParam();
+        setState(313);
+        _errHandler->sync(this);
+        _la = _input->LA(1);
+      }
+    }
+    setState(316);
+    match(AssemblyParser::T__44);
+   
+  }
+  catch (RecognitionException &e) {
+    _errHandler->reportError(this, e);
+    _localctx->exception = std::current_exception();
+    _errHandler->recover(this, _localctx->exception);
+  }
+
+  return _localctx;
+}
+
+//----------------- SignParamContext ------------------------------------------------------------------
+
+AssemblyParser::SignParamContext::SignParamContext(ParserRuleContext *parent, size_t invokingState)
+  : ParserRuleContext(parent, invokingState) {
+}
+
+tree::TerminalNode* AssemblyParser::SignParamContext::ID() {
+  return getToken(AssemblyParser::ID, 0);
+}
+
+AssemblyParser::SignParamsContext* AssemblyParser::SignParamContext::signParams() {
+  return getRuleContext<AssemblyParser::SignParamsContext>(0);
+}
+
+AssemblyParser::SignModuleContext* AssemblyParser::SignParamContext::signModule() {
+  return getRuleContext<AssemblyParser::SignModuleContext>(0);
+}
+
+std::vector<AssemblyParser::SignClassContext *> AssemblyParser::SignParamContext::signClass() {
+  return getRuleContexts<AssemblyParser::SignClassContext>();
+}
+
+AssemblyParser::SignClassContext* AssemblyParser::SignParamContext::signClass(size_t i) {
+  return getRuleContext<AssemblyParser::SignClassContext>(i);
+}
+
+
+size_t AssemblyParser::SignParamContext::getRuleIndex() const {
+  return AssemblyParser::RuleSignParam;
+}
+
+
+std::any AssemblyParser::SignParamContext::accept(tree::ParseTreeVisitor *visitor) {
+  if (auto parserVisitor = dynamic_cast<AssemblyVisitor*>(visitor))
+    return parserVisitor->visitSignParam(this);
+  else
+    return visitor->visitChildren(this);
+}
+
+AssemblyParser::SignParamContext* AssemblyParser::signParam() {
+  SignParamContext *_localctx = _tracker.createInstance<SignParamContext>(_ctx, getState());
+  enterRule(_localctx, 38, AssemblyParser::RuleSignParam);
+  size_t _la = 0;
+
+#if __cplusplus > 201703L
+  auto onExit = finally([=, this] {
+#else
+  auto onExit = finally([=] {
+#endif
+    exitRule();
+  });
+  try {
+    enterOuterAlt(_localctx, 1);
+    setState(330);
+    _errHandler->sync(this);
+    switch (_input->LA(1)) {
+      case AssemblyParser::T__39:
+      case AssemblyParser::ID: {
+        setState(319);
+        _errHandler->sync(this);
+
+        _la = _input->LA(1);
+        if (_la == AssemblyParser::ID) {
+          setState(318);
+          signModule();
+        }
+        setState(323); 
+        _errHandler->sync(this);
+        _la = _input->LA(1);
+        do {
+          setState(321);
+          match(AssemblyParser::T__39);
+          setState(322);
+          signClass();
+          setState(325); 
+          _errHandler->sync(this);
+          _la = _input->LA(1);
+        } while (_la == AssemblyParser::T__39);
+        break;
+      }
+
+      case AssemblyParser::T__40: {
+        setState(327);
+        match(AssemblyParser::T__40);
+        setState(328);
+        match(AssemblyParser::ID);
+        setState(329);
+        match(AssemblyParser::T__41);
+        break;
+      }
+
+    default:
+      throw NoViableAltException(this);
+    }
+    setState(333);
+    _errHandler->sync(this);
+
+    _la = _input->LA(1);
+    if (_la == AssemblyParser::T__43) {
+      setState(332);
+      signParams();
+    }
+   
+  }
+  catch (RecognitionException &e) {
+    _errHandler->reportError(this, e);
+    _localctx->exception = std::current_exception();
+    _errHandler->recover(this, _localctx->exception);
+  }
+
+  return _localctx;
+}
+
+//----------------- SignTypeParamsContext ------------------------------------------------------------------
+
+AssemblyParser::SignTypeParamsContext::SignTypeParamsContext(ParserRuleContext *parent, size_t invokingState)
+  : ParserRuleContext(parent, invokingState) {
+}
+
+std::vector<tree::TerminalNode *> AssemblyParser::SignTypeParamsContext::ID() {
+  return getTokens(AssemblyParser::ID);
+}
+
+tree::TerminalNode* AssemblyParser::SignTypeParamsContext::ID(size_t i) {
+  return getToken(AssemblyParser::ID, i);
+}
+
+
+size_t AssemblyParser::SignTypeParamsContext::getRuleIndex() const {
+  return AssemblyParser::RuleSignTypeParams;
+}
+
+
+std::any AssemblyParser::SignTypeParamsContext::accept(tree::ParseTreeVisitor *visitor) {
+  if (auto parserVisitor = dynamic_cast<AssemblyVisitor*>(visitor))
+    return parserVisitor->visitSignTypeParams(this);
+  else
+    return visitor->visitChildren(this);
+}
+
+AssemblyParser::SignTypeParamsContext* AssemblyParser::signTypeParams() {
+  SignTypeParamsContext *_localctx = _tracker.createInstance<SignTypeParamsContext>(_ctx, getState());
+  enterRule(_localctx, 40, AssemblyParser::RuleSignTypeParams);
+  size_t _la = 0;
+
+#if __cplusplus > 201703L
+  auto onExit = finally([=, this] {
+#else
+  auto onExit = finally([=] {
+#endif
+    exitRule();
+  });
+  try {
+    enterOuterAlt(_localctx, 1);
+    setState(335);
+    match(AssemblyParser::T__40);
+    setState(336);
+    match(AssemblyParser::ID);
+    setState(341);
+    _errHandler->sync(this);
+    _la = _input->LA(1);
+    while (_la == AssemblyParser::T__38) {
+      setState(337);
+      match(AssemblyParser::T__38);
+      setState(338);
+      match(AssemblyParser::ID);
+      setState(343);
+      _errHandler->sync(this);
+      _la = _input->LA(1);
+    }
+    setState(344);
+    match(AssemblyParser::T__41);
    
   }
   catch (RecognitionException &e) {

@@ -1,5 +1,5 @@
 
-// Generated from assembler/Assembly.g4 by ANTLR 4.12.0
+// Generated from src/assembler/Assembly.g4 by ANTLR 4.12.0
 
 #pragma once
 
@@ -18,14 +18,17 @@ public:
     T__20 = 21, T__21 = 22, T__22 = 23, T__23 = 24, T__24 = 25, T__25 = 26, 
     T__26 = 27, T__27 = 28, T__28 = 29, T__29 = 30, T__30 = 31, T__31 = 32, 
     T__32 = 33, T__33 = 34, T__34 = 35, T__35 = 36, T__36 = 37, T__37 = 38, 
-    T__38 = 39, T__39 = 40, NUMBER = 41, STRING = 42, CSTRING = 43, ID = 44, 
-    LABEL = 45, WS = 46, COMMENT = 47
+    T__38 = 39, T__39 = 40, T__40 = 41, T__41 = 42, T__42 = 43, T__43 = 44, 
+    T__44 = 45, NUMBER = 46, STRING = 47, CSTRING = 48, ID = 49, LABEL = 50, 
+    WS = 51, COMMENT = 52
   };
 
   enum {
     RuleAssembly = 0, RuleGlobal = 1, RuleMethod = 2, RuleArg = 3, RuleLocal = 4, 
     RuleLine = 5, RuleExceptionItem = 6, RuleClass = 7, RuleAccessor = 8, 
-    RuleField = 9, RuleValue = 10, RuleArray = 11, RuleFloat = 12
+    RuleField = 9, RuleValue = 10, RuleArray = 11, RuleFloat = 12, RuleName = 13, 
+    RuleSignature = 14, RuleSignModule = 15, RuleSignClass = 16, RuleSignMethod = 17, 
+    RuleSignParams = 18, RuleSignParam = 19, RuleSignTypeParams = 20
   };
 
   explicit AssemblyParser(antlr4::TokenStream *input);
@@ -57,7 +60,15 @@ public:
   class FieldContext;
   class ValueContext;
   class ArrayContext;
-  class FloatContext; 
+  class FloatContext;
+  class NameContext;
+  class SignatureContext;
+  class SignModuleContext;
+  class SignClassContext;
+  class SignMethodContext;
+  class SignParamsContext;
+  class SignParamContext;
+  class SignTypeParamsContext; 
 
   class  AssemblyContext : public antlr4::ParserRuleContext {
   public:
@@ -86,8 +97,8 @@ public:
     antlr4::Token *type = nullptr;
     GlobalContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
-    std::vector<antlr4::tree::TerminalNode *> STRING();
-    antlr4::tree::TerminalNode* STRING(size_t i);
+    NameContext *name();
+    SignatureContext *signature();
 
 
     virtual std::any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
@@ -101,7 +112,7 @@ public:
     antlr4::Token *kind = nullptr;
     MethodContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
-    antlr4::tree::TerminalNode *STRING();
+    SignatureContext *signature();
     std::vector<antlr4::tree::TerminalNode *> NUMBER();
     antlr4::tree::TerminalNode* NUMBER(size_t i);
     std::vector<ArgContext *> arg();
@@ -124,8 +135,8 @@ public:
   public:
     ArgContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
-    std::vector<antlr4::tree::TerminalNode *> STRING();
-    antlr4::tree::TerminalNode* STRING(size_t i);
+    NameContext *name();
+    SignatureContext *signature();
 
 
     virtual std::any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
@@ -138,8 +149,8 @@ public:
   public:
     LocalContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
-    std::vector<antlr4::tree::TerminalNode *> STRING();
-    antlr4::tree::TerminalNode* STRING(size_t i);
+    NameContext *name();
+    SignatureContext *signature();
 
 
     virtual std::any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
@@ -173,7 +184,7 @@ public:
     virtual size_t getRuleIndex() const override;
     std::vector<antlr4::tree::TerminalNode *> ID();
     antlr4::tree::TerminalNode* ID(size_t i);
-    antlr4::tree::TerminalNode *STRING();
+    SignatureContext *signature();
 
 
     virtual std::any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
@@ -188,7 +199,7 @@ public:
     AssemblyParser::ArrayContext *supers = nullptr;
     ClassContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
-    antlr4::tree::TerminalNode *STRING();
+    SignatureContext *signature();
     std::vector<AccessorContext *> accessor();
     AccessorContext* accessor(size_t i);
     std::vector<MethodContext *> method();
@@ -224,8 +235,8 @@ public:
     antlr4::Token *type = nullptr;
     FieldContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
-    std::vector<antlr4::tree::TerminalNode *> STRING();
-    antlr4::tree::TerminalNode* STRING(size_t i);
+    NameContext *name();
+    SignatureContext *signature();
     std::vector<AccessorContext *> accessor();
     AccessorContext* accessor(size_t i);
 
@@ -245,6 +256,7 @@ public:
     antlr4::tree::TerminalNode *CSTRING();
     ArrayContext *array();
     FloatContext *float_();
+    SignatureContext *signature();
 
 
     virtual std::any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
@@ -280,6 +292,126 @@ public:
   };
 
   FloatContext* float_();
+
+  class  NameContext : public antlr4::ParserRuleContext {
+  public:
+    NameContext(antlr4::ParserRuleContext *parent, size_t invokingState);
+    virtual size_t getRuleIndex() const override;
+    antlr4::tree::TerminalNode *ID();
+    antlr4::tree::TerminalNode *STRING();
+
+
+    virtual std::any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
+   
+  };
+
+  NameContext* name();
+
+  class  SignatureContext : public antlr4::ParserRuleContext {
+  public:
+    SignatureContext(antlr4::ParserRuleContext *parent, size_t invokingState);
+    virtual size_t getRuleIndex() const override;
+    SignModuleContext *signModule();
+    std::vector<SignClassContext *> signClass();
+    SignClassContext* signClass(size_t i);
+    std::vector<SignMethodContext *> signMethod();
+    SignMethodContext* signMethod(size_t i);
+    antlr4::tree::TerminalNode *ID();
+
+
+    virtual std::any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
+   
+  };
+
+  SignatureContext* signature();
+
+  class  SignModuleContext : public antlr4::ParserRuleContext {
+  public:
+    SignModuleContext(antlr4::ParserRuleContext *parent, size_t invokingState);
+    virtual size_t getRuleIndex() const override;
+    std::vector<antlr4::tree::TerminalNode *> ID();
+    antlr4::tree::TerminalNode* ID(size_t i);
+
+
+    virtual std::any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
+   
+  };
+
+  SignModuleContext* signModule();
+
+  class  SignClassContext : public antlr4::ParserRuleContext {
+  public:
+    SignClassContext(antlr4::ParserRuleContext *parent, size_t invokingState);
+    virtual size_t getRuleIndex() const override;
+    antlr4::tree::TerminalNode *ID();
+    SignTypeParamsContext *signTypeParams();
+
+
+    virtual std::any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
+   
+  };
+
+  SignClassContext* signClass();
+
+  class  SignMethodContext : public antlr4::ParserRuleContext {
+  public:
+    SignMethodContext(antlr4::ParserRuleContext *parent, size_t invokingState);
+    virtual size_t getRuleIndex() const override;
+    antlr4::tree::TerminalNode *ID();
+    SignParamsContext *signParams();
+    SignTypeParamsContext *signTypeParams();
+
+
+    virtual std::any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
+   
+  };
+
+  SignMethodContext* signMethod();
+
+  class  SignParamsContext : public antlr4::ParserRuleContext {
+  public:
+    SignParamsContext(antlr4::ParserRuleContext *parent, size_t invokingState);
+    virtual size_t getRuleIndex() const override;
+    std::vector<SignParamContext *> signParam();
+    SignParamContext* signParam(size_t i);
+
+
+    virtual std::any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
+   
+  };
+
+  SignParamsContext* signParams();
+
+  class  SignParamContext : public antlr4::ParserRuleContext {
+  public:
+    SignParamContext(antlr4::ParserRuleContext *parent, size_t invokingState);
+    virtual size_t getRuleIndex() const override;
+    antlr4::tree::TerminalNode *ID();
+    SignParamsContext *signParams();
+    SignModuleContext *signModule();
+    std::vector<SignClassContext *> signClass();
+    SignClassContext* signClass(size_t i);
+
+
+    virtual std::any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
+   
+  };
+
+  SignParamContext* signParam();
+
+  class  SignTypeParamsContext : public antlr4::ParserRuleContext {
+  public:
+    SignTypeParamsContext(antlr4::ParserRuleContext *parent, size_t invokingState);
+    virtual size_t getRuleIndex() const override;
+    std::vector<antlr4::tree::TerminalNode *> ID();
+    antlr4::tree::TerminalNode* ID(size_t i);
+
+
+    virtual std::any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
+   
+  };
+
+  SignTypeParamsContext* signTypeParams();
 
 
   // By default the static state used to implement the parser is lazily initialized during the first

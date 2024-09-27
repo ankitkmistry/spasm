@@ -1,5 +1,5 @@
 
-// Generated from assembler/Assembly.g4 by ANTLR 4.12.0
+// Generated from src/assembler/Assembly.g4 by ANTLR 4.12.0
 
 #pragma once
 
@@ -64,6 +64,38 @@ public:
   }
 
   virtual std::any visitFloat(AssemblyParser::FloatContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
+  virtual std::any visitName(AssemblyParser::NameContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
+  virtual std::any visitSignature(AssemblyParser::SignatureContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
+  virtual std::any visitSignModule(AssemblyParser::SignModuleContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
+  virtual std::any visitSignClass(AssemblyParser::SignClassContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
+  virtual std::any visitSignMethod(AssemblyParser::SignMethodContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
+  virtual std::any visitSignParams(AssemblyParser::SignParamsContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
+  virtual std::any visitSignParam(AssemblyParser::SignParamContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
+  virtual std::any visitSignTypeParams(AssemblyParser::SignTypeParamsContext *ctx) override {
     return visitChildren(ctx);
   }
 
